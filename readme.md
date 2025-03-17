@@ -2,10 +2,12 @@ Inventory management application
 
 
 to run create clone repo and create a applications.properties file and fill
+
+
 spring.application.name=inventory-manager
-spring.datasource.url=
-spring.datasource.username=
-spring.datasource.password=
+spring.datasource.url=your-db-connectionstring
+spring.datasource.username=db-username
+spring.datasource.password=db-password
 spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
 logging.level.org.springframework.security=DEBUG
 
