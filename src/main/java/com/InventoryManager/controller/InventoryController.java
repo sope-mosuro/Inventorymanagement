@@ -20,7 +20,7 @@ public class InventoryController {
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Inventory> addInventory(@RequestBody InventoryRequest request) {
-        Inventory inventory = inventoryService.addInventory(request.getProductId(), request.getWarehouseId(), request.getQuantity());
+        Inventory inventory = inventoryService.addInventory(request.getProductName(), request.getWarehouseName(), request.getQuantity());
         return ResponseEntity.ok(inventory);
     }
 }

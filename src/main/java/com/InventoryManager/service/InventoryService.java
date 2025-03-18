@@ -16,12 +16,12 @@ public class InventoryService {
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
 
-    public Inventory addInventory(Long productId, Long warehouseId, int quantity) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+    public Inventory addInventory(String productName, String warehouseName, int quantity) {
+        Product product = productRepository.findByName(productName)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        Warehouse warehouse = warehouseRepository.findById(warehouseId)
-                .orElseThrow(() -> new IllegalArgumentException("Warehouse not found"));
+        Warehouse warehouse = warehouseRepository.findByName(warehouseName)
+                .orElseThrow(() -> new RuntimeException("Warehouse not found"));
 
         Inventory inventory = inventoryRepository.findByProductAndWarehouse(product, warehouse)
                 .orElse(new Inventory());
