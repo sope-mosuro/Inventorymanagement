@@ -20,6 +20,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import java.io.IOException;
 
+import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -29,6 +31,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
+        String path = request.getServletPath();
+
+        // ✅ Skip JWT processing for public endpoints
+        if (path.startsWith("/api/auth") ||
+                path.startsWith("/static/") ||
+                path.startsWith("/frontend/") ||
+                path.endsWith(".html") || path.endsWith(".js") || path.endsWith(".css")) {
+
+            logger.debug("Skipping JWT authentication for public/static resource: " + path);
+            chain.doFilter(request, response);
+            return;
+        }
         String token = extractJwtFromCookies(request);
         logger.debug("JWT Token Extracted: {}");
 

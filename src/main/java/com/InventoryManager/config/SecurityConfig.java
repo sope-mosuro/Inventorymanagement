@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -26,17 +25,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for simplicity
-                .cors(cors -> {}) // Allow frontend to communicate
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF (using JWT)
+//                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ FIXED: Global CORS confi
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Allow authentication
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // Only admins
-                        .requestMatchers("/api/sales/**").hasRole("SALES_REP") // Only sales reps
+                        .requestMatchers("/", "/index.html", "/static/**","src/**").permitAll()
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/sales/**").hasRole("SALES_REP")
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // JWT handling
-
-
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // ✅ Ensure JWT is applied
 
         return http.build();
     }
@@ -53,4 +51,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+
 }

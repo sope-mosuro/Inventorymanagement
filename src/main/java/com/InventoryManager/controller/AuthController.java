@@ -21,6 +21,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
 
+
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody Map<String, String> request, HttpServletResponse response) {
         String email = request.get("email");
@@ -35,9 +36,10 @@ public class AuthController {
         cookie.setHttpOnly(true);
         cookie.setSecure(true); // Enable in production with HTTPS
         cookie.setPath("/"); // Accessible to all endpoints
-        cookie.setMaxAge(7 * 24 * 60 * 60); // 7 days expiration
+        cookie.setMaxAge(60 * 60); // 1 hour expiration
 
         response.addCookie(cookie);
+
 
         return Map.of("token", token);
     }
