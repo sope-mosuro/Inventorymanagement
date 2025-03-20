@@ -1,6 +1,10 @@
 package com.InventoryManager.service;
 
+import com.InventoryManager.model.Inventory;
+import com.InventoryManager.model.Product;
 import com.InventoryManager.model.Warehouse;
+import com.InventoryManager.repository.InventoryRepository;
+import com.InventoryManager.repository.ProductRepository;
 import com.InventoryManager.repository.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,4 +55,5 @@ public class WarehouseService {
                 .map(warehouse -> currentStock < warehouse.getLowStockThreshold())
                 .orElse(false);
     }
+
 }

@@ -1,20 +1,14 @@
 package com.InventoryManager.dto;
-
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InventoryRequest {
-    private Long productId;
-    private Long warehouseId;
+public class InventoryResponseDTO {
+    private Long id;
     private int quantity;
-    private String productName;
+    private ProductDTO product;
     private String warehouseName;
-
-
 }

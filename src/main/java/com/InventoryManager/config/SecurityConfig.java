@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.security.config.http.SessionCreationPolicy.IF_REQUIRED;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -26,9 +28,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF (using JWT)
-//                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ FIXED: Global CORS confi
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(IF_REQUIRED) // Allow sessions when needed
+                )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index.html", "/static/**","src/**").permitAll()
+                        .requestMatchers("/", "/index.html", "/static/**","src/**","/images/**","/stylesheets/**","/script/**").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/sales/**").hasRole("SALES_REP")

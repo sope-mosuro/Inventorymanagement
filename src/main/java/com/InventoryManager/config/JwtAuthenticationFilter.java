@@ -33,13 +33,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String path = request.getServletPath();
 
-        // ✅ Skip JWT processing for public endpoints
+        //Skip JWT processing for public endpoints
         if (path.startsWith("/api/auth") ||
                 path.startsWith("/static/") ||
-                path.startsWith("/frontend/") ||
+                path.startsWith("/src/") ||
                 path.endsWith(".html") || path.endsWith(".js") || path.endsWith(".css")) {
 
-            logger.debug("Skipping JWT authentication for public/static resource: " + path);
+
             chain.doFilter(request, response);
             return;
         }
