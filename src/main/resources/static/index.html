@@ -1,618 +1,649 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CountBook- Admin</title>
-        <link rel="icon" type="image/x-icon" href="images/Cb logo2.png">
-        <link rel="stylesheet" id="default" href="/stylesheets/normal.css"/>
-        <link rel="stylesheet" id="darkmode" href="stylesheets/darkmode.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.4.0/css/all.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
-        integrity="sha512-v0kIw/6Dv8ISN8ytP0oaDeHgrJNqoP7OqsU5C2EznI0i1zvKv02zP2RjIdfzC6S0CZehChhTGv7Rc/Z8U4Y5pA==" 
-        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CountBook- Admin</title>
+    <link rel="icon" type="image/x-icon" href="src\images\Cb logo2.png">
+    <link rel="stylesheet" id="default" href="stylesheets\normal.css"/>
+    <link rel="stylesheet" id="darkmode" href="stylesheets\darkmode.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-v0kIw/6Dv8ISN8ytP0oaDeHgrJNqoP7OqsU5C2EznI0i1zvKv02zP2RjIdfzC6S0CZehChhTGv7Rc/Z8U4Y5pA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-    </head>
+</head>
 
-    <body>
-    
-        <!--Side Pane featuring module contents-->
 
-        <div class="sidebar">
-                <div class="logo"><img src="images/Cb logo.png" style="width: 25px;"></div>
+<body>
+<!--Side Pane featuring module contents-->
+<div class="sidebar">
+    <div class="logo"><img src="src\images\Cb logo.png" style="width: 25px;"></div>
 
-                <ul class="menu" >
-                    <li data-target="dashboard">
-                        <a href="#">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    </li>
-                    <li data-target="#sales">
-                        <a href="#">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Sales</span>
-                    </a>
-                    </li>
-                    <li class="has-dropdown">
-                        <a href="#">
-                          <i class="fas fa-star"></i>
-                          <span>Inventory</span>
-                          <i class="fas fa-chevron-down dropdown-icon"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li data-target="#stores">
-                            <small><a href="#">Inventory Record</a></small>
-                          </li>
-                          <li data-target="#storesConfig">
-                            <small><a href="#">Product Configuration</a></small>
-                          </li>
-                        </ul>
-                    </li>
-                    <li data-target="#staff">
-                        <a href="#">
-                        <i class="fas fa-briefcase"></i>
-                        <span>Staff</span>
-                    </a>
-                    </li>
-                    <li data-target="#setting">
-                        <a href="#">
-                        <i class="fas fa-cog"></i>
-                        <span>Settings</span>
-                    </a>
-                    </li>
-                    <li class="logout">
-                        <a href="#">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Logout</span>
-                    </a>
-                    </li>
-                </ul>
-                
+    <ul class="menu" >
+        <li data-target="dashboard">
+            <a href="#">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li data-target="#sales">
+            <a href="#">
+                <i class="fas fa-chart-bar"></i>
+                <span>Sales</span>
+            </a>
+        </li>
+        <li data-target="#stores">
+            <a href="#">
+                <i class="fas fa-star"></i>
+                <span>Inventory Record</span></a>
+        </li>
+        <li data-target="#staff">
+            <a href="#">
+                <i class="fas fa-briefcase"></i>
+                <span>Staff</span>
+            </a>
+        </li>
+        <li data-target="#setting">
+            <a href="#">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+        <li class="logout">
+            <a href="#">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+<!--sections of the main content-->
+<section id="dashboard" class="section">
+
+    <div class="main--content">
+        <div class="header--wrapper">
+
+            <div class="header--title">
+                <div>
+                    <span class="system-name">CountBook</span>
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+            <!-- Search Section -->
+            <div class="search--wrapper">
+                <div class="search--box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-inventory" placeholder="search">
+                </div>
+            </div>
         </div>
 
-        <!--sections of the main content-->
-        <secton id="dashboard" class="section">
+        <!--DashBoard Preview Slide-->
 
-            <div class="main--content">
-                    <div class="header--wrapper">
-                        <div class="header--title">
-                            <span>CountBook</span>
-                            <h3>Dashboard</h3>
-                        </div>
-                        <div class="user--info">
-                        <div class="search--box">  
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search" />
-                        </div>
-                        <img src="" alt="" />
-                        </div>
+        <div class="card--container">
+            <h3 class="main--title">Summary</h3>
+            <div class="card--wrapper">
+                <div class="payment--card dark-brown">
+                    <div class="card--header">
+                        <div class="amount">
+                            <span class="title">
+                            Active Sales Rep </span>
+                            <span class="amount-value">DOGO</span> <span class="amount-value">AIVIHENBHOR</span>
+                            <span class="amount-value">EZENWOKE</span> <span class="amount-value">OLAMILEKAN</span>
+                        </div> <a href="#srrank" id="dialog1"><i class="fas fa-users icon dark-blue"></i></a>
                     </div>
-
-            <!--DashBoard Preview Slide-->
-
-                <div class="card--container">
-                        <h3 class="main--title">Summary</h3>
-                    <div class="card--wrapper">
-                        <div class="payment--card dark-brown">
-                        <div class="card--header">
-                            <div class="amount">
+                </div>
+                <div class="payment--card dark-brown">
+                    <div class="card--header">
+                        <div class="amount">
+                            <span class="title">
+                                Total Units Sold </span>
+                            <span class="amount-value"><h1></h1></span>
+                        </div> <a href="#untsld" id="dialog2"><i class="fas fa-solid fa-check icon dark-green"></i> </a>
+                    </div>  <span class="card-detail"><small><em></em></small></span>
+                </div>
+                <div class="payment--card dark-brown">
+                    <div class="card--header">
+                        <div class="amount">
                                 <span class="title">
-                                SR Rank </span>
-                                <span class="amount-value">DOGO</span> <span class="amount-value">AIVIHENBHOR</span> 
-                                <span class="amount-value">EZENWOKE</span> <span class="amount-value">OLAMILEKAN</span>
-                        </div> <a href="#srrank" id="dialog1"><i class="fas fa-users icon dark-blue"></i></a>  
-                        </div>
-                        </div> 
-                        <div class="payment--card dark-brown">
-                            <div class="card--header">
-                            <div class="amount">
+                                    Warehouse Ranking</span>
+                            <span class="amount-value"><small>WH1-KLag</small></span> <span class="amount-value"><small></small></span>
+                            <span class="amount-value"><small></small></span>
+                        </div>  <a href="#whrank" id="dialog3"><i class="fas fa-solid fa-star icon dark-purple"></i> </a>
+                    </div>  <span class="card-detail"><small><em></em></small></span>
+                </div>
+                <div class="payment--card dark-brown">
+                    <div class="card--header">
+                        <div class="amount">
                                 <span class="title">
-                                    Total Units Sold </span>
-                                    <span class="amount-value"><h1>57</h1></span>
-                            </div> <a href="#untsld" id="dialog2"><i class="fas fa-solid fa-check icon dark-green"></i> </a> 
-                            </div>  <span class="card-detail"><small><em>since January</em></small></span>
-                        </div> 
-                        <div class="payment--card dark-brown">
-                                <div class="card--header">
-                                <div class="amount">
+                                    Product Rank </span>
+                            <span class="amount-value">Rescofer</span> <span class="amount-value">Babaria Coco</span>
+                            <span class="amount-value">Babaria Vit C</span>
+                        </div> <a href="#prdrank" id="dialog4"><i class="fas fa-list icon dark-purple"></i>  </a>
+                    </div>
+                </div>
+                <div class="payment--card dark-brown">
+                    <div class="card--header">
+                        <div class="amount">
                                     <span class="title">
-                                        Warehouse Ranking</span>
-                                        <span class="amount-value"><small>WH1-KLag</small></span> <span class="amount-value"><small></small></span>
-                                        <span class="amount-value"><small></small></span> 
-                                </div>  <a href="#whrank" id="dialog3"><i class="fas fa-solid fa-star icon dark-purple"></i> </a> 
-                                </div>  <span class="card-detail"><small><em>by stock usage</em></small></span>
-                        </div> 
-                        <div class="payment--card dark-brown">
-                                <div class="card--header">
-                                <div class="amount">
+                                        Stock Available </span>
+                            <span class="amount-value"><h1></h1></span>
+                        </div> <a href="#stock" id="dialog5"><i class="fas fa-solid fa-exclamation-circle icon dark-red"></i>  </a>
+                    </div>  <span class="card-detail"><small><em>February</em></small></span>
+                </div>
+                <div class="payment--card dark-brown">
+                    <div class="card--header">
+                        <div class="amount">
                                     <span class="title">
-                                        Product Rank </span>
-                                        <span class="amount-value">Rescofer</span> <span class="amount-value">Babaria Coco</span>
-                                        <span class="amount-value">Babaria Vit C</span> 
-                                </div> <a href="#prdrank" id="dialog4"><i class="fas fa-list icon dark-purple"></i>  </a>
-                                </div>
-                        </div>  
-                        <div class="payment--card dark-brown">
-                                    <div class="card--header">
-                                    <div class="amount">
-                                        <span class="title">
-                                            Stock Available </span>
-                                            <span class="amount-value"><h1>24</h1></span>
-                                    </div> <a href="#stock" id="dialog5"><i class="fas fa-solid fa-exclamation-circle icon dark-red"></i>  </a>
-                                    </div>  <span class="card-detail"><small><em>as at February</em></small></span>
-                        </div>
-                        <div class="payment--card dark-brown">
-                                    <div class="card--header">
-                                    <div class="amount">
-                                        <span class="title">
-                                            Warehouses</span>
-                                            <span class="amount-value">Transfer Requests</span> 
-                                    </div>  <a href="#transfer" id="dialog6"><i class="fas fa-solid fa-bell icon blue"></i> </a> 
-                                    </div> <span class="card-detail"><small>Store 3 to Store 1</small></span>
-                        </div> 
-                    </div>
+                                        Warehouses</span>
+                            <span class="amount-value">Transfer Requests</span>
+                        </div>  <a href="#transfer" id="dialog6"><i class="fas fa-solid fa-bell icon blue"></i> </a>
+                    </div> <span class="card-detail"><small>Store 3 to Store 1</small></span>
                 </div>
-
-            <!--Report Preview Table-->
-
-                <div class="tabular--wrapper">
-                        <h3 class="main--title">Report Summary</h3>
-                        <div class="table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Date</th><th>Transcation Type</th><th>Description</th><th>Amount</th>
-                                        <th>Payment Type</th><th>Status</th><th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>2025-02-02</td><td>Sale</td><td>Product 3</td><td>₦1,200</td>
-                                        <td>Cash</td><td>Pending</td><td><button>Edit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2025-02-13</td><td>Sale</td><td>Product 1</td><td>₦5,680</td>
-                                        <td>Transfer</td><td>Completed</td><td><button>Edit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2025-02-25</td><td>Purchase</td><td>Product 1</td><td>₦1,500</td>
-                                        <td>Credit</td><td>Pending</td><td><button>Edit</button></td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr><td colspan="7">Total: ₦5,380</td></tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                </div>
-
             </div>
-            
-            <!--Pop out Dialog Boxes-->
+        </div>
 
-                <div id="srrank" class="dialog-box">
-                    <div class="dialog-content">
-                        <span class="close-btn">&times;</span>
-                        <h2>Top Ranking Sales Representatives</h2>
-                        <p><small><em>These are the top ranking sales representatives of the month based on total number of sales made.</em></small></p>
-                        <br>
-                        <ul>
-                            <div id="umoptions">  <strong>Emmanuel DOGO</strong>    </div><br>
-                            <div id="umoptions">  <strong>Blessing AIVIHENBHOR</strong>  </div><br>
-                            <div id="umoptions">  <strong>Glory EZENWOKE</strong>   </div><br>
-                            <div id="umoptions">  <strong>Olawale OLAMILEKAN</strong>  </div><br>
-                        </ul>
-                </div>
-                </div>
-                <div id="untsld" class="dialog-box">
-                    <div class="dialog-content">
-                        <span class="close-btn2">&times;</span>
-                        <h2>Product Sales</h2><br>
-                        <p><small><em>Details of quantity of sales recorded by Product name</em></small></p>
-                </div>
-                </div>
-                <div id="whrank" class="dialog-box">
-                    <div class="dialog-content">
-                        <span class="close-btn3">&times;</span>
-                        <h2>Top Ranking WareHouses by Sales</h2><br>
-                        <p><small><em>Top ranking warehouses this month</em></small></p>
-                        <br>
-                        <ul>
-                            <div id="umoptions">  <strong>Ikosi, Lagos</strong>    </div><br>
-                        
-                        </ul>
-                    </div>
-                </div>
-                <div id="prdrank" class="dialog-box">
-                    <div class="dialog-content">
-                        <span class="close-btn4">&times;</span>
-                        <h2>Top Ranking Products by Sales</h2><br>
-                        <p><small><em>Top ranking products this month</em></small></p>
-                        <br>
-                        <ul>
-                            <div id="umoptions">  <strong>Rescofer Blood Tonic</strong>    </div><br>
-                            <div id="umoptions">  <strong>Babaria Coco Body Cream</strong>  </div><br>
-                            <div id="umoptions">  <strong>Babaria Vitamin C</strong>   </div><br>
-                            <div id="umoptions">  <strong>Babaria Spray Pies</strong>  </div><br>
-                            <div id="umoptions">  <strong>Babaria Lycolic Acid</strong>  </div><br>
-                        </ul>
-                    </div>
-                </div>
-                <div id="stock" class="dialog-box">
-                    <div class="dialog-content">
-                        <span class="close-btn5">&times;</span>
-                        <h2>Quantity of Stock Inventory Left</h2><br>
-                        <p><small><em>Details of the info placed here</em></small></p>
-                    </div>
-                </div>
-                <div id="transfer" class="dialog-box">
-                    <div class="dialog-content">
-                        <span class="close-btn6">&times;</span>
-                        <h2>Intra-Transfer of Stock Information</h2><br>
-                        <p><small><em>Stock transfer detail summary</em></small></p>
-                        <br>
-                        <ul>
-                            <div id="umoptions">  No current transfer requests   </div>
-                            
-                        </ul>
-                    </div>
-                </div>
-        </secton>
+        <!--Report Preview Table-->
+
+    </div>
+
+    <!--Pop out Dialog Boxes-->
+
+    <div id="srrank" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn">&times;</span>
+            <h2>Top Ranking Sales Representatives</h2>
+            <p><small><em>These are the top ranking sales representatives of the month based on total number of sales made.</em></small></p>
+            <br>
+            <ul>
+                <div id="umoptions">  <strong>Emmanuel DOGO</strong>    </div><br>
+                <div id="umoptions">  <strong>Blessing AIVIHENBHOR</strong>  </div><br>
+                <div id="umoptions">  <strong>Glory EZENWOKE</strong>   </div><br>
+                <div id="umoptions">  <strong>Olawale OLAMILEKAN</strong>  </div><br>
+            </ul>
+        </div>
+    </div>
+    <div id="untsld" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn2">&times;</span>
+            <h2>Product Sales</h2><br>
+            <p><small><em>Details of quantity of sales recorded by Product name</em></small></p>
+        </div>
+    </div>
+    <div id="whrank" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn3">&times;</span>
+            <h2>Top Ranking WareHouses by Sales</h2><br>
+            <p><small><em>Top ranking warehouses this month</em></small></p>
+            <br>
+            <ul>
+                <div id="umoptions">  <strong>Ikosi, Lagos</strong>    </div><br>
+
+            </ul>
+        </div>
+    </div>
+    <div id="prdrank" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn4">&times;</span>
+            <h2>Top Ranking Products by Sales</h2><br>
+            <p><small><em>Top ranking products this month</em></small></p>
+            <br>
+            <ul>
+                <div id="umoptions">  <strong>Rescofer Blood Tonic</strong>    </div><br>
+                <div id="umoptions">  <strong>Babaria Coco Body Cream</strong>  </div><br>
+                <div id="umoptions">  <strong>Babaria Vitamin C</strong>   </div><br>
+                <div id="umoptions">  <strong>Babaria Spray Pies</strong>  </div><br>
+                <div id="umoptions">  <strong>Babaria Lycolic Acid</strong>  </div><br>
+            </ul>
+        </div>
+    </div>
+    <div id="stock" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn5">&times;</span>
+            <h2>Quantity of Stock Inventory Left</h2><br>
+            <p><small><em>Details of the info placed here</em></small></p>
+        </div>
+    </div>
+    <div id="transfer" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn6">&times;</span>
+            <h2>Intra-Transfer of Stock Information</h2><br>
+            <p><small><em>Stock transfer detail summary</em></small></p>
+            <br>
+            <ul>
+                <div id="umoptions">  No current transfer requests   </div>
+
+            </ul>
+        </div>
+    </div>
+</section>
 
 
-        <section id="sales" class="section">
+<section id="sales" class="section">
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <div>
+                    <span class="system-name">CountBook</span>
+                    <h1>Sales Management</h1>
+                </div>
+            </div>
+            <!-- Search Section -->
+            <div class="search--wrapper">
+                <div class="search--box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-inventory" placeholder="Search sales records...">
+                </div>
+            </div>
+        </div>
 
-            <div class="main--content">
-                
-                    <div class="header--wrapper">
-                        <div class="header--title">
-                            <span>CountBook</span>
-                            <h3>Sales</h3>
+        <div class="card--container">
+            <h3 class="main--title">Sales Register</h3>
+            <!-- Sales Entry Form -->
+            <div class="sales-entry">
+                <h4>Add New Sale</h4>
+                <form id="salesForm">
+                    <div>
+                        <!-- New Customer Selection Section -->
+                        <div class="sales-customer-selector">
+                            <div class="customer-options">
+                                <div class="customer-option active" data-option="existing">
+                                    <i class="fas fa-users"></i>
+                                    <span>Existing Customer</span>
+                                </div>
+
+                                <div class="customer-option" data-option="new">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span>New Customer</span>
+                                </div>
+                            </div>
+                            <div class="customer-inputs">
+                                <!-- Existing Customer Dropdown -->
+                                <select id="existingCustomer" class="customer-input active">
+                                    <option value="">Select Existing Customer</option>
+                                    <!-- Options will be populated dynamically -->
+                                </select>
+                                <!-- Manual Customer Input -->
+                                <input type="text" id="manualCustomer"
+                                       class="customer-input"
+                                       placeholder="Enter Customer Name"
+                                       style="display: none;">
+                                <!-- New Customer Form (will be implemented in modal) -->
+                            </div>
                         </div>
-                        <div class="user--info">
-                        <div class="search--box">  
+
+                        <!-- Date Input -->
+                        <div class="form-group">
+                            <label for="saleDate">Sale Date</label>
+                            <input type="date" id="saleDate" required>
+                        </div>
+
+                        <!-- Product Selection -->
+                        <div class="form-group">
+                            <label for="product">Select Product</label>
+                            <select id="product" required>
+                                <option value="">Choose a product...</option>
+                                <option value="Fecord Hair Cream">Fecord Hair Cream</option>
+                                <option value="Rescofer Blood Tonic">Rescofer Blood Tonic</option>
+                                <option value="Babaria Coco Body Cream">Babaria Coco Body Cream</option>
+                            </select>
+                        </div>
+
+                        <!-- Quantity & Price -->
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">Unit Price</label>
+                            <input type="number" id="price" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paymentMethod">Payment Method</label>
+                            <select id="paymentMethod" required>
+                                <option value="">Select Payment Method</option>
+                                <option value="cash">Cash</option>
+                                <option value="credit">Credit Card</option>
+                                <option value="online">Online Payment</option>
+                            </select>
+                        </div>
+                        <button type="submit">Add Sale</button>
+                </form>
+            </div>
+
+            <!-- Sales Report Table -->
+            <div class="tabular--wrapper">
+                <h3 class="main--title">Sales Report</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Date</th><th>Customer</th><th>Product</th><th>Quantity</th><th>Amount</th><th>Payment Type</th><th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="salesTableBody">
+                    <!-- New sales records should drop here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="newCustomerModal" class="sales-modal">
+    <div class="sales-modal-content">
+        <span class="sales-modal-close">&times;</span>
+        <h3 class="modal-title">
+            <i class="fas fa-user-plus modal-icon"></i> Create New Customer
+        </h3>
+        <form id="newCustomerForm" class="modal-form">
+            <div class="modal-form-group">
+                <div class="modal-input-container">
+                    <i class="fas fa-user modal-input-icon"></i>
+                    <input type="text" id="customerName" placeholder="Gennaro Gattuso" required>
+                </div>
+            </div>
+
+            <div class="modal-form-group">
+                <div class="modal-input-container">
+                    <i class="fas fa-envelope modal-input-icon"></i>
+                    <input type="email" id="customerEmail" placeholder="ringhio@sansiro.com">
+                </div>
+            </div>
+
+            <div class="modal-form-group">
+                <div class="modal-input-container">
+                    <i class="fas fa-phone modal-input-icon"></i>
+                    <input type="tel" id="customerPhone" placeholder="0006">
+                </div>
+            </div>
+
+            <button type="submit" class="modal-submit-btn">
+                <i class="fas fa-save"></i> Save Customer
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<section id="stores" class="section">
+    <div class="main--content">
+
+        <div id="inventory-page">
+
+            <!-- Page Banner -->
+            <div class="header--wrapper">
+
+                <div class="header--title">
+                    <div>
+                        <span class="system-name">CountBook</span>
+                        <h1>Inventory Management</h1>
+                    </div>
+                </div>
+                <!-- Search Section -->
+                <div class="search--wrapper">
+                    <div class="search--box">
                         <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search" />
-                        </div>
-                        <img src="" alt="" />
-                        </div>
+                        <input type="text" id="search-inventory" placeholder="Search inventory items...">
                     </div>
-
-                    <div class="card--container">
-                        <h3 class="main--title">Sales Register</h3>
-                    
-                        <!-- Sales Entry Form -->
-                        <div class="sales-entry">
-                            <h4>Add New Sale</h4>
-                            <form id="salesForm">                              
-                                <!-- Input fields link for backend side -->
-                                <input type="text" id="productName" placeholder="Product Name" required>                                               
-                                <input type="number" id="quantity" placeholder="Quantity" required>                                               
-                                <input type="number" id="price" placeholder="Price" required>                  
-                                <input type="text" id="customer" placeholder="Customer Name" required>                                               
-                                <input type="date" id="saleDate">
-                                <select id="paymentMethod" required>
-                                    <option value="">Select Payment Method</option>
-                                    <option value="cash">Cash</option>
-                                    <option value="credit">Credit Card</option>
-                                    <option value="online">Online Payment</option>
-                                </select>                    
-                                <select id="saleStatus" required>
-                                    <option value="">Select Status</option>
-                                    <option value="Completed">Completed</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Cancelled">Cancelled</option>
-                                </select>                  
-                                <button type="submit">Add Sale</button>
-                            </form>
-                        </div>
-                    
-                        <!-- Sales Report Table -->
-                        <div class="tabular--wrapper">
-                            <h3 class="main--title">Sales Report</h3>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Date</th><th>Product</th><th>Quantity</th><th>Amount</th><th>Customer</th><th>Payment Type</th><th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="salesTableBody">
-                                    <!-- New sales records should drop here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-            </div>
-
-        </section>
-
-
-        <section id="stores" class="section">
-
-            <div class="main--content">
-
-                    <div class="header--wrapper">
-                        <div class="header--title">
-                            <span>CountBook</span>
-                            <h3>Inventory</h3>
-                        </div>
-
-                        <div class="user--info">
-                            <div class="search--box">  
-                                <i class="fas fa-search"></i>
-                                <input type="text" placeholder="Search" />
-                            </div>
-                                <img src="" alt="" />
-                        </div>
-                    </div>
-                
-                <div class="card--container">
-                    <h3 class="main--title">Inventory Management</h3> 
-
-                        <!-- Inventory Entry Form -->
-                        <div class="sales-entry">
-                            <h4>Add New Stock</h4>
-                            <form id="invForm">                              
-                                <!-- Input fields link for backend side -->
-                                <input type="text" id="productid" placeholder="Product Name" required>                                               
-                                <input type="number" id="stkqty" placeholder="Quantity" required>                                               
-                                <input type="number" id="amt" placeholder="Amount" required>                  
-                                <input type="text" id="supplier" placeholder="Supplier Name" required>                                               
-                                <input type="date" id="buyDate" required>                    
-                                <select id="transStatus" required>
-                                    <option value="">Select Status</option>
-                                    <option value="Completed">Completed</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Cancelled">Cancelled</option>
-                                </select>                  
-                                <button type="submit">Add Stock</button>
-                            </form>
-                        </div>
-
-                        <!-- Inventory Report Table -->
-                        <div class="tabular--wrapper">
-                            <h3 class="main--title">Inventory Report</h3>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Date</th><th>Product</th><th>Quantity</th><th>Amount</th><th>Supplier Name</th><th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="invTableBody">
-                                    <!-- New Inventory records would drop here -->
-                                </tbody>
-                            </table>
-                        </div>
                 </div>
             </div>
-        </section>
 
-        <section id="storesConfig" class="section">
-
-            <div class="main--content">
-        
-                            <div class="header--wrapper">
-                                <div class="header--title">
-                                    <span>CountBook</span>
-                                    <h3>Inventory</h3>
-                                </div>
-        
-                                <div class="user--info">
-                                    <div class="search--box">  
-                                        <i class="fas fa-search"></i>
-                                        <input type="text" placeholder="Search" />
-                                    </div>
-                                        <img src="" alt="" />
-                                </div>
-                            </div>
-                        <div class="card--container">
-                            <h3 class="main--title">Inventory Configuration</h3> 
-                            
-                            <ul>
-                                <div id="settingoptions"><strong>Create New Product</strong></div><br>
-                                <div id="settingoptions"><strong>Delete a Product</strong></div><br>
-                                <div id="settingoptions"><strong>Edit Product Details</strong></div><br>
-                            </ul>
-
-                        </div>
-            </div>
-            
-        </section>
-
-
-        <section id="staff" class="section">
-
-            <div class="main--content">
-
-                        <div class="header--wrapper">
-                            <div class="header--title">
-                                <span>CountBook</span>
-                                <h3>Staff</h3>
-                            </div>
-                            <div class="user--info">
-                            <div class="search--box">  
-                            <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Search" />
-                            </div>
-                            <img src="" alt=""/>
-                            </div>
-                        </div>
-
-                        <div class="card--container">
-                            <h3 class="main--title">User Management</h3>
-                            <div class="card--wrapper">
-                                
-                                <div class="payment--card dark-brown">
-                                    <div class="card--header">
-                                        <div class="amount">
-                                            <span class="title"><h3>
-                                            Active Users</h3></span>
-                                        </div><a href="#active" id="dialog7"><i class="fas fa-users icon dark-blue"></i></a>  
-                                    </div>
-                                </div>
-
-                                <div class="payment--card dark-brown">
-                                    <div class="card--header">
-                                        <div class="amount">
-                                            <span class="title"><h3>
-                                            Users Configuration</h3></span>
-                                        </div><a href="#config" id="dialog8"><i class="fas fa-users icon dark-purple"></i></a>  
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>                      
-            </div>
-
-            <!--Dialog boxes for User management-->
-
-            <div id="active" class="dialog-box">
-                <div class="dialog-content">
-                    <span class="close-btn7">&times;</span>
-                    <h2>List of Active Users Connected</h2><br>
-                <div class="card--wrapper">
-
-                    <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
-                        <div>                          
-                         <img src="images/vvv.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
-                        </div>
-                        <span class="title"><h3>Emmanuel DOGO</h3></span>
-                    </div>
-
-                    <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
-                        <div>                          
-                         <img src="images/bbb.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
-                        </div>
-                        <span class="title"><h3>Blessing AIVIHENBHOR</h3></span>
-                    </div>
-
-                    <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
-                        <div>                          
-                         <img src="images/ggg.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
-                        </div>
-                        <span class="title"><h3>Glory EZENWOKE</h3></span>
-                    </div>
-
-                    <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
-                        <div>                          
-                         <img src="images/mmm.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
-                        </div>
-                        <span class="title"><h3>Mr ADEBAYO</h3></span>
-                    </div>
-
-                    <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
-                        <div>                          
-                         <img src="images/nnn.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
-                        </div>
-                        <span class="title"><h3>Olawale OLAMILEKAN</h3></span>
-                    </div>
-
-                </div>
-
+            <div id="reports-section">
+                <h3> Items in stock</h3>
+                <div>
+                    <small><em>No items currently available</em></small>
                 </div>
             </div>
 
-            <div id="config" class="dialog-box">
-                <div class="dialog-content">
-                    <span class="close-btn8">&times;</span>
-                    <h2>User Manager</h2><br> 
-                    <ul style="text-align: left;">
-                        <div id="addUserBtn" class="umoptions"><strong>Add New User</strong></div><br> 
-                        <div id="removeUserBtn" class="umoptions"><strong>Remove Existing User</strong></div><br>
-                        <div id="activationSetupBtn" class="umoptions"><strong>User Activation Setup</strong></div><br> 
-                    </ul>
-                </div>
+            <br>
+            <div class="inventory-actions">
+                <a href="http://localhost:8080/src/addinv.html" class="inv-action-btn">
+                    <i class="fas fa-plus"></i> Add Stock
+                </a>
+                <a href="http://localhost:8080/src/create.html" class="inv-action-btn">
+                    <i class="fas fa-edit"></i> Create New
+                </a>
             </div>
 
-            <!-- Add New User Dialog -->
-            <div id="addUserDialog" class="dialog-box">
-                <div class="dialog-content" >
-                    <span class="close-btn9">&times;</span>
-                    <h2>Add New User</h2>
-                    <p><small><em>Create a new user</em></small></p><br>
-                    <form>
-                        <label for="username">Username:</label> <input type="text" id="username" required><br>
+            <!-- Reports Section --><br>
+            <div id="reports-section">
+                <h2 class="section-title">Generate Reports</h2>
 
-                        <label for="email">Email:</label> <input type="email" id="email" required><br>
 
-                        <button type="submit">Add User</button>
-                    </form>
+                <div class="report-controls">
+                    <select id="report-select" class="report-dropdown">
+                        <option value="inventory-summary">Inventory Summary</option>
+                        <option value="item-category">Item Category Report</option>
+                    </select>
+                    <button id="run-report" class="btn-primary">Generate Report</button>
+                </div>
+
+                <!-- Report Table Container -->
+                <div class="tabular--wrapper" style="display: none;">
+                    <h3 class="report-title">Inventory Report</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Supplier</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="invTableBody">
+                        <!-- Report data will drop here -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
 
-            <!-- Remove User Dialog -->
-            <div id="removeUserDialog" class="dialog-box">
-                <div class="dialog-content">
-                    <span class="close-btn9">&times;</span>
-                    <h2>Remove User</h2>
-                    <form>
-                        <label for="removeUsername">Enter Username:</label>
-                        <input type="text" id="removeUsername" required><br>
-                        
-                        <button type="submit">Remove User</button>
-                    </form>
+
+<section id="staff" class="section">
+
+    <div class="main--content">
+
+        <div class="header--wrapper">
+
+            <div class="header--title">
+                <div>
+                    <span class="system-name">CountBook</span>
+                    <h1>Staff Management</h1>
                 </div>
             </div>
-
-            <!-- User Activation Setup Dialog -->
-            <div id="activationDialog" class="dialog-box">
-                <div class="dialog-content">
-                    <span class="close-btn9">&times;</span>
-                    <h2>User Activation Setup</h2>
-                    <form>
-                        <label for="activationCode">Activation Code:</label>
-                        <input type="text" id="activationCode" required><br>
-                        <button type="submit">Activate</button>
-                    </form>
+            <!-- Search Section -->
+            <div class="search--wrapper">
+                <div class="search--box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-inventory" placeholder="Search staff...">
                 </div>
             </div>
+        </div>
 
+        <div class="card--container">
+            <h3 class="main--title">User Management</h3>
+            <div class="card--wrapper">
 
-        </section>
-
-
-        <section id="setting" class="section">
-
-            <div class="main--content">
-
-                <div class="header--wrapper">
-                    <div class="header--title">
-                        <span>CountBook</span>
-                        <h3>Settings</h3>
+                <div class="payment--card dark-brown">
+                    <div class="card--header">
+                        <div class="amount">
+                                        <span class="title"><h3>
+                                        Active Users</h3></span>
+                        </div><a href="#active" id="dialog7"><i class="fas fa-users icon dark-blue"></i></a>
                     </div>
-                    <div class="user--info">
-                    <div class="search--box">  
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search" />
-                    </div>
-                        <img src="" alt=""/>
+                </div>
+
+                <div class="payment--card dark-brown">
+                    <div class="card--header">
+                        <div class="amount">
+                                        <span class="title"><h3>
+                                        Users Configuration</h3></span>
+                        </div><a href="#config" id="dialog8"><i class="fas fa-users icon dark-purple"></i></a>
                     </div>
                 </div>
 
-                <div class="card--container">
-                        <h3 class="main--title">Settings</h3>
-                                                    
-                        <ul>
-                            <div id="settingoptions"><strong>Edit Profile</strong></div><br>
-                            <div id="settingoptions"><strong>Notification Preferences</strong></div><br>
-                            <div id="settingoptions"><strong>Switch Accounts</strong></div><br>
-                            <div id="settingoptions"><strong>Themes</strong></div><br>
-                            <div id="settingoptions"><strong>Delete Account</strong></div><br>
-                        </ul>
+            </div>
+        </div>
+    </div>
 
+    <!--Dialog boxes for User management-->
+
+    <div id="active" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn7">&times;</span>
+            <h2>List of Active Users Connected</h2><br>
+            <div class="card--wrapper">
+
+                <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
+                    <div>
+                        <img src="images\vvv.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                    </div>
+                    <span class="title"><h3>Emmanuel DOGO</h3></span>
+                </div>
+
+                <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
+                    <div>
+                        <img src="images\bbb.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                    </div>
+                    <span class="title"><h3>Blessing AIVIHENBHOR</h3></span>
+                </div>
+
+                <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
+                    <div>
+                        <img src="images\ggg.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                    </div>
+                    <span class="title"><h3>Glory EZENWOKE</h3></span>
+                </div>
+
+                <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
+                    <div>
+                        <img src="images\mmm.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                    </div>
+                    <span class="title"><h3>Mr ADEBAYO</h3></span>
+                </div>
+
+                <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
+                    <div>
+                        <img src="images\nnn.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                    </div>
+                    <span class="title"><h3>Olawale OLAMILEKAN</h3></span>
                 </div>
 
             </div>
 
-        </section>
+        </div>
+    </div>
+
+    <div id="config" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn8">&times;</span>
+            <h2>User Manager</h2><br>
+            <ul style="text-align: left;">
+                <div id="addUserBtn" class="umoptions"><strong>Add New User</strong></div><br>
+                <div id="removeUserBtn" class="umoptions"><strong>Remove Existing User</strong></div><br>
+                <div id="activationSetupBtn" class="umoptions"><strong>User Activation Setup</strong></div><br>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Add New User Dialog -->
+    <div id="addUserDialog" class="dialog-box">
+        <div class="dialog-content" >
+            <span class="close-btn9">&times;</span>
+            <h2>Add New User</h2>
+            <p><small><em>Create a new user</em></small></p><br>
+            <form>
+                <label for="username">Username:</label> <input type="text" id="username" required><br>
+
+                <label for="email">Email:</label> <input type="email" id="email" required><br>
+
+                <button type="submit">Add User</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Remove User Dialog -->
+    <div id="removeUserDialog" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn9">&times;</span>
+            <h2>Remove User</h2>
+            <form>
+                <label for="removeUsername">Enter Username:</label>
+                <input type="text" id="removeUsername" required><br>
+
+                <button type="submit">Remove User</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Activation Setup Dialog -->
+    <div id="activationDialog" class="dialog-box">
+        <div class="dialog-content">
+            <span class="close-btn9">&times;</span>
+            <h2>User Activation Setup</h2>
+            <form>
+                <label for="activationCode">Activation Code:</label>
+                <input type="text" id="activationCode" required><br>
+                <button type="submit">Activate</button>
+            </form>
+        </div>
+    </div>
 
 
-        
-        <script src="script/countbook.js">
-            //  Script for webapp interactivity
-        </script>
+</section>
 
-    </body>
-    
+
+<section id="setting" class="section">
+
+    <div class="main--content">
+
+        <div class="header--wrapper">
+
+            <div class="header--title">
+                <div>
+                    <span class="system-name">CountBook</span>
+                    <h1>Settings</h1>
+                </div>
+            </div>
+            <!-- Search Section -->
+            <div class="search--wrapper">
+                <div class="search--box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-inventory">
+                </div>
+            </div>
+        </div>
+
+        <div class="card--container">
+            <h3 class="main--title">Settings</h3>
+
+            <ul>
+                <div id="settingoptions"><strong>Edit Profile</strong></div><br>
+                <div id="settingoptions"><strong>Notification Preferences</strong></div><br>
+                <div id="settingoptions"><strong>Switch Accounts</strong></div><br>
+                <div id="settingoptions"><strong>Themes</strong></div><br>
+                <div id="settingoptions"><strong>Delete Account</strong></div><br>
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<script src="src\script\countbook.js">
+    //  Script for webapp interactivity
+</script>
+</body>
+
 </html>
