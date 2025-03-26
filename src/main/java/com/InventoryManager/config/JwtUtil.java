@@ -8,10 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class JwtUtil {
@@ -25,14 +22,20 @@ public class JwtUtil {
         this.expiration = expiration;
     }
 
+
     public String generateToken(UserDetails userDetails) {
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority) // Extract role names
+                .map(GrantedAuthority::getAuthority)
                 .toList();
+
+        // Create claims
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", roles);
+
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
+                .addClaims(claims)
                 .setIssuedAt(new Date())
-                .setClaims(Map.of("roles", roles))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();

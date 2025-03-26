@@ -1,5 +1,6 @@
 package com.InventoryManager.service;
 
+import com.InventoryManager.dto.UserResponse;
 import com.InventoryManager.model.User;
 import com.InventoryManager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,22 +18,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
-    private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+    public static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        logger.info("User authenticated: {}",user);
+        return new UserResponse(user);
 
-        String roleWithPrefix = "ROLE_" + user.getRole().name();
-        logger.info("User {} authenticated with role: {}", email, roleWithPrefix);
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
 
-        );
 
     }
 }
