@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Inventory Item</title>
+    <link rel="stylesheet" href="../stylesheets/darkmode.css">
+</head>
+<body>
+
+<div class="container" style="margin-top: 100px;">
+
+    <h1>Create New Inventory Item</h1>
+    <form>
+        <div class="form-group">
+            <label for="item">Item</label>
+            <input type="text" id="item" name="item" placeholder="Sample Code">
+        </div>
+
+        <div class="form-group">
+            <label for="description1">Description 1</label>
+            <input type="text" id="description1" name="description1">
+        </div>
+
+        <div class="form-group">
+            <label for="description2">Description 2</label>
+            <input type="text" id="description2" name="description2">
+        </div>
+
+        <div class="form-group">
+            <label>Item Type</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="active"> Active</label>
+                <label><input type="checkbox" name="serviceItem"> Service Item</label>
+                <label><input type="checkbox" name="serialNumberItem"> Serial Number Item</label>
+                <label><input type="checkbox" name="allowDuplicateSerialNumbers"> Allow Duplicate Serial Numbers</label>
+                <label><input type="checkbox" name="strictSerialNumberTracking"> Strict Serial Number Tracking</label>
+                <label><input type="checkbox" name="warehouseItem"> Warehouse Item</label>
+                <label><input type="checkbox" name="commissionableItem"> Commissionable Item</label>
+                <label><input type="checkbox" name="expiryDateRequired"> Expiry Date Required</label>
+                <label><input type="checkbox" name="unitsOfMeasureItem"> Units of Measure Item</label>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="reset" class="reset-button">Reset Form</button>
+            <button type="submit" class="ok-button">Create</button>
+            <button type="button" class="cancel-button">Cancel</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+
+    /* Page redirect function */
+
+document.querySelector('.cancel-button').addEventListener('click', () => {
+window.location.href = 'http://localhost:8080/#';
+});
+
+</script>
+</body>
+
+
+
+</html>

@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Inventory</title>
+    <link rel="stylesheet" href="../stylesheets/darkmode.css">
+</head>
+<body>
+
+<div class="main--content inv-main-content">
+
+    <div class="card--container inv-card-container">
+        <div class="inv-form-wrapper">
+            <form id="invForm" class="inv-form">
+                <h4 class="inv-form-title">
+                    <i class="fas fa-cube"></i> Add New Stock
+                </h4>
+
+                <div class="inv-form-grid">
+
+                    <div class="inv-form-group">
+                        <label for="buyDate">
+                            <i class="fas fa-calendar-alt"></i> Date
+                        </label>
+                        <input type="date" id="buyDate" required>
+                    </div>
+
+                    <div class="inv-form-group">
+                        <label for="productid">
+                            <i class="fas fa-tag"></i> Product Name
+                        </label>
+                        <input type="text" id="productid" required>
+                    </div>
+
+                    <div class="inv-form-group">
+                        <label for="stkqty">
+                            <i class="fas fa-cubes"></i> Quantity
+                        </label>
+                        <input type="number" id="stkqty" required>
+                    </div>
+
+                    <div class="inv-form-group">
+                        <label for="amt">
+                            <i class="fas fa-coins"></i> Amount
+                        </label>
+                        <input type="number" id="amt" required>
+                    </div>
+
+                    <div class="inv-form-group">
+                        <label for="supplier">
+                            <i class="fas fa-truck"></i> Supplier
+                        </label>
+                        <input type="text" id="supplier" required>
+                    </div>
+
+                    <div class="inv-form-group">
+                        <label for="transStatus">
+                            <i class="fas fa-info-circle"></i> Status
+                        </label>
+                        <select id="transStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="inv-submit-btn">
+                    <i class="fas fa-plus-circle"></i> Add Stock
+                </button>
+
+                <a href="http://localhost:8080/#" style="margin-left: 450px;"><em>back</em></a>
+
+
+            </form>
+        </div>
+
+        <div class="tabular--wrapper inv-table-wrapper">
+            <h3 class="main--title inv-table-title">
+                <i class="fas fa-file-alt"></i>Report
+            </h3>
+
+            <div class="table-container inv-table-container">
+                <table class="inv-table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>Supplier</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="invTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize date once when page loads
+        const setDefaultDate = () => {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            document.getElementById('buyDate').value = `${yyyy}-${mm}-${dd}`;
+        };
+
+        // Set initial default date
+        setDefaultDate();
+
+        // Form submit handler
+        document.getElementById('invForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form from actually submitting
+            setDefaultDate();
+
+            // if we want to keep user-selected date, remove the setdefaultdate line above
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get price data from backend
+
+        var quantityField = document.getElementById('stkqty');
+        var priceField = document.getElementById('amt');
+        var quantity =  document.getElementById('stkqty').value;
+        var price =  (quantity * 5000);
+        priceField.value = price;
+
+        // Set and update value
+        quantityField.addEventListener('input', function() {
+        var quantity = quantityField.value;
+        var price = (quantity * 5000);
+        priceField.value = price;
+
+      });
+    });
+
+
+    document.getElementById('invForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get form values
+        const formData = {
+            date: document.getElementById('buyDate').value,
+            product: document.getElementById('productid').value,
+            quantity: document.getElementById('stkqty').value,
+            amount: document.getElementById('amt').value,
+            supplier: document.getElementById('supplier').value,
+            status: document.getElementById('transStatus').value
+        };
+
+        // Add to table
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${formData.date}</td>
+            <td>${formData.product}</td>
+            <td>${formData.quantity}</td>
+            <td>₦${parseFloat(formData.amount).toLocaleString()}</td>
+            <td>${formData.supplier}</td>
+            <td><span class="status-badge ${formData.status.toLowerCase()}">${formData.status}</span></td>
+        `;
+
+        document.getElementById('invTableBody').appendChild(newRow);
+        this.reset();
+    });
+
+    // Optional: Add search functionality
+    document.getElementById('invSearch').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('#invTableBody tr');
+
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+    });
+
+    // Add item button click event
+        // Endpoint: POST /api/inventory
+        document.getElementById('add-item').addEventListener('click', function() {
+            const newItem = {
+                simpleCode: 'NewCode',
+                description: 'New Description',
+                description2: 'New Description 2',
+                notes: 'New Notes',
+                group: 'New Group',
+                itemCategory: 'New Category'
+            };
+
+            fetch('/api/inventory', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newItem)
+            }).then(response => response.json())
+              .then(data => {
+                  console.log('Item added:', data);
+                  // Refresh the inventory table
+                  window.location.reload();
+              });
+        });
+
+
+</script>
+</body>
+</html>

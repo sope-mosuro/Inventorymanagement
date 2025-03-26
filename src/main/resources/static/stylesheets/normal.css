@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
-*{
+* {
     margin: 0;
     padding: 0;
     border: none;
@@ -7,25 +7,61 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-body{
-    display: flex;  
+
+body {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevents horizontal scrolling */
 }
 
-.section{
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 100vh;
+    padding: 0 1.7rem;
+    color: #fff;
+    background: #1a1a1a;
+    transition: width 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }.sidebar:hover {   width: 250px;   }
+/* Adjust section width when sidebar expands */
+.sidebar:hover ~ .section {    margin-left: 250px;  }
+
+
+/* Section Wrapper */
+.section {
+    margin-left: 110px;
     display: none;
-    width: 100%; 
-    background: #ebe9e9;
-    padding: 1rem; 
+    flex-grow: 1;
+    height: 100vh;
+    overflow-y: auto; /* Prevents unnecessary scrollbars */
+    background: white;
+    padding: 1rem;
     border-radius: 10px;
 }
-#dashboard {
-    display: block;                                                                         /*  Dashboard would be our landing page */
-}
+/* Ensure active section is visible */
+#dashboard {    display: block; }
 
-.has-dropdown {
-    position: relative;
-  }
-  
+
+/* Main Content inside Section */
+.main--content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* Enables scrolling when content overflows */
+    padding: 1rem;
+    background: white;
+}   /* Hide scrollbar but allow scrolling */    .main--content::-webkit-scrollbar {   width: 8px;   }
+.main--content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px; }   .main--content::-webkit-scrollbar-track { background: transparent;  }
+
+
+.has-dropdown {    position: relative;  }
   .dropdown-menu {
     display: none;
     list-style: none;
@@ -38,12 +74,11 @@ body{
     padding: 0;
     z-index: 100;
   }
-  
   .dropdown-menu li {
     padding: 1rem;
     border-radius: 8px;
   }
-  
+
   .dropdown-menu li:hover,
   .dropdown-menu li.active {
     background: #e0e0e058;
@@ -61,24 +96,6 @@ body{
   }
 
 
-
-.sidebar{
-    position: sticky;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 110px;
-    height: 100vh;
-    padding: 0 1.7rem;
-    color: #fff;
-    overflow: hidden;
-    transition: all 0.5s linear;
-    background: black;
-}
-.sidebar:hover{
-    width: 360px;
-    transition: 0.9s;
-}
 .logo{
     height: 80px;
     padding: 16px;
@@ -89,16 +106,14 @@ body{
     list-style: none;
     padding: 0;
 }
-.menu li{ 
+.menu li{
     padding: 1rem;
     margin: 8px 0;
     border-radius: 8px;
     transition: all 0.5s ease-in-out;
 }
-.menu li:hover, 
-.active {
-    background: #e0e0e058;
-}
+.menu li:hover,
+.active {    background: #e0e0e058; }
 .menu a{
     color: #fff;
     font-size: 14px;
@@ -107,30 +122,16 @@ body{
     align-items: center;
     gap: 1.5rem;
 }
-.menu a span {
-    overflow: hidden;
-}
-.menu a i{
-    font-size: 1.2rem;
-}
-
-
-
-
+.menu a span {    overflow: hidden; }
+.menu a i{   font-size: 1.2rem;     }
 .logout{
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
 }
-
 /* **** main body section **** */
-.main--content{
-    position: relative;
-    background: #ebe9e9;
-    width: 100%;
-    padding: 1rem;
-}
+
 .header--wrapper img{
     width: 50px;
     height: 50px;
@@ -147,9 +148,7 @@ body{
     padding: 10px 2rem;
     margin-bottom: 1rem;
 }
-.header--title {
-    color: black;
-}
+.header--title {    color: black;   }
 .user--info {
     display: flex;
     align-items: center;
@@ -173,9 +172,7 @@ body{
     cursor: pointer;
     transition: all 0.5s ease-out;
 }
-.search--box i:hover{
-    transform: scale(1.2);
-}
+.search--box i:hover{   transform: scale(1.2);  }
 
 /* ****** card container ****** */
 .card--container{
@@ -215,9 +212,7 @@ body{
     justify-content: space-between;
     transition: all 0.5s ease-in-out;
 }
-.payment--card:hover{
-    transform: translateY(-5px);
-}
+.payment--card:hover{   transform: translateY(-5px);        }
 .card--header {
     display: flex;
     justify-content: space-between;
@@ -283,6 +278,38 @@ body{
 .blue{
     background: rgb(3, 3, 95);
 }
+/* Input Consistency */
+#sales input:not([type="checkbox"]),
+#sales select,
+#sales button[type="submit"] {
+    padding: 0.8rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    width: 100%;
+}
+
+/* Submit Button */
+#sales button[type="submit"] {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    grid-column: 1 / -1;
+}
+
+#sales button[type="submit"]:hover {
+    background: #2563eb;
+}
+
+/* Customer Selection Improvements */
+.sales-customer-selector {
+    grid-column: 1 / -1;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
 /* ***** tabular section ***** */
 .tabular--wrapper {
     background: #fff;
@@ -410,6 +437,8 @@ tfoot td {
     font-size: 24px;
     cursor: pointer;
 }
+
+/* sales redone */
 .sales-entry {
     background: #fff;
     padding: 1.5rem;
@@ -440,6 +469,204 @@ tfoot td {
 }
 .sales-entry button:hover {
     background: darkgray;
+}
+/* Customer Selection */
+.sales-customer-selector {width: 400px;
+    margin: 1.5rem 0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.customer-options {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.customer-option {
+    flex: 1;
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.customer-option.active {
+    border-color: #3b82f6;
+    background: #f0f4ff;
+}
+
+.customer-option i {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #64748b;
+}
+
+.customer-inputs {
+    position: relative;
+}
+
+.customer-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    display: none;
+}
+
+.customer-input.active {
+    display: block;
+}
+
+/* Modal Styles */
+/* Preserved original selectors with enhanced styling */
+.sales-modal {
+    display: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.sales-modal-content {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+    animation: modalFadeIn 0.3s ease;
+}
+
+.sales-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: #666;
+}
+
+.sales-modal-close:hover {
+    transform: scale(1.2);
+    color: #333;
+}
+/* New decorative classes (won't affect functionality) */
+.modal-title {
+    margin: 0 0 1.5rem 0;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.modal-icon {
+    color: #3498db;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.modal-form-group {
+    position: relative;
+}
+
+.modal-input-container {
+    position: relative;
+}
+
+.modal-input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7f8c8d;
+    width: 20px;
+    text-align: center;
+}
+
+#customerName,
+#customerEmail,
+#customerPhone {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+#customerName:focus,
+#customerEmail:focus,
+#customerPhone:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+}
+
+.modal-submit-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.modal-submit-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+ /* Sales Form Container */
+ #sales .card--container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    padding: 2rem;
+    margin-top: 1.5rem;
+}
+
+/* Form Grid Layout */
+#salesForm {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* Form Group Styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 #genbutton{
     background: black;
@@ -475,3 +702,44 @@ tfoot td {
 .umoptions:hover {
     background: #dcd9d7;
 }
+
+/* CSS to Remove Default Link Styling */
+a.inv-action-btn {
+    text-decoration: none !important;
+    color: inherit !important;
+    cursor: pointer;
+
+    /* Match your existing button styles */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    background: #3b82f6; /* Your button color */
+    color: white !important;
+    transition: all 0.3s ease;
+    border: none;
+    font: inherit;
+}
+
+/* Hover State Matching Buttons */
+a.inv-action-btn:hover {
+    background: #2563eb; /* Darker shade for hover */
+    text-decoration: none !important;
+    transform: translateY(-1px); /* If your buttons have hover effects */
+}
+
+/* Focus State */
+a.inv-action-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Matching your theme */
+}
+
+/* Active State */
+a.inv-action-btn:active {
+    transform: translateY(0);
+}
+
+
+
+
