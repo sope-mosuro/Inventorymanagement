@@ -135,34 +135,6 @@ public class InventoryService {
                 )
         ).collect(Collectors.toList());
     }
-//    @Transactional
-//    public List<InventoryResponseDTO> getSalesRepInventory(Long salesRepId) {
-//        List<Inventory> salesRepInventory = inventoryRepository.findByAssignedToId(salesRepId);
-//
-//        List<InventoryResponseDTO> responseDTOs = salesRepInventory.stream().map(inventory -> {
-//            logger.info("Mapping Inventory ID: {}, Quantity: {}, Product: {}, Warehouse: {}",
-//                    inventory.getId(),
-//                    inventory.getQuantity(),
-//                    inventory.getProduct() != null ? inventory.getProduct().getName() : "No Product",
-//                    inventory.getWarehouse() != null ? inventory.getWarehouse().getName() : "No Warehouse"
-//            );
-//
-//            return new InventoryResponseDTO(
-//                    inventory.getId(),
-//                    inventory.getQuantity(),
-//                    inventory.getProduct() != null ? new ProductDTO(
-//                            inventory.getProduct().getId(),
-//                            inventory.getProduct().getName(),
-//                            inventory.getProduct().getPrice(),
-//                            inventory.getProduct().getStock()
-//                    ) : null,
-//                    inventory.getWarehouse() != null ? inventory.getWarehouse().getName() : "Not in warehouse"
-//            );
-//        }).collect(Collectors.toList());
-//
-//
-//        return responseDTOs;
-//    }
 
 
     // Get all inventory stored in a specific warehouse

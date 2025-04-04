@@ -18,7 +18,7 @@ public class Customer {
 
     private String name; // Can be "Unnamed Customer"
 
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
 
     @OneToMany(mappedBy = "customer")

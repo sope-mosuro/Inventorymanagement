@@ -1,19 +1,18 @@
 package com.InventoryManager.dto;
 
-import com.InventoryManager.model.Role;
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRequest {
+public class CustomerResponseDTO {
+    private Long id;
     private String name;
     private String email;
-    private String password;
     private String phoneNumber;
-    private Role role; // SALES_REP, etc.
-
 
 }

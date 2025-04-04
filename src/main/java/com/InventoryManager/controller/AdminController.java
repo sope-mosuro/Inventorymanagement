@@ -1,10 +1,15 @@
 package com.InventoryManager.controller;
 
+import com.InventoryManager.dto.CustomerRequestDTO;
+import com.InventoryManager.dto.CustomerResponseDTO;
 import com.InventoryManager.dto.SalesRepDTO;
 import com.InventoryManager.dto.UserRequest;
+import com.InventoryManager.model.Customer;
 import com.InventoryManager.model.Role;
 import com.InventoryManager.model.User;
+import com.InventoryManager.repository.CustomerRepository;
 import com.InventoryManager.repository.UserRepository;
+import com.InventoryManager.service.CustomerService;
 import com.InventoryManager.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -22,6 +28,8 @@ public class AdminController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final CustomerService customerService;
+
 
     @PostMapping("/create-user")
     public ResponseEntity<String> createUser(@RequestBody UserRequest request) {
@@ -44,4 +52,22 @@ public class AdminController {
         List<SalesRepDTO> salesReps = userService.getAllSalesReps();
         return ResponseEntity.ok(salesReps);
 }
+//only admin can create customers
+    @PostMapping("/create-customer")
+    public ResponseEntity<Customer> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+        Customer customer = customerService.createCustomer(
+                customerRequestDTO.getName(),
+                customerRequestDTO.getPhoneNumber(),
+                customerRequestDTO.getEmail()
+        );
+        return ResponseEntity.ok(customer);
+    }
+
+
+    @GetMapping("/all-customers")
+    public ResponseEntity<Collection<CustomerResponseDTO>> getAllCustomers() {
+        Collection<CustomerResponseDTO> customers = customerService.getAllCustomers();
+        return ResponseEntity.ok(customers);
+    }
+
 }

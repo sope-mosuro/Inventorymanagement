@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "sales")
@@ -24,14 +25,13 @@ public class Sale {
     private PaymentMethod paymentMethod;
 
     @ManyToOne
-    @JoinColumn(name = "sales_rep_id")
+    @JoinColumn(name = "sales_rep_id", nullable=false)
     private User salesRep;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id",nullable=false)
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SaleItem> saleItems;
 }
