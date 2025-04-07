@@ -34,8 +34,8 @@ public class AuthController {
 
         Cookie cookie = new Cookie("JWT_TOKEN", token);
         cookie.setHttpOnly(true);
-        cookie.setSecure(true); // Enable in production with HTTPS
-        cookie.setPath("/"); // Accessible to all endpoints
+        cookie.setSecure(false);
+        cookie.setPath("/");
         cookie.setMaxAge(60 * 60); // 1 hour expiration
 
         response.addCookie(cookie);
