@@ -6,6 +6,7 @@ import com.InventoryManager.service.UserDetailsServiceImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,15 +33,16 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         String token = jwtUtil.generateToken(userDetails);
 
-        Cookie cookie = new Cookie("JWT_TOKEN", token);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false);
-        cookie.setPath("/");
-        cookie.setMaxAge(60 * 60); // 1 hour expiration
+        ResponseCookie cookie = ResponseCookie.from("JWT_TOKEN", token)
+        .httpOnly(true)
+        .secure(false)
+        .path("/")
+        .maxAge(60 * 60) // 1 hour expiration
+                .build();
 
-        response.addCookie(cookie);
 
 
+        response.setHeader("Set-Cookie", cookie.toString());
         return Map.of("token", token);
     }
     @PostMapping("/logout")
