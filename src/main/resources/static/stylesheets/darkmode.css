@@ -24,7 +24,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 700px;
 }
 
 h1 {
@@ -213,6 +213,28 @@ button:hover {
     background: #dc2626;
 }
 
+
+#importButton {
+    background-color: #009688;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#importButton:hover {
+    background-color: #00796b;
+}
+
+.import-section {
+    text-align: right;
+}
+
+
 /* ======= Reports Section ======= */
 #reports-section {
     background: white;
@@ -282,9 +304,10 @@ tr:hover {
 /* CSS */
 /* Inventory-specific styles */
 .inv-main-content {
+    width: 700px;
     padding: 2rem;
     background: #f5f7fa;
-    margin-top: 200px;
+    margin-top: 20px;
 }
 
 .inv-header {
@@ -300,7 +323,11 @@ tr:hover {
     padding: 2rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     margin-bottom: 2rem;
+    position: sticky; /* makes the form stay fixed */
+    top: 20px; /* how far from the top of the viewport it stays */
+    z-index: 10; /* ensures form stays above content */
 }
+
 
 .inv-form-title {
     color: #2c3e50;

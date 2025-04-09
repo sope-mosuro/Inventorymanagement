@@ -40,5 +40,3 @@ document.getElementById("login_auth").addEventListener("submit", function (event
       login();
     });
 
-
-

@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CountBook- Admin</title>
-    <link rel="icon" type="image/x-icon" href="src\images\Cb logo2.png">
+    <link rel="icon" type="image/x-icon" href="/Cb logo2.png">
     <link rel="stylesheet" id="default" href="stylesheets\normal.css"/>
     <link rel="stylesheet" id="darkmode" href="stylesheets\darkmode.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-          integrity="sha512-v0kIw/6Dv8ISN8ytP0oaDeHgrJNqoP7OqsU5C2EznI0i1zvKv02zP2RjIdfzC6S0CZehChhTGv7Rc/Z8U4Y5pA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -18,7 +16,7 @@
 <body>
 <!--Side Pane featuring module contents-->
 <div class="sidebar">
-    <div class="logo"><img src="src\images\Cb logo.png" style="width: 25px;"></div>
+    <div class="logo"><img src="/Cb logo.png" style="width: 25px;"></div>
 
     <ul class="menu" >
         <li data-target="dashboard">
@@ -247,7 +245,7 @@
                 <h4>Add New Sale</h4>
                 <form id="salesForm">
                     <div>
-                        <!-- New Customer Selection Section -->
+                        <!-- Customer Selection Section -->
                         <div class="sales-customer-selector">
                             <div class="customer-options">
                                 <div class="customer-option active" data-option="existing">
@@ -266,12 +264,6 @@
                                     <option value="">Select Existing Customer</option>
                                     <!-- Options will be populated dynamically -->
                                 </select>
-                                <!-- Manual Customer Input -->
-                                <input type="text" id="manualCustomer"
-                                       class="customer-input"
-                                       placeholder="Enter Customer Name"
-                                       style="display: none;">
-                                <!-- New Customer Form (will be implemented in modal) -->
                             </div>
                         </div>
 
@@ -333,6 +325,7 @@
         </div>
     </div>
 </section>
+
 <div id="newCustomerModal" class="sales-modal">
     <div class="sales-modal-content">
         <span class="sales-modal-close">&times;</span>
@@ -504,35 +497,35 @@
 
                 <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
                     <div>
-                        <img src="images\vvv.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                        <img src="/vvv.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
                     </div>
                     <span class="title"><h3>Emmanuel DOGO</h3></span>
                 </div>
 
                 <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
                     <div>
-                        <img src="images\bbb.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                        <img src="/bbb.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
                     </div>
                     <span class="title"><h3>Blessing AIVIHENBHOR</h3></span>
                 </div>
 
                 <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
                     <div>
-                        <img src="images\ggg.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                        <img src="/ggg.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
                     </div>
                     <span class="title"><h3>Glory EZENWOKE</h3></span>
                 </div>
 
                 <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
                     <div>
-                        <img src="images\mmm.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                        <img src="/mmm.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
                     </div>
                     <span class="title"><h3>Mr ADEBAYO</h3></span>
                 </div>
 
                 <div class="payment--card2" style="background-color: rgb(180, 124, 35);">
                     <div>
-                        <img src="images\nnn.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
+                        <img src="/nnn.png" alt="" style="width: 75px; height: auto; border-radius: 30%;"/>
                     </div>
                     <span class="title"><h3>Olawale OLAMILEKAN</h3></span>
                 </div>
@@ -640,10 +633,8 @@
 </section>
 
 
-
-<script src="src\script\countbook.js">
-    //  Script for webapp interactivity
-</script>
+<script src="src/script/countbook.js"></script>
+<script src="src/script/sales.js"></script>
 </body>
 
 </html>

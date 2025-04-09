@@ -8,13 +8,18 @@
 </head>
 <body>
 
-<div class="container" style="margin-top: 100px;">
+<div class="container" >
 
     <h1>Create New Inventory Item</h1>
+
+    <div class="import-section">
+        <button type="button" id="importButton">📦 Import Bulk Items</button>
+        <input type="file" id="bulkUploadInput" accept=".csv, .xlsx" style="display: none;">
+    </div>
     <form>
         <div class="form-group">
             <label for="item">Item</label>
-            <input type="text" id="item" name="item" placeholder="Sample Code">
+            <input type="text" id="item" name="item" placeholder="Product Name">
         </div>
 
         <div class="form-group">
@@ -31,14 +36,10 @@
             <label>Item Type</label>
             <div class="checkbox-group">
                 <label><input type="checkbox" name="active"> Active</label>
-                <label><input type="checkbox" name="serviceItem"> Service Item</label>
                 <label><input type="checkbox" name="serialNumberItem"> Serial Number Item</label>
-                <label><input type="checkbox" name="allowDuplicateSerialNumbers"> Allow Duplicate Serial Numbers</label>
-                <label><input type="checkbox" name="strictSerialNumberTracking"> Strict Serial Number Tracking</label>
                 <label><input type="checkbox" name="warehouseItem"> Warehouse Item</label>
                 <label><input type="checkbox" name="commissionableItem"> Commissionable Item</label>
                 <label><input type="checkbox" name="expiryDateRequired"> Expiry Date Required</label>
-                <label><input type="checkbox" name="unitsOfMeasureItem"> Units of Measure Item</label>
             </div>
         </div>
 
@@ -58,6 +59,25 @@
 document.querySelector('.cancel-button').addEventListener('click', () => {
 window.location.href = 'http://localhost:8080/#';
 });
+
+    const importButton = document.getElementById('importButton');
+    const fileInput = document.getElementById('bulkUploadInput');
+
+    importButton.addEventListener('click', () => {
+        fileInput.click(); // trigger hidden input
+    });
+
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Placeholder: handle your file upload here
+        console.log('File selected:', file.name);
+
+        // TODO: Upload to backend or parse in browser
+        // e.g., parse CSV with PapaParse or send to /upload endpoint
+    });
+
 
 </script>
 </body>

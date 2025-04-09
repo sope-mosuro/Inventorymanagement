@@ -133,7 +133,6 @@ window.addEventListener("click", function(event) {
         document.addEventListener("DOMContentLoaded", function() {
     const sections = document.querySelectorAll(".section");
     const menuItems = document.querySelectorAll(".menu li");
-
     menuItems.forEach(item => {
         item.addEventListener("click", function() {
             let target = this.getAttribute("data-target");
@@ -144,6 +143,7 @@ window.addEventListener("click", function(event) {
 menuItem.classList.remove("active");
 });
 this.classList.add("active");     });   });  });
+
 //    Log Out Alert 
 document.querySelector('.logout').addEventListener("click", function(){
 var c = confirm ('Are you sure you want to logout?\nClick "ok" to logout');
@@ -194,13 +194,6 @@ document.querySelectorAll(".close-btn9").forEach(button => {
             });
         });
 
-
-
-
-    // Add item button click event   removed!!
-    // Endpoint: POST /api/inventory
-
-
     // Run report button click event
     // Endpoint: GET /api/reports/{reportType}
     document.getElementById('run-report').addEventListener('click', function() {
@@ -250,175 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-// Sales Form Submission (Updated)
-document.addEventListener('DOMContentLoaded', () => {
-    const salesForm = document.getElementById('salesForm');
-    const salesTable = document.getElementById('salesTableBody');
-
-    salesForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Get form values
-        const item = document.getElementById('product').value;
-        const quantity = document.getElementById('quantity').value;
-        const price = document.getElementById('price').value;
-        const saleDate = document.getElementById('saleDate').value;
-        const paymentMethod = document.getElementById('paymentMethod').value;
-
-        // Determine customer value
-        let customerValue = '';
-        const existingCustomerOption = document.querySelector('.customer-option[data-option="existing"]');
-        if (existingCustomerOption && existingCustomerOption.classList.contains('active')) {
-            customerValue = document.getElementById('existingCustomer').value;
-        } else {
-            customerValue = document.getElementById('manualCustomer').value;
-        }
-
-        // Validate inputs
-        if (!item || item === "") {
-            alert('Please select a product!');
-            return;
-        }
-        if (!quantity || isNaN(quantity) || quantity <= 0) {
-            alert('Please enter a valid quantity!');
-            return;
-        }
-        if (!price || isNaN(price) || price <= 0) {
-            alert('Price is not valid!');
-            return;
-        }
-
-        // Create table row
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td>${saleDate}</td>
-            <td>${customerValue}</td>
-            <td>${item}</td>
-            <td>${quantity}</td>
-            <td>₦${parseFloat(price).toFixed(2)}</td>
-            <td>${paymentMethod}</td>
-            <td>Completed</td>
-        `;
-
-        // Append the new row to the sales table
-        salesTable.appendChild(newRow);
-
-        // Reset the form
-        salesForm.reset();
-    });
-});
-
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize date once when page loads
-        const setDefaultDate = () => {
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
-            document.getElementById('saleDate').value = `${yyyy}-${mm}-${dd}`;
-        };
-
-        // Set initial default date
-        setDefaultDate();
-
-        // Form submit handler
-        document.getElementById('salesForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent form from actually submitting
-            setDefaultDate();
-
-            // if we want to keep user-selected date, remove the setdefaultdate line above
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get price data from backend
-
-        var quantityField = document.getElementById('quantity');
-        var priceField = document.getElementById('price');
-        var quantity =  document.getElementById('quantity').value;
-        var price =  (quantity * 2000);
-        priceField.value = price;
-
-        // Set and update value
-        quantityField.addEventListener('input', function() {
-        var quantity = quantityField.value;
-        var price = (quantity * 2000);
-        priceField.value = price;
-
-      });
-    });
-
-/* Sales page modifications */
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Customer Selection Logic
-    const customerOptions = document.querySelectorAll('.customer-option');
-    const customerInputs = document.querySelectorAll('.customer-input');
-
-    customerOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            // Remove active states
-            customerOptions.forEach(o => o.classList.remove('active'));
-            customerInputs.forEach(i => i.classList.remove('active'));
-
-            // Set active state
-            option.classList.add('active');
-            const target = option.dataset.option;
-
-            if(target === 'new') {
-                document.getElementById('newCustomerModal').style.display = 'block';
-                return;
-            }
-
-            document.getElementById(`${target}Customer`).classList.add('active');
-        });
-    });
-
-    // Modal Handling
-    const modal = document.getElementById('newCustomerModal');
-    const closeModal = document.querySelector('.sales-modal-close');
-
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (e) => {
-        if(e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // New Customer Form Handling
-    document.getElementById('newCustomerForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('customerName').value;
-
-        // Add to existing customers
-        const option = document.createElement('option');
-        option.value = name;
-        option.textContent = name;
-        document.getElementById('existingCustomer').appendChild(option);
-
-        // Reset and close
-        modal.style.display = 'none';
-        e.target.reset();
-    });
-
-    // Sales Form Submission
-    document.getElementById('salesForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Get customer value based on selection
-        let customerValue = '';
-        if(document.querySelector('.customer-option[data-option="existing"]').classList.contains('active')) {
-            customerValue = document.getElementById('existingCustomer').value;
-        } else {
-            customerValue = document.getElementById('manualCustomer').value;
-        }
-
-    });
-});
 
 
 
