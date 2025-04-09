@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchCustomers() {
         try {
-            const response = await fetch("http://localhost:8080/api/all-customers");
+            const response = await fetch("http://localhost:8080/api/admin/all-customers");
             if (!response.ok) throw new Error('Failed to fetch customers');
 
             const customers = await response.json();
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/create-customer", {
+            const response = await fetch("http://localhost:8080/api/admin/create-customer", {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
