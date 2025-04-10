@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Set and update value
         quantityField.addEventListener('input', function() {
         var quantity = quantityField.value;
-        quantityField.value = 1;
         var price = (quantity * 2000);
         priceField.value = price;
       });
@@ -195,4 +194,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 salesTable.appendChild(newRow);
                 salesForm.reset();
             });
+
+
+
+//This is the part that assumes the backend API for the sales entry submission.
+            // POST sales data to backend when post button is clicked
+                        document.getElementById('postbutton').addEventListener('click', async () => {
+                            const rows = document.querySelectorAll('#salesTableBody tr');
+                            if (rows.length === 0) {
+                                alert('No sales records to post!');
+                                return;
+                            }
+
+                            const salesData = Array.from(rows).map(row => {
+                                const cells = row.querySelectorAll('td');
+                                return {
+                                    saleDate: cells[0].textContent,
+                                    customer: cells[1].textContent,
+                                    product: cells[2].textContent,
+                                    quantity: parseInt(cells[3].textContent),
+                                    price: parseFloat(cells[4].textContent.replace('₦', '')),
+                                    paymentMethod: cells[5].textContent,
+                                    status: cells[6].textContent
+                                };
+                            });
+
+                            try {
+                                const response = await fetch('http://localhost:8080/api/admin/SalesRequest, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(salesData)
+                                });
+
+                                if (!response.ok) throw new Error('Failed to post sales data');
+
+                                alert('Sales posted successfully!');
+
+
+                                document.getElementById('salesTableBody').innerHTML = ''; // Clear table after posting
+                            } catch (error) {
+                                console.error('Error posting sales:', error);
+                                alert('Error posting sales!');
+                            }
+                        });
+
 });
+
+
+
