@@ -4,6 +4,8 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
 gtag('config', 'G-6QGQLGFBMJ');
+
+
 /*Dialog box for first div*/
 document.getElementById("dialog1").addEventListener("click", function(event) {
     event.preventDefault();

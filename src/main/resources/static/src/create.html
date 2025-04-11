@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="container" >
+<div class="container">
 
     <h1>Create New Inventory Item</h1>
 
@@ -18,30 +18,35 @@
     </div>
     <form>
         <div class="form-group">
-            <label for="item">Item</label>
+            <label for="item">Product Name</label>
             <input type="text" id="item" name="item" placeholder="Product Name">
         </div>
 
+<!-- Price for each product -->
+        <div class="form-group">
+            <label for="Price">Set Price</label>
+            <input type="number" id="Price" name="Price">
+        </div>
+
+        <!--  Number of products being purchased -->
+        <div class="form-group">
+            <label for="quantity">Quantity stocked</label>
+            <input type="number" id="quantity" name="quantity">
+        </div>
+
+        <!--  product category -->
         <div class="form-group">
             <label for="description1">Description 1</label>
             <input type="text" id="description1" name="description1">
         </div>
 
+        <!--  product info - description -->
         <div class="form-group">
             <label for="description2">Description 2</label>
             <input type="text" id="description2" name="description2">
         </div>
 
-        <div class="form-group">
-            <label>Item Type</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="active"> Active</label>
-                <label><input type="checkbox" name="serialNumberItem"> Serial Number Item</label>
-                <label><input type="checkbox" name="warehouseItem"> Warehouse Item</label>
-                <label><input type="checkbox" name="commissionableItem"> Commissionable Item</label>
-                <label><input type="checkbox" name="expiryDateRequired"> Expiry Date Required</label>
-            </div>
-        </div>
+        <br>
 
         <div class="form-actions">
             <button type="reset" class="reset-button">Reset Form</button>
@@ -52,35 +57,10 @@
 </div>
 
 
-<script>
+<script src="script/create_products.js"></script>
 
-    /* Page redirect function */
-
-document.querySelector('.cancel-button').addEventListener('click', () => {
-window.location.href = 'http://localhost:8080/#';
-});
-
-    const importButton = document.getElementById('importButton');
-    const fileInput = document.getElementById('bulkUploadInput');
-
-    importButton.addEventListener('click', () => {
-        fileInput.click(); // trigger hidden input
-    });
-
-    fileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        // Placeholder: handle your file upload here
-        console.log('File selected:', file.name);
-
-        // TODO: Upload to backend or parse in browser
-        // e.g., parse CSV with PapaParse or send to /upload endpoint
-    });
-
-
-</script>
 </body>
+
 
 
 
