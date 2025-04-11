@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +38,14 @@ public class ProductService {
     public ProductDTO createProduct(Product product){
          productRepository.save(product);
         return new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.getStock());
+    }
+
+
+
+    public List<ProductDTO> getAllProducts(){
+        return productRepository.findAll().stream()
+                .map(product -> new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.getStock()))
+                .toList();
+
     }
 }

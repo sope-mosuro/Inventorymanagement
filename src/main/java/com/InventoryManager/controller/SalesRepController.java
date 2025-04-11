@@ -22,4 +22,5 @@ public class SalesRepController {
         User currentUser = UserUtil.getLoggedInUser(); // Get the logged-in user
         return ResponseEntity.ok(inventoryService.getSalesRepInventory(currentUser.getId()));
     }
+
 }

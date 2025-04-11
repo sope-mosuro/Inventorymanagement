@@ -1,10 +1,7 @@
 package com.InventoryManager.service;
 
 import com.InventoryManager.config.UserUtil;
-import com.InventoryManager.dto.SaleItemDTO;
-import com.InventoryManager.dto.SaleItemRequestDTO;
-import com.InventoryManager.dto.SaleRequestDTO;
-import com.InventoryManager.dto.SaleResponseDTO;
+import com.InventoryManager.dto.*;
 import com.InventoryManager.model.*;
 import com.InventoryManager.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -103,6 +100,57 @@ public class SaleService {
                 customer.getName(),
                 saleItemDTOs
         );
+    }
+    @Transactional
+    public List<SaleResponseDTO> getTransactionHistory() {
+        User loggedInUser = UserUtil.getLoggedInUser();
+        boolean isAdmin = loggedInUser.getRole().name().equals("ADMIN");
+        List<Sale> sales;
+        if (isAdmin) {
+            sales = saleRepository.findAll(); // Admin sees all sales
+        } else {
+            sales = saleRepository.findBySalesRepId(loggedInUser.getId()); // Sales rep sees only their sales
+        }
+
+        return sales.stream().map(sale -> new SaleResponseDTO(
+                sale.getId(),
+                sale.getTotalCost(),
+                sale.getSaleDate(),
+                sale.getPaymentMethod(),
+                sale.getSalesRep().getName(),
+                sale.getCustomer().getName(),
+                sale.getSaleItems().stream().map(item -> new SaleItemDTO(
+                        item.getProduct().getName(),
+                        item.getQuantity(),
+                        item.getPricePerUnit(),
+                        item.getTotalCost()
+                )).toList()
+        )).toList();
+    }
+
+    @Transactional
+    public List<ProductDTO> getBestSellingProducts() {
+        return productRepository.findBestSellingProducts()
+                .stream()
+                .map(product -> new ProductDTO(
+                        product.getId(),
+                        product.getName(),
+                        product.getPrice(),
+                        product.getStock()
+                ))
+                .toList();
+    }
+
+    @Transactional
+    public List<UserSalesDTO> getBestSellingReps() {
+        return userRepository.findBestSellingReps()
+                .stream()
+                .map(user -> new UserSalesDTO(
+                        user.getId(),
+                        user.getName(),
+                        user.getTotalSales()
+                ))
+                .toList();
     }
 
 }

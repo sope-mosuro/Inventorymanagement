@@ -52,17 +52,6 @@ public class AdminController {
         List<SalesRepDTO> salesReps = userService.getAllSalesReps();
         return ResponseEntity.ok(salesReps);
 }
-//only admin can create customers
-    @PostMapping("/create-customer")
-    public ResponseEntity<Customer> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
-        Customer customer = customerService.createCustomer(
-                customerRequestDTO.getName(),
-                customerRequestDTO.getPhoneNumber(),
-                customerRequestDTO.getEmail()
-        );
-        return ResponseEntity.ok(customer);
-    }
-
 
     @GetMapping("/all-customers")
     public ResponseEntity<Collection<CustomerResponseDTO>> getAllCustomers() {

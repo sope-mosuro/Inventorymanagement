@@ -25,4 +25,5 @@ public class SaleController {
         SaleResponseDTO response = saleService.createSale(currentUser.getId(), request);
         return ResponseEntity.ok(response);
     }
+
 }

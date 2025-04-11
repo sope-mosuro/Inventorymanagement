@@ -38,7 +38,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/index.html", "/static/**","src/**","/images/**","/stylesheets/**","/script/**").permitAll()
-                        .requestMatchers("/api/auth/login","/api/sales-rep/","api/sales/**").permitAll()
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/customers/**","api/sales/**","/api/sales-rep/**").hasAnyRole("ADMIN", "SALES_REP") // Allow both roles
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated()

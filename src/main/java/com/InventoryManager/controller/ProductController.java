@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/admin/products")
 @RequiredArgsConstructor
@@ -24,6 +27,12 @@ public class ProductController {
     @PostMapping("/increase")
     public UpdateStockRequestDTO increaseStock(@RequestBody UpdateStockRequestDTO request){
         return productService.increaseStock(request);
+    }
+
+    @GetMapping("all-products")
+    public ResponseEntity<Collection<ProductDTO>> getAllProducts() {
+       List<ProductDTO> products = productService.getAllProducts();
+        return ResponseEntity.ok((products));
     }
 
 }
