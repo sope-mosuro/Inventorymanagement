@@ -23,7 +23,7 @@
               card.className = 'stock-card';
               card.innerHTML = `
                   <strong>${item.name}</strong>
-                  <p>Quantity: <span>${item.quantity}</span></p>
+                  <p>Quantity: <span>${item.stock}</span></p>
               `;
               reportBody.appendChild(card);
           });
