@@ -31,7 +31,9 @@
                         <label for="productid">
                             <i class="fas fa-tag"></i> Product Name
                         </label>
-                        <input type="text" id="productid" required>
+                        <select id="productid" required>
+                            <option value="">Select a product</option>
+                        </select>
                     </div>
 
                     <div class="inv-form-group">
@@ -128,23 +130,36 @@
         });
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get price data from backend
 
-        var quantityField = document.getElementById('stkqty');
-        var priceField = document.getElementById('amt');
-        var quantity =  document.getElementById('stkqty').value;
-        var price =  (quantity * 5000);
-        priceField.value = price;
 
-        // Set and update value
-        quantityField.addEventListener('input', function() {
-        var quantity = quantityField.value;
-        var price = (quantity * 5000);
-        priceField.value = price;
+    // lines of code that fetches product items
 
-      });
-    });
+    document.addEventListener('DOMContentLoaded', async function () {
+    const productSelect = document.getElementById('productid');
+
+    try {
+        const response = await fetch('http://localhost:8080/api/admin/products/all-products');
+        if (!response.ok) throw new Error('Failed to fetch product list');
+
+        const products = await response.json();
+
+        products.forEach(product => {
+            const option = document.createElement('option');
+            option.value = product.name;
+            option.textContent = product.name;
+            productSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error('Error loading product names:', error);
+        const fallbackOption = document.createElement('option');
+        fallbackOption.value = '';
+        fallbackOption.textContent = 'Error loading products';
+        productSelect.appendChild(fallbackOption);
+    }
+});
+
+
 
 
     document.getElementById('invForm').addEventListener('submit', function(e) {
@@ -185,32 +200,6 @@
             row.style.display = text.includes(searchTerm) ? '' : 'none';
         });
     });
-
-    // Add item button click event
-        // Endpoint: POST /api/inventory
-        document.getElementById('add-item').addEventListener('click', function() {
-            const newItem = {
-                simpleCode: 'NewCode',
-                description: 'New Description',
-                description2: 'New Description 2',
-                notes: 'New Notes',
-                group: 'New Group',
-                itemCategory: 'New Category'
-            };
-
-            fetch('/api/inventory', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newItem)
-            }).then(response => response.json())
-              .then(data => {
-                  console.log('Item added:', data);
-                  // Refresh the inventory table
-                  window.location.reload();
-              });
-        });
 
 
 </script>

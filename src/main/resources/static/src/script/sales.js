@@ -148,8 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
             fallbackInsert(); // graceful degradation
         }
 
-
-
         // Modal close and form reset always happens
         document.getElementById('newCustomerModal').style.display = 'none';
         e.target.reset();
@@ -220,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
 
                             try {
-                                const response = await fetch('http://localhost:8080/api/admin/SalesRequest, {
+                                const response = await fetch("http://localhost:8080/api/admin/SalesRequest", {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify(salesData)

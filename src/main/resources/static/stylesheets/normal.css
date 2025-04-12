@@ -743,3 +743,24 @@ a.inv-action-btn:active {
 
 
 
+/* inventory cards */
+
+.stock-card {
+    background-color: #1e1e1e;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+    color: #eee;
+}
+.stock-card strong {
+    font-size: 1.1em;
+}
+.stock-card p {
+    margin: 4px 0 0;
+    font-size: 0.95em;
+}
+
+
+
+

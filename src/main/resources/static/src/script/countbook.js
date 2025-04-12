@@ -174,76 +174,7 @@ document.querySelectorAll(".close-btn9").forEach(button => {
 });
 
 
-//inventory section script
 
-  document.addEventListener('DOMContentLoaded', function() {
-    // Fetch inventory items from the backend
-    // Endpoint: GET /api/inventory
-    fetch('/api/inventory')
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.querySelector('#inventory-table tbody');
-            data.forEach(item => {
-                const row = `<tr>
-                    <td>${item.simpleCode}</td>
-                    <td>${item.description}</td>
-                    <td>${item.description2}</td>
-                    <td>${item.notes}</td>
-                    <td>${item.group}</td>
-                    <td>${item.itemCategory}</td>
-                </tr>`;
-                tbody.innerHTML += row;
-            });
-        });
-
-    // Run report button click event
-    // Endpoint: GET /api/reports/{reportType}
-    document.getElementById('run-report').addEventListener('click', function() {
-        const reportType = document.getElementById('report-select').value;
-        fetch(`/api/reports/${reportType}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log('Report data:', data);
-                // Handle report data display
-            });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const reportWrapper = document.querySelector('.tabular--wrapper');
-    const tbody = document.getElementById('invTableBody');
-
-    document.getElementById('run-report').addEventListener('click', function() {
-        const reportType = document.getElementById('report-select').value;
-
-        // Endpoint: GET /api/reports/${reportType}
-        fetch(`/api/reports/${reportType}`)
-            .then(response => response.json())
-            .then(newData => {
-                if(reportType === 'inventory-summary') {
-                    // Append new data to existing entries
-                    newData.forEach(item => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${item.date}</td>
-                            <td>${item.product}</td>
-                            <td>${item.quantity}</td>
-                            <td>${item.amount}</td>
-                            <td>${item.supplier}</td>
-                            <td>${item.status}</td>
-                        `;
-                        tbody.appendChild(row);
-                    });
-
-                    // Show the report table if hidden
-                    if(reportWrapper.style.display === 'none') {
-                        reportWrapper.style.display = 'block';
-                    }
-                }
-            })
-            .catch(error => console.error('Error fetching report:', error));
-    });
-});
 
 
 
