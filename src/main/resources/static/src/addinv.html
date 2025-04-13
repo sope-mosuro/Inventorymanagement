@@ -45,7 +45,7 @@
 
                     <div class="inv-form-group">
                         <label for="amt">
-                            <i class="fas fa-coins"></i> Amount
+                            <i class="fas fa-coins"></i> Price per Unit
                         </label>
                         <input type="number" id="amt" required>
                     </div>
@@ -92,7 +92,7 @@
                         <th>Date</th>
                         <th>Product</th>
                         <th>Quantity</th>
-                        <th>Amount</th>
+                        <th>Price per Unit</th>
                         <th>Supplier</th>
                         <th>Status</th>
                     </tr>
@@ -130,22 +130,22 @@
         });
     });
 
-
-
     // lines of code that fetches product items
 
-    document.addEventListener('DOMContentLoaded', async function () {
+    let allProducts = []; // Make it global so we can use it later
+
+document.addEventListener('DOMContentLoaded', async function () {
     const productSelect = document.getElementById('productid');
 
     try {
-        const response = await fetch('http://localhost:8080/api/admin/products/all-products');
+        const response = await fetch("http://localhost:8080/api/admin/products/all-products");
         if (!response.ok) throw new Error('Failed to fetch product list');
 
-        const products = await response.json();
+        allProducts = await response.json(); // Store for later use
 
-        products.forEach(product => {
+        allProducts.forEach(product => {
             const option = document.createElement('option');
-            option.value = product.name;
+            option.value = product.id; // <-- use ID for easy lookup
             option.textContent = product.name;
             productSelect.appendChild(option);
         });
@@ -159,23 +159,43 @@
     }
 });
 
+    document.getElementById('invForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const productId = document.getElementById('productid').value;
+    const product = allProducts.find(p => p.id == productId);
 
+    if (!product) {
+        alert('Product not found!');
+        return;
+    }
+    const quantityToAdd = parseInt(document.getElementById('stkqty').value);
+    const newPrice = parseFloat(document.getElementById('amt').value);
 
+    // Update values
+    const updatedProduct = {
+        ...product,
+        stock: product.stock + quantityToAdd,   // add to existing stock
+        price: newPrice                         // replace oldPrice with newPrice
+    };
+    try {
+        const updateResponse = await fetch("http://localhost:8080/api/admin/products/all-products/${productId}", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedProduct)
+        });
 
-    document.getElementById('invForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+        if (!updateResponse.ok) throw new Error('Failed to update product');
 
-        // Get form values
+        // Continue adding to the frontend table
         const formData = {
             date: document.getElementById('buyDate').value,
-            product: document.getElementById('productid').value,
-            quantity: document.getElementById('stkqty').value,
-            amount: document.getElementById('amt').value,
+            product: product.name,
+            quantity: quantityToAdd,
+            amount: newPrice,
             supplier: document.getElementById('supplier').value,
             status: document.getElementById('transStatus').value
         };
 
-        // Add to table
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
             <td>${formData.date}</td>
@@ -185,21 +205,17 @@
             <td>${formData.supplier}</td>
             <td><span class="status-badge ${formData.status.toLowerCase()}">${formData.status}</span></td>
         `;
-
         document.getElementById('invTableBody').appendChild(newRow);
         this.reset();
-    });
 
-    // Optional: Add search functionality
-    document.getElementById('invSearch').addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-        const rows = document.querySelectorAll('#invTableBody tr');
+        alert('Product inventory updated successfully!');
+    } catch (err) {
+        console.error('Error updating product:', err);
 
-        rows.forEach(row => {
-            const text = row.textContent.toLowerCase();
-            row.style.display = text.includes(searchTerm) ? '' : 'none';
-        });
-    });
+        alert('Could not update backend!');
+    }
+});
+
 
 
 </script>
