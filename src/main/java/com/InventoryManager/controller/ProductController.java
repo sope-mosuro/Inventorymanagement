@@ -1,6 +1,7 @@
 package com.InventoryManager.controller;
 
 import com.InventoryManager.dto.ProductDTO;
+import com.InventoryManager.dto.UpdateProductPriceDTO;
 import com.InventoryManager.dto.UpdateStockRequestDTO;
 import com.InventoryManager.model.Product;
 import com.InventoryManager.service.ProductService;
@@ -33,6 +34,10 @@ public class ProductController {
     public ResponseEntity<Collection<ProductDTO>> getAllProducts() {
        List<ProductDTO> products = productService.getAllProducts();
         return ResponseEntity.ok((products));
+    }
+    @PostMapping("update-price")
+    public ResponseEntity<UpdateProductPriceDTO> updatePrice(@PathVariable UpdateProductPriceDTO request){
+        return ResponseEntity.ok(productService.UpdatePrice(request));
     }
 
 }
