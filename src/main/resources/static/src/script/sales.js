@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const salesForm = document.getElementById('salesForm');
     const salesTable = document.getElementById('salesTableBody');
 
-    salesForm.addEventListener('submit', (e) => {
+    salesForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const item = document.getElementById('product').value;
@@ -223,7 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
             customerValue = selectedOption.textContent;
         } else {
             customerValue = document.getElementById('customerName')?.value.trim();
-
             if (!customerValue) {
                 alert('Please enter a customer name!');
                 return;
@@ -234,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!quantity || isNaN(quantity) || quantity <= 0) return alert('Enter valid quantity!');
         if (!price || isNaN(price) || price <= 0) return alert('Enter valid price!');
 
+        // Append to table
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
             <td>${saleDate}</td>
@@ -248,7 +248,30 @@ document.addEventListener('DOMContentLoaded', () => {
         salesForm.reset();
         setDefaultDate();
         updatePrice();
-    });
+
+        // SUBTRACT QUANTITY LOGIC
+        try {
+            const response = await fetch("http://localhost:8080/api/admin/products/increase", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productName: item,
+                    quantitySold: parseInt(quantity)
+                }),
+            });
+
+            if (!response.ok) throw new Error('Failed to update product stock');
+
+            console.log(`Stock updated for ${item}: -${quantity}`);
+        } catch (error) {
+            console.error('Error updating stock:', error);
+            alert('Sale recorded, but failed to update stock!');
+        }
+               });
+
+
     // =================== END SALES FORM SUBMIT ===================
 
 

@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CountBook Configuration Page</title>
+    <link rel="icon" type="image/x-icon" href="../Cb%20logo.png">
+    <link id="default" rel="stylesheet" href="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+</head>
+<style>
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f2f4f8;
+  margin: 0;
+  padding: 2rem;
+  color: #333;
+}
+
+.config-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.config-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.config-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.config-card h2 {
+  margin: 0 0 0.5rem;
+}
+
+.config-card p {
+  color: #555;
+}
+
+button {
+  background: #3f51b5;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+button:hover {
+  background: #303f9f;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+}
+
+input {
+  width: 95%;
+  padding: 0.7rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+select {
+    width: 95%;
+  padding: 0.7rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.close-btn {
+  background: #ccc;
+  margin-left: 0.5rem;
+}
+</style>
+<body>
+<div class="config-container">
+    <h1>System Configuration</h1>
+
+    <div class="config-card">
+        <h2>Manage Users</h2>
+        <p>Configure user accounts and roles.</p>
+        <button data-dialog="userDialog">Configure</button>
+    </div>
+
+    <div class="config-card">
+        <h2>Manage Warehouses</h2>
+        <p>Add or update warehouse locations.</p>
+        <button data-dialog="warehouseDialog">Configure</button>
+    </div>
+
+    <div class="config-card">
+        <h2>Assign Products to Warehouses</h2>
+        <p>Assign products to different warehouses for sale</p>
+        <button data-dialog="salesRepDialog">Configure</button>
+    </div>
+
+    <div class="config-card">
+        <h2>Assign Products to Sales Reps</h2>
+        <p>Assign products to different sales rep for sale</p>
+        <button data-dialog="userassignDialog">Configure</button>
+    </div>
+</div>
+
+<!-- Dialogs -->
+<div id="userDialog" class="modal hidden">
+    <div class="modal-content">
+        <h3>Add New User</h3>
+        <form id="userForm">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="text" placeholder="Role" required>
+            <button type="submit">Save User</button>
+            <button type="button" class="close-btn">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<div id="warehouseDialog" class="modal hidden">
+    <div class="modal-content">
+        <h3>Add Warehouse</h3>
+        <form id="warehouseForm">
+            <input type="text" placeholder="Warehouse Name" required>
+            <input type="text" placeholder="Location" required>
+            <button type="submit">Save Warehouse</button>
+            <button type="button" class="close-btn">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<div id="salesRepDialog" class="modal hidden">
+    <div class="modal-content">
+        <h3>Add Products to WareHouse</h3>
+        <form id="salesRepForm">
+            <label>
+                <i class="fas fa-tag"></i> Product Name
+            </label>
+            <select class="productid" required>
+                <option value="">Select a product</option>
+            </select>
+
+            <input type="number" placeholder="Quantity" required>
+
+            <label for="warehouse">
+                <i class="fas fa-tag"></i> Warehouse Name
+            </label>
+            <select id="warehouse" required>
+                <option value="">Select a warehouse</option>
+            </select>
+            <button type="submit">Assign Products</button>
+            <button type="button" class="close-btn">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<div id="userassignDialog" class="modal hidden">
+    <div class="modal-content">
+        <h3>Add Products to WareHouse</h3>
+        <form id="assignuserForm">
+            <label>
+                <i class="fas fa-tag"></i>Product Name
+            </label>
+            <select class="productid" required>
+                <option value="">Select a product</option>
+            </select>
+
+            <input type="number" placeholder="Quantity" required>
+
+            <label for="salesrepname">
+                <i class="fas fa-tag"></i> Sales Rep Name
+            </label>
+            <select id="salesrepname" required>
+                <option value="">Select a Sales Rep</option>
+            </select>
+            <button type="submit">Assign Products</button>
+            <button type="button" class="close-btn">Cancel</button>
+        </form>
+    </div>
+</div>
+
+
+<script src="script/config.js"></script>
+</body>
+</html>
+
+

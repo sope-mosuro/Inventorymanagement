@@ -36,6 +36,7 @@ body {
 /* Section Wrapper */
 .section {
     margin-left: 110px;
+    transition: margin-left 0.3s ease;
     display: none;
     flex-grow: 1;
     height: 100vh;
@@ -762,6 +763,104 @@ a.inv-action-btn:active {
     font-size: 0.95em;
 }
 
+/* System Config dialog box styling */
+
+.modal-box,
+.modal-box--settings {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    display: none;
+}
+.modal-box--settings {
+    display: block; /* for the root one */
+}
+
+.modal-content {
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.modal-title {
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.modal-options li {
+    padding: 10px;
+    background: #e6d2b5;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    list-style-type: none;
+}
+
+.modal-options li:hover {
+    background: #d4ba9c;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #8b5e3c;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #704a2b;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal-box--settings {
+    display: none;
+}
+.modal-box.show,
+.modal-box--settings.show {
+    display: block;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-box,
+.modal-box--settings {
+    animation: fadeIn 0.2s ease-out;
+}
 
 
 

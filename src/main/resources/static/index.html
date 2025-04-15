@@ -59,6 +59,8 @@
 </div>
 
 <!--sections of the main content-->
+
+<!--Dashboard page (official landing page) -->
 <section id="dashboard" class="section">
 
     <div class="main--content">
@@ -221,9 +223,7 @@
 
 
 
-
-
-<!--Sales section that you want to work on-->
+<!--Sales section -->
 <section id="sales" class="section">
     <div class="main--content">
         <div class="header--wrapper">
@@ -370,7 +370,7 @@
 
 
 
-
+<!-- Inventory section-has links to external pages/-->
 <section id="stores" class="section">
     <div class="main--content">
 
@@ -403,12 +403,17 @@
 
             <br>
             <div class="inventory-actions">
-                <a href="http://localhost:8080/src/addinv.html" class="inv-action-btn">
-                    <i class="fas fa-plus"></i> Add Stock
-                </a>
+
                 <a href="http://localhost:8080/src/create.html" class="inv-action-btn">
                     <i class="fas fa-edit"></i> Create New
                 </a>
+                <a href="http://localhost:8080/src/addinv.html" class="inv-action-btn">
+                    <i class="fas fa-plus"></i> Add Stock
+                </a>
+                <a href="http://localhost:8080/src/#" class="inv-action-btn">
+                    <i class="fas fa-edit"></i> Change Price
+                </a>
+
             </div>
 
             <!-- Reports Section --><br>
@@ -449,12 +454,10 @@
 </section>
 
 
+<!-- Configuration section-->
 <section id="staff" class="section">
-
     <div class="main--content">
-
         <div class="header--wrapper">
-
             <div class="header--title">
                 <div>
                     <span class="system-name">CountBook</span>
@@ -487,17 +490,16 @@
                     <div class="card--header">
                         <div class="amount">
                                         <span class="title"><h3>
-                                        Users Configuration</h3></span>
-                        </div><a href="#config" id="dialog8"><i class="fas fa-users icon dark-purple"></i></a>
+                                        System Configuration</h3></span>
+                        </div><a id="dialog8" href="http://localhost:8080/src/config.html"><i class="fas fa-users icon dark-purple"></i></a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
     <!--Dialog boxes for User management-->
 
+    <!-- Active -->
     <div id="active" class="dialog-box">
         <div class="dialog-content">
             <span class="close-btn7">&times;</span>
@@ -538,71 +540,91 @@
                     </div>
                     <span class="title"><h3>Olawale OLAMILEKAN</h3></span>
                 </div>
-
             </div>
-
         </div>
     </div>
 
-    <div id="config" class="dialog-box">
-        <div class="dialog-content">
-            <span class="close-btn8">&times;</span>
-            <h2>User Manager</h2><br>
-            <ul style="text-align: left;">
-                <div id="addUserBtn" class="umoptions"><strong>Add New User</strong></div><br>
-                <div id="removeUserBtn" class="umoptions"><strong>Remove Existing User</strong></div><br>
-                <div id="activationSetupBtn" class="umoptions"><strong>User Activation Setup</strong></div><br>
-            </ul>
-        </div>
-    </div>
+    <!-- Lobby -->
+<!--    <div id="config" class="modal-box&#45;&#45;settings">-->
+<!--        <div class="modal-content">-->
+<!--            <span class="modal-close" data-close="config">&times;</span>-->
+<!--            <h2 class="modal-title">System Configuration</h2>-->
+<!--            <ul class="modal-options">-->
+<!--                <li><a href="#warehouse-dialog">Create Warehouse</a></li>-->
+<!--                <li><a href="#salesrep-dialog">Create Sales Representative</a></li>-->
+<!--                <li><a href="#assign-warehouse-dialog">Assign Product to Warehouse</a></li>-->
+<!--                <li><a href="#assign-salesrep-dialog">Assign Product to Sales Rep</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
 
+<!--    &lt;!&ndash; Dialog 1 &ndash;&gt;-->
+<!--    <div id="warehouse-dialog" class="modal-box hidden">-->
+<!--        <div class="modal-content">-->
+<!--            <span class="modal-close" data-close="warehouse-dialog">&times;</span>-->
+<!--            <h2>Create Warehouse</h2>-->
+<!--            <form>-->
+<!--                <label for="warehouse-id">Warehouse ID:</label>-->
+<!--                <input type="text" id="warehouse-id" required>-->
+<!--                <label for="warehouse-name">Warehouse Name:</label>-->
+<!--                <input type="text" id="warehouse-name" required>-->
+<!--                <button type="submit">Create</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
 
-    <div id="addUserDialog" class="dialog-box">
-        <div class="dialog-content" >
-            <span class="close-btn9">&times;</span>
-            <h2>Add New User</h2>
-            <p><small><em>Create a new user</em></small></p><br>
-            <form>
-                <label for="username">Username:</label> <input type="text" id="username" required><br>
+<!--    &lt;!&ndash; Dialog 2 &ndash;&gt;-->
+<!--    <div id="salesrep-dialog" class="modal-box hidden">-->
+<!--        <div class="modal-content">-->
+<!--            <span class="modal-close" data-close="salesrep-dialog">&times;</span>-->
+<!--            <h2>Create Sales Representative</h2>-->
+<!--            <form>-->
+<!--                <label for="rep-id">Sales Rep ID:</label>-->
+<!--                <input type="text" id="rep-id" required>-->
+<!--                <label for="rep-name">Sales Rep Name:</label>-->
+<!--                <input type="text" id="rep-name" required>-->
+<!--                <button type="submit">Create</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
 
-                <label for="email">Email:</label> <input type="email" id="email" required><br>
+<!--    &lt;!&ndash; Dialog 3 &ndash;&gt;-->
+<!--    <div id="assign-warehouse-dialog" class="modal-box hidden">-->
+<!--        <div class="modal-content">-->
+<!--            <span class="modal-close" data-close="assign-warehouse-dialog">&times;</span>-->
+<!--            <h2>Assign Products to Warehouse</h2>-->
+<!--            <form>-->
+<!--                <label for="assign-product">Product Name:</label>-->
+<!--                <select id="assign-product" required><option></option></select>-->
+<!--                <label for="assign-qty">Quantity:</label>-->
+<!--                <input type="number" id="assign-qty" required>-->
+<!--                <button type="submit">Assign</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
 
-                <button type="submit">Add User</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Remove User Dialog -->
-    <div id="removeUserDialog" class="dialog-box">
-        <div class="dialog-content">
-            <span class="close-btn9">&times;</span>
-            <h2>Remove User</h2>
-            <form>
-                <label for="removeUsername">Enter Username:</label>
-                <input type="text" id="removeUsername" required><br>
-
-                <button type="submit">Remove User</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- User Activation Setup Dialog -->
-    <div id="activationDialog" class="dialog-box">
-        <div class="dialog-content">
-            <span class="close-btn9">&times;</span>
-            <h2>User Activation Setup</h2>
-            <form>
-                <label for="activationCode">Activation Code:</label>
-                <input type="text" id="activationCode" required><br>
-                <button type="submit">Activate</button>
-            </form>
-        </div>
-    </div>
+<!--    &lt;!&ndash; Dialog 4 &ndash;&gt;-->
+<!--    <div id="assign-salesrep-dialog" class="modal-box hidden">-->
+<!--        <div class="modal-content">-->
+<!--            <span class="modal-close" data-close="assign-salesrep-dialog">&times;</span>-->
+<!--            <h2>Assign Product to Sales Rep</h2>-->
+<!--            <form>-->
+<!--                <label for="assign-rep-product">Product Name:</label>-->
+<!--                <select id="assign-rep-product" required><option></option></select>-->
+<!--                <label for="assign-rep">Sales Rep:</label>-->
+<!--                <input type="text" id="assign-rep" required>-->
+<!--                <label for="assign-rep-qty">Quantity:</label>-->
+<!--                <input type="number" id="assign-rep-qty" required>-->
+<!--                <button type="submit">Assign</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
 
 
 </section>
 
 
+<!-- Settings section-->
 <section id="setting" class="section">
 
     <div class="main--content">
@@ -641,11 +663,10 @@
 
 
 
-
-
 <script src="src/script/countbook.js"></script>
 <script src="src/script/sales.js"></script>
 <script src="src/script/inventory.js"></script>
+<script src="src/script/config.js"></script>
 
 </body>
 

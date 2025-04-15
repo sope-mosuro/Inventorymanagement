@@ -43,19 +43,7 @@
                         <input type="number" id="stkqty" required>
                     </div>
 
-                    <div class="inv-form-group">
-                        <label for="amt">
-                            <i class="fas fa-coins"></i> Price per Unit
-                        </label>
-                        <input type="number" id="amt" required>
-                    </div>
 
-                    <div class="inv-form-group">
-                        <label for="supplier">
-                            <i class="fas fa-truck"></i> Supplier
-                        </label>
-                        <input type="text" id="supplier" required>
-                    </div>
 
                     <div class="inv-form-group">
                         <label for="transStatus">
@@ -74,7 +62,7 @@
                     <i class="fas fa-plus-circle"></i> Add Stock
                 </button>
 
-                <a href="http://localhost:8080/#" style="margin-left: 450px;"><em>back</em></a>
+                <a href="http://localhost:8080/#stores" style="margin-left: 450px;"><em>back</em></a>
 
 
             </form>
@@ -92,8 +80,6 @@
                         <th>Date</th>
                         <th>Product</th>
                         <th>Quantity</th>
-                        <th>Price per Unit</th>
-                        <th>Supplier</th>
                         <th>Status</th>
                     </tr>
                     </thead>
@@ -130,10 +116,13 @@
         });
     });
 
-    // lines of code that fetches product items
 
-    let allProducts = []; // Make it global so we can use it later
+// Quantity toggle script
 
+
+    let allProducts = []; // Global product cache
+
+// Fetch product list and populate dropdown
 document.addEventListener('DOMContentLoaded', async function () {
     const productSelect = document.getElementById('productid');
 
@@ -141,11 +130,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         const response = await fetch("http://localhost:8080/api/admin/products/all-products");
         if (!response.ok) throw new Error('Failed to fetch product list');
 
-        allProducts = await response.json(); // Store for later use
+        allProducts = await response.json();
 
         allProducts.forEach(product => {
             const option = document.createElement('option');
-            option.value = product.id; // <-- use ID for easy lookup
+            option.value = product.name; // 👈 product name as identifier
             option.textContent = product.name;
             productSelect.appendChild(option);
         });
@@ -159,40 +148,38 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
-    document.getElementById('invForm').addEventListener('submit', async function(e) {
+// Form submission handler
+document.getElementById('invForm').addEventListener('submit', async function (e) {
     e.preventDefault();
-    const productId = document.getElementById('productid').value;
-    const product = allProducts.find(p => p.id == productId);
+
+    const productName = document.getElementById('productid').value;
+    const product = allProducts.find(p => p.name === productName);
 
     if (!product) {
         alert('Product not found!');
         return;
     }
-    const quantityToAdd = parseInt(document.getElementById('stkqty').value);
-    const newPrice = parseFloat(document.getElementById('amt').value);
 
-    // Update values
-    const updatedProduct = {
-        ...product,
-        stock: product.stock + quantityToAdd,   // add to existing stock
-        price: newPrice                         // replace oldPrice with newPrice
-    };
+    const quantityToAdd = parseInt(document.getElementById('stkqty').value);
+
     try {
-        const updateResponse = await fetch("http://localhost:8080/api/admin/products/all-products/${productId}", {
+        const updateResponse = await fetch("http://localhost:8080/api/admin/products/increase", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedProduct)
+            body: JSON.stringify({
+                productName: product.name, //
+                quantity: quantityToAdd
+            })
         });
 
-        if (!updateResponse.ok) throw new Error('Failed to update product');
+        if (!updateResponse.ok) throw new Error('Failed to update stock');
 
-        // Continue adding to the frontend table
+        // Add to frontend table
         const formData = {
             date: document.getElementById('buyDate').value,
             product: product.name,
             quantity: quantityToAdd,
-            amount: newPrice,
-            supplier: document.getElementById('supplier').value,
+
             status: document.getElementById('transStatus').value
         };
 
@@ -201,8 +188,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             <td>${formData.date}</td>
             <td>${formData.product}</td>
             <td>${formData.quantity}</td>
-            <td>₦${parseFloat(formData.amount).toLocaleString()}</td>
-            <td>${formData.supplier}</td>
+
             <td><span class="status-badge ${formData.status.toLowerCase()}">${formData.status}</span></td>
         `;
         document.getElementById('invTableBody').appendChild(newRow);
@@ -211,10 +197,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         alert('Product inventory updated successfully!');
     } catch (err) {
         console.error('Error updating product:', err);
-
         alert('Could not update backend!');
     }
 });
+
 
 
 
