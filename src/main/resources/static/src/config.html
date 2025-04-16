@@ -147,12 +147,19 @@ select {
     <div class="modal-content">
         <h3>Add New User</h3>
         <form id="userForm">
-            <input type="text" placeholder="Full Name" required>
-            <input type="email" placeholder="Email" required>
-            <input type="text" placeholder="Role" required>
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+
+            <select name="role" required>
+                <option value="">Select Role</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="SALES_REP">SALES REP</option>
+            </select>
+
             <button type="submit">Save User</button>
             <button type="button" class="close-btn">Cancel</button>
         </form>
+
     </div>
 </div>
 
@@ -160,8 +167,8 @@ select {
     <div class="modal-content">
         <h3>Add Warehouse</h3>
         <form id="warehouseForm">
-            <input type="text" placeholder="Warehouse Name" required>
-            <input type="text" placeholder="Location" required>
+            <input type="text" name="name" placeholder="Warehouse Name" required>
+            <input type="text" name="location" placeholder="Location" required>
             <button type="submit">Save Warehouse</button>
             <button type="button" class="close-btn">Cancel</button>
         </form>
