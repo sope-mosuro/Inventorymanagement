@@ -36,7 +36,7 @@ public class ProductController {
         return ResponseEntity.ok((products));
     }
     @PostMapping("update-price")
-    public ResponseEntity<UpdateProductPriceDTO> updatePrice(@PathVariable UpdateProductPriceDTO request){
+    public ResponseEntity<UpdateProductPriceDTO> updatePrice(@RequestBody UpdateProductPriceDTO request){
         return ResponseEntity.ok(productService.UpdatePrice(request));
     }
 
