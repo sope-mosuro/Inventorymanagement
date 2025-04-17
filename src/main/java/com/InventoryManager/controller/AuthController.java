@@ -37,7 +37,7 @@ public class AuthController {
         .httpOnly(true)
         .secure(false)
         .path("/")
-        .maxAge(60 * 60) // 1 hour expiration
+        .maxAge(60 * 120) // 2 hour expiration
                 .build();
 
 

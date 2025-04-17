@@ -1,6 +1,8 @@
 package com.InventoryManager.service;
 
+import com.InventoryManager.dto.AllUsersDTO;
 import com.InventoryManager.dto.SalesRepDTO;
+import com.InventoryManager.dto.UserResponse;
 import com.InventoryManager.model.Role;
 import com.InventoryManager.model.User;
 import com.InventoryManager.repository.UserRepository;
@@ -18,6 +20,15 @@ public class UserService {
         List<User> salesReps = userRepository.findByRole(Role.SALES_REP);
         return salesReps.stream()
                 .map(user -> new SalesRepDTO(user.getId(), user.getName(), user.getEmail()))
+                .collect(Collectors.toList());
+    }
+
+    public List<AllUsersDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user-> new AllUsersDTO(user.getName(),
+                        user.getEmail(),
+                        user.getRole().name()))
                 .collect(Collectors.toList());
     }
 }

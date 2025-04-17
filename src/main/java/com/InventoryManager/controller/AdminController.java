@@ -1,19 +1,12 @@
 package com.InventoryManager.controller;
 
-import com.InventoryManager.dto.CustomerRequestDTO;
-import com.InventoryManager.dto.CustomerResponseDTO;
-import com.InventoryManager.dto.SalesRepDTO;
-import com.InventoryManager.dto.UserRequest;
-import com.InventoryManager.model.Customer;
-import com.InventoryManager.model.Role;
+import com.InventoryManager.dto.*;
 import com.InventoryManager.model.User;
-import com.InventoryManager.repository.CustomerRepository;
 import com.InventoryManager.repository.UserRepository;
 import com.InventoryManager.service.CustomerService;
 import com.InventoryManager.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
-//@PreAuthorize("hasRole('ADMIN')")
+
 public class AdminController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -57,6 +50,12 @@ public class AdminController {
     public ResponseEntity<Collection<CustomerResponseDTO>> getAllCustomers() {
         Collection<CustomerResponseDTO> customers = customerService.getAllCustomers();
         return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("all-users")
+    public ResponseEntity<List<AllUsersDTO>>getAllUsers(){
+        List<AllUsersDTO> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 
 }
