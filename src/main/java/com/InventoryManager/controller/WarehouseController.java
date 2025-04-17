@@ -1,11 +1,7 @@
 package com.InventoryManager.controller;
 
-import com.InventoryManager.model.Inventory;
-import com.InventoryManager.model.Product;
+import com.InventoryManager.dto.WarehouseDTO;
 import com.InventoryManager.model.Warehouse;
-import com.InventoryManager.repository.InventoryRepository;
-import com.InventoryManager.repository.ProductRepository;
-import com.InventoryManager.repository.WarehouseRepository;
 import com.InventoryManager.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +22,7 @@ public class WarehouseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Warehouse>> getAllWarehouses() {
+    public ResponseEntity<List<WarehouseDTO>> getAllWarehouses() {
         return ResponseEntity.ok(warehouseService.getAllWarehouses());
     }
 
