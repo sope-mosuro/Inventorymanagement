@@ -102,6 +102,7 @@
           const res = await fetch(`http://localhost:8080/api/admin/products/${selectedProduct.id}/update-price`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ newPrice })
           });
           if (!res.ok) throw new Error('Failed to update price');
