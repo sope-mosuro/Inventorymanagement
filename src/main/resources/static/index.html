@@ -12,7 +12,6 @@
 
 </head>
 
-
 <body>
 <!--Side Pane featuring module contents-->
 <div class="sidebar">
@@ -57,7 +56,6 @@
     </ul>
 
 </div>
-
 <!--sections of the main content-->
 
 <!--Dashboard page (official landing page) -->
@@ -222,7 +220,6 @@
 </section>
 
 
-
 <!--Sales section -->
 <section id="sales" class="section">
     <div class="main--content">
@@ -329,9 +326,7 @@
     </div>
 
 </section>
-
-<!-- This is the create new customer modal that pops up when creating a new customer-->
-
+<!-- This is the 'create new customer' modal that pops up when creating a new customer-->
 <div id="newCustomerModal" class="sales-modal">
     <div class="sales-modal-content">
         <span class="sales-modal-close">&times;</span>
@@ -369,8 +364,7 @@
 <!-- End of sales section-->
 
 
-
-<!-- Inventory section-has links to external pages/-->
+<!-- Inventory section-has links to external pages -->
 <section id="stores" class="section">
     <div class="main--content">
 
@@ -410,9 +404,10 @@
                 <a href="http://localhost:8080/src/addinv.html" class="inv-action-btn">
                     <i class="fas fa-plus"></i> Add Stock
                 </a>
-                <a href="http://localhost:8080/src/#" class="inv-action-btn">
+                <a href="#" id="openChangePriceDialog" class="inv-action-btn">
                     <i class="fas fa-edit"></i> Change Price
                 </a>
+
 
             </div>
 
@@ -452,6 +447,33 @@
         </div>
     </div>
 </section>
+<!-- This is the 'change price' modal that pops up when trying to change product price-->
+<div id="changePriceDialog" class="changePrice-modal changePrice-hidden">
+    <div class="changePrice-modal-content">
+        <h3 class="changePrice-title">Change Product Price</h3>
+        <form id="changePriceForm" class="changePrice-form">
+
+            <!-- Product Select -->
+            <select name="product" id="changePriceProductSelect" class="changePrice-input productid" required>
+            <option value="">Select Product</option>
+                <!-- dynamically populated -->
+            </select>
+
+            <!-- Old Price (read-only) -->
+            <input type="text" name="oldPrice" id="changePriceOldPrice" class="changePrice-input" placeholder="Old Price" readonly>
+
+            <!-- New Price -->
+            <input type="number" name="newPrice" id="changePriceNewPrice" class="changePrice-input" placeholder="Enter New Price" required min="0" step="0.01">
+
+            <!-- Buttons -->
+            <div class="changePrice-button-group">
+                <button type="submit" class="changePrice-save-btn">Update Price</button>
+                <button type="button" class="changePrice-close-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End of inventory section-->
 
 
 <!-- Configuration section-->
@@ -660,7 +682,6 @@
         </div>
     </div>
 </section>
-
 
 
 <script src="src/script/countbook.js"></script>

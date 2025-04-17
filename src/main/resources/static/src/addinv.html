@@ -10,7 +10,6 @@
 <body>
 
 <div class="main--content inv-main-content">
-
     <div class="card--container inv-card-container">
         <div class="inv-form-wrapper">
             <form id="invForm" class="inv-form">
@@ -61,7 +60,6 @@
                 <button type="submit" class="inv-submit-btn">
                     <i class="fas fa-plus-circle"></i> Add Stock
                 </button>
-
                 <a href="http://localhost:8080/#stores" style="margin-left: 450px;"><em>back</em></a>
 
 
@@ -90,7 +88,6 @@
     </div>
 </div>
 
-</div>
 
 <script>
 
@@ -119,7 +116,6 @@
 
 // Quantity toggle script
 
-
     let allProducts = []; // Global product cache
 
 // Fetch product list and populate dropdown
@@ -134,7 +130,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         allProducts.forEach(product => {
             const option = document.createElement('option');
-            option.value = product.name; // 👈 product name as identifier
+            option.value = product.name; // product name is now our identifier
             option.textContent = product.name;
             productSelect.appendChild(option);
         });

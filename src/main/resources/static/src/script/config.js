@@ -290,7 +290,7 @@ async function populateWarehouseDropdowns() {
     const rawText = await response.text();  // <-- fetch raw response
     console.log("RAW WAREHOUSE RESPONSE:", rawText);
 
-    // Try parsing it
+    // Parse it
     const warehouses = JSON.parse(rawText);
 
     warehouseDropdowns.forEach(select => {
