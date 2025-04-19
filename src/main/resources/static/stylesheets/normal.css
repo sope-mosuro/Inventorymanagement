@@ -192,7 +192,7 @@ body {
     font-size: 15px;
 }
 .payment--card {
-    background: rgba(229, 223, 223);
+    background: rgb(172, 186, 226);
     border-radius: 10px;
     padding: 1.2rem;
     width: 290px;
@@ -683,7 +683,7 @@ tfoot td {
 }
 #umoptions{
     border-radius: 5px; color: black;
-    cursor: pointer;height: 40px; width: 100%; background-color: #b77f59; padding: 8.5px;
+    cursor: pointer;height: 40px; width: 100%; background-color: rgba(114, 119, 210, 0.8); padding: 8.5px;
 }
 .close-btn9 {
     position: absolute;
