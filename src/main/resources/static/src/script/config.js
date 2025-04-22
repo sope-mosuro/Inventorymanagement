@@ -44,38 +44,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
 
-// Fetch WareHouses
-const warehouseDropdowns = document.querySelectorAll('.warehouse-select');
-try {
-  const response = await fetch('http://localhost:8080/api/admin/warehouses');
-  if (!response.ok) throw new Error('Failed to fetch warehouse list');
-  const warehouses = await response.json();
-  warehouseDropdowns.forEach(select => {
-    // Clear existing options
-    select.innerHTML = '';
-    // Default option
-    const defaultOption = document.createElement('option');
-    defaultOption.disabled = true;
-    defaultOption.selected = true;
-    defaultOption.textContent = 'Select a warehouse';
-    select.appendChild(defaultOption);
-    // Populate with warehouse options
-    warehouses.forEach(warehouse => {
-      const option = document.createElement('option');
-      option.value = warehouse.name; // Or warehouse.id depending on your use case
-      option.textContent = warehouse.name;
-      select.appendChild(option);
-    });
-  });
-} catch (error) {
-  console.error('Error loading warehouse names:', error);
-  warehouseDropdowns.forEach(select => {
-    const fallbackOption = document.createElement('option');
-    fallbackOption.value = '';
-    fallbackOption.textContent = 'Error loading warehouses';
-    select.appendChild(fallbackOption);
-  });
-}
 // Fetch Sales Reps
 const salesRepDropdowns = document.querySelectorAll('.salesrep');
 try {
@@ -112,6 +80,15 @@ try {
   });
 }
 
+// call to Assign products from Global to Warehouses
+    setupWarehouseAssignmentForm();
+
+// Fetch warehouses
+    populateWarehouseDropdowns();
+
+// call to Assign products from Warehouses to SalesRep
+    setupSalesRepAssignmentForm();
+
 // call to user creation function
 const userForm = document.getElementById("userForm");
   if (userForm) {
@@ -145,7 +122,6 @@ if (warehouseForm) {
   });
 
 });
-
 
 //  User creation handler
 async function handleUserFormSubmission(form) {
@@ -228,7 +204,141 @@ async function handleWarehouseFormSubmission(form) {
   }
 }
 
-// Assign products to warehouse
+// Assign products from Global to warehouse
+function setupWarehouseAssignmentForm() {
+  const form = document.getElementById('salesRepForm');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const productName = form.querySelector('.productid').value;
+    const warehouseName = form.querySelector('.warehouse-select').value;
+    const quantity = parseInt(form.querySelector('input[type="number"]').value, 10);
+
+    if (!productName || !warehouseName || isNaN(quantity) || quantity <= 0) {
+      alert('Please fill all fields correctly.');
+      return;
+    }
+    const payload = {
+                    productName,
+                    warehouseName,
+                    quantity
+                    };
+    try {
+      const response = await fetch("http://localhost:8080/api/admin/inventory/add", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) throw new Error('Failed to assign product to warehouse');
+      const data = await response.json();
+      alert(`Success: ${data.message || 'Product assigned to warehouse successfully.'}`);
+      form.reset();
+    } catch (error) {
+      console.error('Assignment error:', error);
+      alert('Error: Could not assign product. Check console for details.');
+    }
+  });
+}
+// Assign products from warehouse to sales rep
+function setupSalesRepAssignmentForm() {
+  const form = document.getElementById('assignuserForm');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const productName = form.querySelector('.productid').value;
+    const warehouseName = form.querySelector('.warehouse-select').value;
+    const salesRepName = form.querySelector('.salesrep').value;
+    const quantity = parseInt(form.querySelector('input[type="number"]').value, 10);
+
+    if (!productName || !warehouseName || !salesRepName || isNaN(quantity) || quantity <= 0) {
+      alert('Please fill in all fields correctly.');
+      return;
+    }
+    const payload = {
+      productName,
+      warehouseName,
+      salesRepName,
+      quantity
+    };
+    try {
+      const response = await fetch("http://localhost:8080/api/admin/inventory/assign", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) throw new Error('Failed to assign product to sales rep');
+      const data = await response.json();
+      alert(`Success: ${data.message || 'Product assigned to sales rep successfully.'}`);
+      form.reset();
+    } catch (error) {
+      console.error('Assignment error:', error);
+      alert('Error: Could not assign product. Check console for details.');
+    }
+  });
+}
+
+// fetch warehouses function
+async function populateWarehouseDropdowns() {
+  const warehouseDropdowns = document.querySelectorAll('.warehouse-select');
+  try {
+    const response = await fetch("http://localhost:8080/api/admin/warehouses");
+    const rawText = await response.text();  // <-- fetch raw response
+    console.log("RAW WAREHOUSE RESPONSE:", rawText);
+
+    // Try parsing it
+    const warehouses = JSON.parse(rawText);
+
+    warehouseDropdowns.forEach(select => {
+      select.innerHTML = '';
+      const defaultOption = document.createElement('option');
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      defaultOption.textContent = 'Select a warehouse';
+      select.appendChild(defaultOption);
+
+      warehouses.forEach(warehouse => {
+        const option = document.createElement('option');
+        option.value = warehouse.name;
+        option.textContent = warehouse.name;
+        select.appendChild(option);
+      });
+    });
+  } catch (error) {
+    console.error('Error loading warehouse names:', error);
+    warehouseDropdowns.forEach(select => {
+      const fallbackOption = document.createElement('option');
+      fallbackOption.value = '';
+      fallbackOption.textContent = 'Error loading warehouses';
+      select.appendChild(fallbackOption);
+    });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

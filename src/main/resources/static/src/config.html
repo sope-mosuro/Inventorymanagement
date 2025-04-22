@@ -202,23 +202,26 @@ select {
 
 <div id="userassignDialog" class="modal hidden">
     <div class="modal-content">
-        <h3>Add Products to WareHouse</h3>
+        <h3>Assign Products to Sales Rep</h3>
         <form id="assignuserForm">
-            <label>
-                <i class="fas fa-tag"></i>Product Name
-            </label>
+            <label><i class="fas fa-tag"></i> Product Name</label>
             <select class="productid" required>
                 <option value="">Select a product</option>
             </select>
 
+            <label><i class="fas fa-tag"></i> Quantity</label>
             <input type="number" placeholder="Quantity" required>
 
-            <label>
-                <i class="fas fa-tag"></i> Sales Rep Name
-            </label>
+            <label><i class="fas fa-tag"></i> Warehouse</label>
+            <select class="warehouse-select" required>
+                <option value="">Select a warehouse</option>
+            </select>
+
+            <label><i class="fas fa-tag"></i> Sales Rep Name</label>
             <select class="salesrep" required>
                 <option value="">Select a Sales Rep</option>
             </select>
+
             <button type="submit">Assign Products</button>
             <button type="button" class="close-btn">Cancel</button>
         </form>
