@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
     Optional<User> findByName(String name);
     List<User> findByRole(Role role);
-    @Query("SELECT u.id AS id, u.name AS name, SUM(s.totalCost) AS totalSales FROM User u JOIN Sale s ON s.salesRep.id = u.id GROUP BY u.id ORDER BY totalSales DESC")
+    @Query("SELECT u.id AS id, u.name AS name, COUNT(s.id) AS totalSales FROM User u JOIN Sale s ON s.salesRep.id = u.id GROUP BY u.id,u.name ORDER BY totalSales DESC")
     List<UserSalesProjection> findBestSellingReps();
 
 }

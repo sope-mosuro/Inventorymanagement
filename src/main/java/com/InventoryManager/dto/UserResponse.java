@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+
 public class UserResponse implements UserDetails {
     private final User user;
 
