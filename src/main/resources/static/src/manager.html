@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CountBook Inventory Manager Page</title>
+    <link rel="icon" type="image/x-icon" href="../Cb%20logo.png">
+    <link id="default" rel="stylesheet" href="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+</head>
+<style>
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f2f4f8;
+  margin: 0;
+  padding: 2rem;
+  color: #333;
+}
+
+.config-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.config-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+.button-case{
+    display: flex;
+    padding: 25px;
+    gap: 15px;
+}
+
+.config-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.config-card h2 {
+  margin: 0 0 0.5rem;
+}
+
+.config-card p {
+  color: #555;
+}
+
+button {
+  background: #3f51b5;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+button:hover {
+  background: #303f9f;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+}
+
+input {
+  width: 95%;
+  padding: 0.7rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+select {
+    width: 95%;
+  padding: 0.7rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.inventory-table th,
+.inventory-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.inventory-table th {
+  background-color: #f0f0f0;
+  text-align: left;
+}
+
+.close-btn {
+  background: #ccc;
+  margin-left: 0.5rem;
+}
+</style>
+<body>
+
+<div class="config-container">
+    <h1>Inventory Manager</h1>
+
+    <div class="config-card">
+        <h2>Warehouses</h2>
+        <p>Details of Warehouses and their Stock level</p>
+        <div class="button-case"></div>
+    </div>
+
+    <div class="config-card">
+        <h2>Sales Reps</h2>
+        <p>Details of Sales Reps and their Stock level</p>
+        <button data-dialog="warehouseDialog">Details</button>
+    </div>
+
+</div>
+
+<!-- Dialog boxes for more details -->
+
+<div id="userDialog" class="modal hidden">
+    <div class="modal-content">
+        <h3>Warehouses</h3>
+        <br>
+        <div class="modal-body">
+            <!-- Injected content goes here -->
+        </div>
+    </div>
+</div>
+
+<div id="warehouseDialog" class="modal hidden">
+    <div class="modal-content">
+        <h3>Sales Reps</h3>
+        <ul></ul>
+    </div>
+</div>
+
+
+<script src="script/manager.js"></script>
+</body>
+</html>
+
