@@ -6,9 +6,7 @@ gtag('js', new Date());
 gtag('config', 'G-6QGQLGFBMJ');
 
 
-
 /*      Logic for grouped dialog boxes       */
-
 document.addEventListener("DOMContentLoaded", function() {
     /* Grouped Dialog Box Logic */
     const dialogIds = [
@@ -24,19 +22,16 @@ document.addEventListener("DOMContentLoaded", function() {
         const dialog = document.getElementById(dialogId);
         const modal = document.getElementById(modalIds[i]);
         const closeBtn = document.querySelector(".close-btn" + (i === 0 ? "" : (i+1)));
-
         if (dialog && modal) {
             dialog.addEventListener("click", function(e) {
                 e.preventDefault();
                 modal.style.display = "flex";
             });
-
             if (closeBtn) {
                 closeBtn.addEventListener("click", function() {
                     modal.style.display = "none";
                 });
             }
-
             window.addEventListener("click", function(event) {
                 if (event.target === modal) {
                     modal.style.display = "none";
@@ -48,22 +43,182 @@ document.addEventListener("DOMContentLoaded", function() {
     /* Slide Navigation Switch */
     const sections = document.querySelectorAll(".section");
     const menuItems = document.querySelectorAll(".menu li");
-
     menuItems.forEach(item => {
         item.addEventListener("click", function() {
             let target = this.getAttribute("data-target");
             sections.forEach(section => {
                 section.style.display = section.id === target.replace('#','') ? "block" : "none";
             });
-
             menuItems.forEach(menuItem => {
                 menuItem.classList.remove("active");
             });
-
             this.classList.add("active");
         });
     });
-});
+
+        fetchTopSalesReps();
+
+        fetchWarehouses();
+
+        fetchTopProducts();
+
+
+
+     });
+
+    // Dashboard wiring and data fetch functions
+
+    // Sales Rep ranking dialog box using new API
+    async function fetchTopSalesReps() {
+      try {
+        const res = await fetch("http://localhost:8080/api/report/best-selling-reps");
+        const reps = await res.json();
+        updateSalesRepSection(reps);
+      } catch (err) {
+        console.error("Failed to fetch sales reps:", err);
+      }
+    }
+
+    function updateSalesRepSection(reps) {
+      const card = document.querySelector("#dialog1 .amount");
+      const list = document.querySelector("#srrank-list");
+
+      if (!card || !list) {
+        console.error("Card or modal list element is missing.");
+        return;
+      }
+
+      // Clear existing values
+      const title = card.querySelector(".title");
+      const oldValue = card.querySelector(".amount-value");
+
+      if (title) title.textContent = "Top Sales Rep";
+      if (oldValue) oldValue.remove();
+
+      // Show only the top rep in the card
+      const topRep = reps[0]?.name || "No reps available";
+      const summary = document.createElement("span");
+      summary.className = "amount-value";
+      summary.textContent = topRep;
+      card.appendChild(summary);
+
+      // Clear and repopulate the modal list
+      list.innerHTML = "";
+      reps.slice(0, 4).forEach((rep, index) => {
+        console.log(`Rep ${index + 1}:`, rep);
+        if (!rep || !rep.name) return;
+
+        const li = document.createElement("li");
+        li.className = "umoptions";
+        li.innerHTML = `<strong>${rep.name}</strong>`;
+        list.appendChild(li);
+      });
+    }
+
+
+    // Warehouse ranking box
+    async function fetchWarehouses() {
+      try {
+        const res = await fetch("http://localhost:8080/api/admin/warehouses");
+        const warehouses = await res.json();
+        updateWarehouseSection(warehouses);
+      } catch (err) {
+        console.error("Failed to fetch warehouses:", err);
+      }
+    }
+
+    function updateWarehouseSection(warehouses) {
+      const card = document.querySelector("#dialog3 .amount");  // update to your actual dialog ID
+      const list = document.querySelector("#whrank-list");     // modal list container
+
+      if (!card || !list) {
+        console.error("Card or modal list element is missing.");
+        return;
+      }
+
+      // Reset card
+      const title = card.querySelector(".title");
+      const oldValue = card.querySelector(".amount-value");
+
+      if (title) title.textContent = "Total Warehouses";
+      if (oldValue) oldValue.remove();
+
+      const topWarehouse = warehouses[0]?.name || "No warehouses found";
+      const summary = document.createElement("span");
+      summary.className = "amount-value";
+      summary.textContent = topWarehouse;
+      card.appendChild(summary);
+
+      // Reset modal list
+      list.innerHTML = "";
+      warehouses.slice(0, 4).forEach((warehouse, index) => {
+        console.log(`Warehouse ${index + 1}:`, warehouse);
+        if (!warehouse || !warehouse.name) return;
+
+        const li = document.createElement("li");
+        li.className = "umoptions";
+        li.innerHTML = `<strong>${warehouse.name}</strong>`;
+        list.appendChild(li);
+      });
+    }
+
+// Products dialog box
+async function fetchTopProducts() {
+  try {
+    const res = await fetch("http://localhost:8080/api/report/best-selling-products");
+    const products = await res.json();
+    updateTopProductsSection(products);
+  } catch (err) {
+    console.error("Failed to fetch top products:", err);
+  }
+}
+
+function updateTopProductsSection(products) {
+  const card = document.querySelector("#dialog4 .amount");
+  const list = document.querySelector("#prdrank-list");
+
+  if (!card || !list) {
+    console.error("Card or modal list element is missing for products.");
+    return;
+  }
+
+  // Clear existing values
+  const title = card.querySelector(".title");
+  const oldValue = card.querySelector(".amount-value");
+
+  if (title) title.textContent = "Top Product";
+  if (oldValue) oldValue.remove();
+
+  // Show only the top product in the card
+  const topProduct = products[0]?.name || "No products available";
+  const summary = document.createElement("span");
+  summary.className = "amount-value";
+  summary.textContent = topProduct;
+  card.appendChild(summary);
+
+console.log("card value set", topProduct);
+
+console.log("fetching payload:", products);
+
+  // Clear and repopulate the modal list
+  list.innerHTML = "";
+  products.slice(0, 4).forEach((product, index) => {
+    console.log(`Product ${index + 1}:`, product);
+    if (!product || !product.name) return;
+
+    const li = document.createElement("li");
+    li.className = "umoptions";
+    li.innerHTML = `<strong>${product.name}</strong>`;
+    list.appendChild(li);
+  });
+}
+
+
+
+
+
+
+
 
 
 //    Log Out Alert

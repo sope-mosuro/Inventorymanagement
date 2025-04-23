@@ -42,7 +42,19 @@
                         <input type="number" id="stkqty" required>
                     </div>
 
+                    <div class="inv-form-group">
+                        <label for="purchased">
+                            <i class="fas fa-cubes"></i> Price Purchased
+                        </label>
+                        <input type="number" id="purchased" required>
+                    </div>
 
+                    <div class="inv-form-group">
+                        <label for="vendor">
+                            <i class="fas fa-cubes"></i> Source
+                        </label>
+                        <input type="text" id="vendor" required>
+                    </div>
 
                     <div class="inv-form-group">
                         <label for="transStatus">
@@ -78,6 +90,8 @@
                         <th>Date</th>
                         <th>Product</th>
                         <th>Quantity</th>
+                        <th>Price Purchased</th>
+                        <th>Source</th>
                         <th>Status</th>
                     </tr>
                     </thead>
@@ -175,7 +189,8 @@ document.getElementById('invForm').addEventListener('submit', async function (e)
             date: document.getElementById('buyDate').value,
             product: product.name,
             quantity: quantityToAdd,
-
+            vendor: document.getElementById('vendor').value,
+            purchased: document.getElementById('purchased').value,
             status: document.getElementById('transStatus').value
         };
 
@@ -184,7 +199,8 @@ document.getElementById('invForm').addEventListener('submit', async function (e)
             <td>${formData.date}</td>
             <td>${formData.product}</td>
             <td>${formData.quantity}</td>
-
+            <td>${formData.purchased}</td>
+            <td>${formData.vendor}</td>
             <td><span class="status-badge ${formData.status.toLowerCase()}">${formData.status}</span></td>
         `;
         document.getElementById('invTableBody').appendChild(newRow);
@@ -203,3 +219,6 @@ document.getElementById('invForm').addEventListener('submit', async function (e)
 </script>
 </body>
 </html>
+
+
+
