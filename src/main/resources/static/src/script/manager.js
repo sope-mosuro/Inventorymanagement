@@ -27,19 +27,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Fetch warehouses
   populateWarehouseCards();
 
-
-
-
-
-
-
-
-
-
-
+  //  Fetch salesReps
+  populateSalesRepsCards();
 
 
 });
+
+
 
 
 // Fetch warehouses and populate buttons in .config-card
@@ -125,3 +119,87 @@ async function populateWarehouseCards() {
   }
 }
 
+
+    // Fetch SalesReps into buttons
+
+async function populateSalesRepsCards() {
+  const cardContainer = document.querySelector('.button-case2');
+
+  try {
+    const response = await fetch("http://localhost:8080/api/admin/sales-reps");
+    const salesReps = await response.json();
+
+    console.log('Fetched Sales Reps:', salesReps);
+
+    // Clear existing buttons
+    cardContainer.querySelectorAll('button').forEach(btn => btn.remove());
+
+    salesReps.forEach(salesRep => {
+      const button = document.createElement('button');
+      button.textContent = salesRep.username;
+      button.classList.add('salesReps-button');
+      button.dataset.dialog = 'warehouseDialog';
+      button.dataset.id = salesRep.id;
+
+      button.addEventListener('click', async () => {
+        console.log(`Clicked: ${salesRep.username} (ID: ${salesRep.id})`);
+
+        const modalTitle = document.querySelector('#warehouseDialog .modal-title');
+        const modalBody = document.querySelector('#warehouseDialog .modal-body');
+
+        if (modalTitle) modalTitle.textContent = salesRep.username;
+
+        try {
+          const stockResponse = await fetch(`http://localhost:8080/api/admin/inventory/sales-reps/${salesRep.id}`);
+          const stockList = await stockResponse.json();
+
+          if (!Array.isArray(stockList)) {
+            throw new Error('Invalid stock list format');
+          }
+
+          const productRows = stockList.map(item => `
+            <tr>
+              <td>${item.product.name}</td>
+              <td>${item.quantity}</td>
+            </tr>
+          `).join('');
+
+          modalBody.innerHTML = `
+            <p><strong>Sales Rep ID:</strong> ${salesRep.id}</p>
+            <p><strong>Region:</strong> ${salesRep.region || 'N/A'}</p>
+            <hr/>
+            <h3>Stock Details:</h3>
+            <table class="inventory-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${productRows || '<tr><td colspan="2">No stock data found.</td></tr>'}
+              </tbody>
+            </table>
+          `;
+
+        } catch (err) {
+          modalBody.innerHTML = `<p class="text-red-500">Error loading stock details for ${salesRep.username}.</p>`;
+          console.error('Stock fetch error:', err);
+        }
+
+        const modal = document.getElementById('warehouseDialog');
+        if (modal) modal.classList.remove('hidden');
+      });
+
+      cardContainer.appendChild(button);
+    });
+
+  } catch (error) {
+    console.error('Error loading SalesReps cards:', error);
+    const fallback = document.createElement('button');
+    fallback.textContent = 'Error loading SalesReps';
+    fallback.disabled = true;
+    fallback.classList.add('error-btn');
+    cardContainer.appendChild(fallback);
+  }
+}
