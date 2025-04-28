@@ -30,13 +30,7 @@ public class InventoryController {
         InventoryResponseDTO response = inventoryService.assignInventoryToSalesRep(request);
         return ResponseEntity.ok(response);
     }
-//    @GetMapping("/sales-rep")
-//    public ResponseEntity<List<InventoryResponseDTO>> getSalesRepInventory() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User currentUser = (User) authentication.getPrincipal(); // Get logged-in user
-//
-//        return ResponseEntity.ok(inventoryService.getSalesRepInventory(currentUser.getId()));
-//    }
+
     // Admins can fetch any sales rep’s inventory
     @GetMapping("/sales-rep/{salesRepId}")
     public ResponseEntity<List<InventoryResponseDTO>> getSalesRepInventoryByAdmin(@PathVariable Long salesRepId)

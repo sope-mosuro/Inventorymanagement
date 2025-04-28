@@ -25,19 +25,9 @@ public class AdminController {
 
 
     @PostMapping("/create-user")
-    public ResponseEntity<String> createUser(@RequestBody UserRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
-            return ResponseEntity.badRequest().body("User with this email already exists.");
-        }
-
-        User user = new User();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole()); // Admin can set role (SALES_REP, etc.)
-
-        userRepository.save(user);
-        return ResponseEntity.ok("User created successfully.");
+    public ResponseEntity<UserRequest> createUser(@RequestBody UserRequest request) {
+       UserRequest user = userService.createUser(request);
+        return ResponseEntity.ok(user);
     }
     //only admin can get all sales reps
     @GetMapping("/sales-reps")

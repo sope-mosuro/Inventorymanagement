@@ -19,6 +19,7 @@ public class Product {
 
     private String name;
     private double price;
+    private Double cost_price;
     private int stock;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)

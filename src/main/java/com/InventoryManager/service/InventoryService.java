@@ -3,18 +3,13 @@ package com.InventoryManager.service;
 import com.InventoryManager.dto.AssignInventoryRequestDTO;
 import com.InventoryManager.dto.InventoryResponseDTO;
 import com.InventoryManager.dto.ProductDTO;
-import com.InventoryManager.model.Inventory;
-import com.InventoryManager.model.Product;
-import com.InventoryManager.model.User;
-import com.InventoryManager.model.Warehouse;
-import com.InventoryManager.repository.InventoryRepository;
-import com.InventoryManager.repository.ProductRepository;
-import com.InventoryManager.repository.UserRepository;
-import com.InventoryManager.repository.WarehouseRepository;
+import com.InventoryManager.model.*;
+import com.InventoryManager.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +22,7 @@ public class InventoryService {
     private final InventoryRepository inventoryRepository;
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
+    private final InventoryTransactionsRepository inventoryTransactionRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -60,6 +56,16 @@ public class InventoryService {
         int updatedStock = product.getStock() - quantity;
         product.setStock(updatedStock >= 0 ? updatedStock : 0);
         productRepository.saveAndFlush(product); // Save the updated product stock
+
+        InventoryTransactions transaction = new InventoryTransactions();
+                transaction.setTransactionDate(LocalDateTime.now());
+                transaction.setType(TransactionType.Assignment);
+                transaction.setQuantity(quantity);
+                transaction.setSource("global stock");
+                transaction.setDestination(warehouseName);
+                transaction.setProduct(product);
+        inventoryTransactionRepository.save(transaction);// Save the transaction
+
         return new InventoryResponseDTO(
                 inventory.getId(),
                 inventory.getQuantity(), // Updated inventory in the warehouse
@@ -70,6 +76,7 @@ public class InventoryService {
                         product.getStock() // Updated global stock
                 ),
                 warehouse.getName()
+
 
         );
     }

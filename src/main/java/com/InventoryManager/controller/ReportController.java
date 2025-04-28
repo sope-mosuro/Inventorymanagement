@@ -1,10 +1,9 @@
 package com.InventoryManager.controller;
 
 import com.InventoryManager.config.UserUtil;
-import com.InventoryManager.dto.ProductDTO;
-import com.InventoryManager.dto.SaleResponseDTO;
-import com.InventoryManager.dto.UserSalesDTO;
+import com.InventoryManager.dto.*;
 import com.InventoryManager.model.User;
+import com.InventoryManager.service.ReportService;
 import com.InventoryManager.service.SaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReportController {
     private final SaleService saleService;
+    private final ReportService reportService;
 
     @GetMapping("/history")
     public ResponseEntity<List<SaleResponseDTO>> getTransactionHistory() {
@@ -36,6 +36,15 @@ public class ReportController {
     @GetMapping("/best-selling-reps")
     public ResponseEntity<List<UserSalesDTO>> getBestSellingReps() {
         return ResponseEntity.ok(saleService.getBestSellingReps());
+    }
+    @GetMapping("inventory-valuation")
+    public ResponseEntity<List<InventoryReportDTO>> getInventoryValuation() {
+        return ResponseEntity.ok(reportService.generateInventoryValuationReport());
+    }
+
+    @GetMapping("/total-sold-byproduct")
+    public ResponseEntity<List<totalSoldRequest>> getTotalSoldByProduct() {
+        return ResponseEntity.ok(reportService.productSoldReport());
     }
 
 }

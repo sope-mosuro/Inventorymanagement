@@ -2,11 +2,12 @@ package com.InventoryManager.service;
 
 import com.InventoryManager.dto.AllUsersDTO;
 import com.InventoryManager.dto.SalesRepDTO;
-import com.InventoryManager.dto.UserResponse;
+import com.InventoryManager.dto.UserRequest;
 import com.InventoryManager.model.Role;
 import com.InventoryManager.model.User;
 import com.InventoryManager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,4 +32,21 @@ public class UserService {
                         user.getRole().name()))
                 .collect(Collectors.toList());
     }
+
+    public UserRequest createUser(UserRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw (new RuntimeException("User with this email already exists."));
+        }
+        User user = new User();
+                user.setName(request.getName());
+                user.setEmail(request.getEmail());
+                user.setPassword(request.getPassword());
+                user.setRole(request.getRole());
+        userRepository.save(user);
+        return new UserRequest(user.getName(), user.getEmail(), user.getPassword(), user.getRole());
+
+
+
+    }
 }
+

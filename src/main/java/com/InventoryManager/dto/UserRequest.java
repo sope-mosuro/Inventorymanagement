@@ -12,7 +12,6 @@ public class UserRequest {
     private String name;
     private String email;
     private String password;
-    private String phoneNumber;
     private Role role; // SALES_REP, etc.
 
 
