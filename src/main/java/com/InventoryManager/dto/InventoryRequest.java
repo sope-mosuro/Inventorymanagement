@@ -1,5 +1,6 @@
 package com.InventoryManager.dto;
 
+import com.InventoryManager.model.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
