@@ -23,6 +23,7 @@ public class SaleService {
     private final InventoryRepository inventoryRepository;
     private final ProductRepository productRepository;
     private final CustomerService customerService;
+    private final InventoryTransactionsRepository inventoryTransactionRepository;
 
     public SaleResponseDTO createSale(Long salesRepId, SaleRequestDTO request) {
         User salesRep = UserUtil.getLoggedInUser();
@@ -38,11 +39,15 @@ public class SaleService {
             throw new RuntimeException("Customer must be selected or marked as walk-in");
         }
 
+
         Sale sale = new Sale();
+        LocalDateTime saleDate = request.getSaleDate() != null
+                ? request.getSaleDate()
+                : LocalDateTime.now();
         sale.setSalesRep(salesRep);
         sale.setCustomer(customer);
         sale.setPaymentMethod(request.getPaymentMethod());
-        sale.setSaleDate(LocalDateTime.now());
+        sale.setSaleDate(saleDate);
 
         List<SaleItem> saleItems = new ArrayList<>();
         double totalSaleCost = 0.0;
@@ -75,11 +80,24 @@ public class SaleService {
             saleItem.setTotalCost(cost);
             saleItem.setSale(sale);
             saleItems.add(saleItem);
+
+            InventoryTransactions transaction = new InventoryTransactions();
+            transaction.setTransactionDate(saleDate);
+            transaction.setType(TransactionType.SALE);
+            transaction.setQuantity(itemRequest.getQuantity());
+            transaction.setSource(salesRep.getName());
+            transaction.setDestination(customer.getName());
+            transaction.setProduct(product);
+            inventoryTransactionRepository.save(transaction);// Save the transaction
+
+
         }
 
         sale.setTotalCost(totalSaleCost);
         sale = saleRepository.save(sale);
         saleItemRepository.saveAll(saleItems);
+
+
 
         // Map to DTO
         List<SaleItemDTO> saleItemDTOs = saleItems.stream()
