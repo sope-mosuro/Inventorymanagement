@@ -17,5 +17,7 @@ public class totalSoldRequest {
     private int quantitySold;
 
     public totalSoldRequest(String name, Optional<Integer> totalSold) {
+        this.productName = name;
+        this.quantitySold = totalSold.orElse(0);
     }
 }
