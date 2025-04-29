@@ -247,38 +247,16 @@ document.addEventListener('DOMContentLoaded', () => {
         salesTable.appendChild(newRow);
         salesForm.reset();
         setDefaultDate();
-        updatePrice();
 
-        // SUBTRACT QUANTITY LOGIC
-        try {
-            const response = await fetch("http://localhost:8080/api/admin/products/increase", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    productName: item,
-                    quantitySold: parseInt(quantity)
-                }),
-            });
 
-            if (!response.ok) throw new Error('Failed to update product stock');
-
-            console.log(`Stock updated for ${item}: -${quantity}`);
-        } catch (error) {
-            console.error('Error updating stock:', error);
-            alert('Sale recorded, but failed to update stock!');
-        }
                });
-
 
     // =================== END SALES FORM SUBMIT ===================
 
 
 
-
-
     // ===================== POST SALES DATA =======================
+
     document.getElementById('postbutton').addEventListener('click', async () => {
         const rows = document.querySelectorAll('#salesTableBody tr');
         if (rows.length === 0) {
@@ -286,24 +264,54 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const salesData = Array.from(rows).map(row => {
+        // Grouping sales under one transaction
+        const firstRow = rows[0].querySelectorAll('td');
+        const paymentMethod = firstRow[5].textContent;
+        const customerName = firstRow[1].textContent;
+
+        // Try to find the actual customerId from the dropdown
+        const customerSelect = document.getElementById('existingCustomer');
+        const selectedCustomer = Array.from(customerSelect.options).find(
+            opt => opt.textContent === customerName
+        );
+
+        const customerId = selectedCustomer?.value;
+
+        if (!customerId || customerId.startsWith('local-')) {
+            alert('Only registered customers can be used for sales posting!');
+            return;
+        }
+
+        const items = Array.from(rows).map(row => {
             const cells = row.querySelectorAll('td');
+            const productName = cells[2].textContent;
+            const quantity = parseInt(cells[3].textContent);
+
+            // Match product name to ID from cache
+            const product = allProducts.find(p => p.name === productName);
+            if (!product) {
+                throw new Error(`Product not found: ${productName}`);
+            }
+
             return {
-                saleDate: cells[0].textContent,
-                customer: cells[1].textContent,
-                product: cells[2].textContent,
-                quantity: parseInt(cells[3].textContent),
-                price: parseFloat(cells[4].textContent.replace('₦', '')),
-                paymentMethod: cells[5].textContent,
-                status: cells[6].textContent
+                productId: product.id,
+                quantity: quantity
             };
         });
 
+        const salePayload = {
+            customerId: customerId,
+            paymentMethod: paymentMethod.toUpperCase(),
+            items: items
+        };
+
+    console.log('posting sales entry:', salePayload)
+
         try {
-            const response = await fetch("http://localhost:8080/api/admin/SalesRequest", {
+            const response = await fetch("http://localhost:8080/api/sales/create", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(salesData)
+                body: JSON.stringify(salePayload)
             });
 
             if (!response.ok) throw new Error('Failed to post sales data');
@@ -316,6 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Error posting sales!');
         }
     });
+
     // =================== END POST SALES DATA =====================
 
 

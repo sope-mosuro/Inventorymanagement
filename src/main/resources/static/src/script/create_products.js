@@ -1,6 +1,5 @@
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
 
@@ -9,17 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const productName = document.getElementById('item').value.trim();
         const price = parseFloat(document.getElementById('Price').value);
-        const quantity = parseInt(document.getElementById('quantity').value);
 
         // Field validation
         if (!productName) return alert('Product name is required');
         if (isNaN(price) || price <= 0) return alert('Enter a valid price');
-        if (isNaN(quantity) || quantity < 0) return alert('Enter a valid quantity');
 
         const payload = {
             name: productName,
-            price,
-            quantity
+            price
         };
 
         try {

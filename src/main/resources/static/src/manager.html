@@ -43,6 +43,12 @@ h1 {
     gap: 15px;
 }
 
+.button-case2{
+    display: flex;
+    padding: 25px;
+    gap: 15px;
+}
+
 .config-card:hover {
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
@@ -148,7 +154,7 @@ select {
     <div class="config-card">
         <h2>Sales Reps</h2>
         <p>Details of Sales Reps and their Stock level</p>
-        <button data-dialog="warehouseDialog">Details</button>
+        <div class="button-case2"></div>
     </div>
 
 </div>
@@ -168,7 +174,10 @@ select {
 <div id="warehouseDialog" class="modal hidden">
     <div class="modal-content">
         <h3>Sales Reps</h3>
-        <ul></ul>
+        <br>
+        <div class="modal-body">
+            <!-- Injected content goes here -->
+        </div>
     </div>
 </div>
 
