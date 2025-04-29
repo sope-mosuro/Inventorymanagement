@@ -25,9 +25,9 @@ async function login() {
     //extract roles
     const roles = decodedToken.roles
       if (roles.includes("ROLE_ADMIN")) {
-                    window.location.href = "http://localhost:8080";
+                    window.location.href = "http://localhost:8080/src/admin/index.html";
                 } else if (roles.includes("ROLE_SALES_REP")) {
-                    window.location.href = "/sales-dashboard.html";
+                    window.location.href = "http://localhost:8080/src/user/index.html";
                 } else {
                     window.location.href = "/unauthorized.html";
                 }

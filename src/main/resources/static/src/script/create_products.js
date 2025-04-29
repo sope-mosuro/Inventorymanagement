@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cancel button redirects
     document.querySelector('.cancel-button').addEventListener('click', () => {
-        window.location.href = 'http://localhost:8080/#';
+        window.location.href = 'index.html#stores';
     });
 
     // Bulk upload logic
