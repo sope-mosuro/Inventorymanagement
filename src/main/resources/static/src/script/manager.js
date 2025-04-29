@@ -150,7 +150,7 @@ async function populateSalesRepsCards() {
         if (modalTitle) modalTitle.textContent = salesRep.username;
 
         try {
-          const stockResponse = await fetch(`http://localhost:8080/api/admin/inventory/sales-reps/${salesRep.id}`);
+          const stockResponse = await fetch(`http://localhost:8080/api/admin/inventory/sales-rep/${salesRep.id}`);
           const stockList = await stockResponse.json();
 
           if (!Array.isArray(stockList)) {
