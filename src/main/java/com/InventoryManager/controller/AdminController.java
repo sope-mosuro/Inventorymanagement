@@ -36,11 +36,6 @@ public class AdminController {
         return ResponseEntity.ok(salesReps);
 }
 
-    @GetMapping("/all-customers")
-    public ResponseEntity<Collection<CustomerResponseDTO>> getAllCustomers() {
-        Collection<CustomerResponseDTO> customers = customerService.getAllCustomers();
-        return ResponseEntity.ok(customers);
-    }
 
     @GetMapping("all-users")
     public ResponseEntity<List<AllUsersDTO>>getAllUsers(){

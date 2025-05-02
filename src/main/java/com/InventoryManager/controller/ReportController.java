@@ -2,15 +2,13 @@ package com.InventoryManager.controller;
 
 import com.InventoryManager.config.UserUtil;
 import com.InventoryManager.dto.*;
+import com.InventoryManager.model.InventoryTransactions;
 import com.InventoryManager.model.User;
 import com.InventoryManager.service.ReportService;
 import com.InventoryManager.service.SaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,4 +45,13 @@ public class ReportController {
         return ResponseEntity.ok(reportService.productSoldReport());
     }
 
+    @GetMapping("/inventory-transactions")
+    public ResponseEntity<List<InventoryTransactionDTO>> filter(@RequestBody InventoryTransactionFilter filter) {
+        return ResponseEntity.ok(reportService.getFilteredTransactions(filter));
+    }
+
+    @GetMapping("/inventory-purchases")
+    public List<InventoryPurchaseDTO> getFilteredPurchases(@RequestBody InventoryPurchaseFilter filter) {
+        return reportService.getFilteredPurchases(filter);
+    }
 }

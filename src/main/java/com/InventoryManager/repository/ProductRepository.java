@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByName(String name);
     @Query("SELECT p FROM Product p JOIN SaleItem si ON si.product.id = p.id " +
-            "GROUP BY p.id, p.name, p.price, p.stock " +
+            "GROUP BY p.id, p.name, p.price, p.stock,p.cost_price " +
             "ORDER BY SUM(si.quantity) DESC")
     List<Product> findBestSellingProducts();
 

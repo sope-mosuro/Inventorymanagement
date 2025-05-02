@@ -1,14 +1,14 @@
 package com.InventoryManager.controller;
 
 import com.InventoryManager.dto.CustomerRequestDTO;
+import com.InventoryManager.dto.CustomerResponseDTO;
 import com.InventoryManager.model.Customer;
 import com.InventoryManager.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +25,11 @@ public class CustomerController {
                 customerRequestDTO.getEmail()
         );
         return ResponseEntity.ok(customer);
+    }
+    @GetMapping("/all-customers")
+    public ResponseEntity<Collection<CustomerResponseDTO>> getAllCustomers() {
+        Collection<CustomerResponseDTO> customers = customerService.getAllCustomers();
+        return ResponseEntity.ok(customers);
     }
 
 

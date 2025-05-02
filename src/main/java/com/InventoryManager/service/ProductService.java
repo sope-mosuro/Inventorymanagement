@@ -54,10 +54,10 @@ public class ProductService {
 
         InventoryTransactions transaction = new InventoryTransactions();
         transaction.setTransactionDate(LocalDateTime.now());
-        transaction.setType(TransactionType.Assignment);
+        transaction.setType(TransactionType.PURCHASE);
         transaction.setQuantity(request.getQuantity());
         transaction.setSource("supplier");
-        transaction.setDestination("global stock");
+        transaction.setDestination("global warehouse");
         transaction.setProduct(product);
         inventoryTransactionRepository.save(transaction);// Save the transaction
         // Return DTO

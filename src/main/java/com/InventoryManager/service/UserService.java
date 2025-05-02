@@ -1,6 +1,8 @@
 package com.InventoryManager.service;
 
+import com.InventoryManager.config.UserUtil;
 import com.InventoryManager.dto.AllUsersDTO;
+import com.InventoryManager.dto.PasswordRequest;
 import com.InventoryManager.dto.SalesRepDTO;
 import com.InventoryManager.dto.UserRequest;
 import com.InventoryManager.model.Role;
@@ -8,6 +10,7 @@ import com.InventoryManager.model.User;
 import com.InventoryManager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<SalesRepDTO> getAllSalesReps() {
         List<User> salesReps = userRepository.findByRole(Role.SALES_REP);
@@ -47,6 +51,18 @@ public class UserService {
 
 
 
+    }
+
+    public void changePassword(PasswordRequest request){
+        User user = UserUtil.getLoggedInUser();
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Current password is incorrect");
+        }
+        if (!request.getNewPassword().equals(request.getConfirmPassword())) {
+            throw new IllegalArgumentException("New password and confirm password do not match");
+        }
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
     }
 }
 

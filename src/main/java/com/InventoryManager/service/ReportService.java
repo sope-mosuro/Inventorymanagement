@@ -1,15 +1,17 @@
 package com.InventoryManager.service;
 
-import com.InventoryManager.dto.InventoryReportDTO;
-import com.InventoryManager.dto.ProductDTO;
-import com.InventoryManager.dto.totalSoldRequest;
+import com.InventoryManager.dto.*;
+import com.InventoryManager.model.InventoryTransactions;
 import com.InventoryManager.model.Product;
 import com.InventoryManager.repository.InventoryPurchaseRepository;
+import com.InventoryManager.repository.InventoryTransactionsRepository;
 import com.InventoryManager.repository.ProductRepository;
 import com.InventoryManager.repository.SaleItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +24,7 @@ public class ReportService {
     private final ProductRepository productRepository;
     private final InventoryPurchaseRepository inventoryPurchaseRepository;
     private final SaleItemRepository saleItemRepository;
+    private final InventoryTransactionsRepository inventoryTransactionsRepository;
 
     public List<InventoryReportDTO> generateInventoryValuationReport() {
         List<Product> products = productRepository.findAll();
@@ -61,6 +64,27 @@ public class ReportService {
                 .toList();
 
 
+    }
+
+    public List<InventoryTransactionDTO> getFilteredTransactions(InventoryTransactionFilter filter) {
+        LocalDateTime from = (filter.getStartDate() != null) ? filter.getStartDate().atStartOfDay() : null;
+        LocalDateTime to = (filter.getEndDate() != null) ? filter.getEndDate().atTime(LocalTime.MAX) : null;
+
+        String source = (filter.getSource() != null && !filter.getSource().isBlank()) ? filter.getSource() : null;
+        String destination = (filter.getDestination() != null && !filter.getDestination().isBlank()) ? filter.getDestination() : null;
+
+        return inventoryTransactionsRepository.findFilteredTransactions(from, to, source, destination);
+    }
+
+    public List<InventoryPurchaseDTO> getFilteredPurchases(InventoryPurchaseFilter filter) {
+        LocalDateTime from = filter.getStartDate() != null ? filter.getStartDate().atStartOfDay() : null;
+        LocalDateTime to = filter.getEndDate() != null ? filter.getEndDate().atTime(LocalTime.MAX) : null;
+
+        return inventoryPurchaseRepository.findFilteredPurchases(
+                filter.getProductId(),
+                from,
+                to
+        );
     }
 
 }
