@@ -20,58 +20,68 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch("http://localhost:8080/api/sales-rep");
             if (!response.ok) throw new Error('Failed to fetch products');
-            const products = await response.json();
-            allProducts = products;
+            const data = await response.json();
+
+            // Cache only the product part
+            allProducts = data.map(item => item.product).filter(Boolean);
 
             const productSelect = document.getElementById('product');
             productSelect.innerHTML = '<option value="">Select Product</option>';
-            products.forEach(p => {
-                const option = document.createElement('option');
-                option.value = p.name;
-                option.textContent = p.name;
-                productSelect.appendChild(option);
+
+            // Prevent duplicates if multiple sales-rep entries refer to the same product
+            const uniqueProducts = {};
+            allProducts.forEach(product => {
+                if (!uniqueProducts[product.id]) {
+                    const option = document.createElement('option');
+                    option.value = product.id; // safer to use ID as value
+                    option.textContent = product.name;
+                    productSelect.appendChild(option);
+                    uniqueProducts[product.id] = true;
+                }
             });
 
         } catch (error) {
             console.error('Error fetching products:', error);
         }
     }
-    fetchProducts(); // Run on page load
+
+    fetchProducts();
 
     // ================== PRODUCT SECTION End ==================
 
-
     // ================ PRICE SYNC BASED ON SELECTED PRODUCT ==================
 
-       const productSelect = document.getElementById('product');
-       const quantityField = document.getElementById('quantity');
-       const priceField = document.getElementById('price');
+    const productSelect = document.getElementById('product');
+    const quantityField = document.getElementById('quantity');
+    const priceField = document.getElementById('price');
 
-       // Update price when product changes
-       productSelect.addEventListener('change', function () {
-           const selectedName = this.value;
-           const selectedProduct = allProducts.find(p => p.name === selectedName);
+    // Helper: Get selected product by ID
+    function getSelectedProduct() {
+        const selectedId = parseInt(productSelect.value);
+        return allProducts.find(p => p.id === selectedId);
+    }
 
-           if (selectedProduct) {
-               const quantity = parseInt(quantityField.value) || 1;
-               priceField.value = selectedProduct.price * quantity;
-           } else {
-               priceField.value = '';
-           }
-       });
+    // Update price when product changes
+    productSelect.addEventListener('change', function () {
+        const selectedProduct = getSelectedProduct();
+        if (selectedProduct) {
+            const quantity = parseInt(quantityField.value) || 1;
+            priceField.value = (selectedProduct.price * quantity).toFixed(2);
+        } else {
+            priceField.value = '';
+        }
+    });
 
-       // Update price when quantity changes
-       quantityField.addEventListener('input', function () {
-           const selectedName = productSelect.value;
-           const selectedProduct = allProducts.find(p => p.name === selectedName);
+    // Update price when quantity changes
+    quantityField.addEventListener('input', function () {
+        const selectedProduct = getSelectedProduct();
+        if (selectedProduct) {
+            const quantity = parseInt(this.value) || 0;
+            priceField.value = (selectedProduct.price * quantity).toFixed(2);
+        }
+    });
 
-           if (selectedProduct) {
-               const quantity = parseInt(this.value) || 0;
-               priceField.value = selectedProduct.price * quantity;
-           }
-       });
-
-        // ======================= END PRICE SYNC ================
+    // ======================= END PRICE SYNC ==================
 
     // ===================== CUSTOMER DROPDOWN ====================
     const customerSelect = document.getElementById('existingCustomer');
@@ -107,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
     fetchCustomers();
     // ================ END CUSTOMER DROPDOWN =====================
 
@@ -253,8 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // =================== END SALES FORM SUBMIT ===================
 
-
-
     // ===================== POST SALES DATA =======================
 
     document.getElementById('postbutton').addEventListener('click', async () => {
@@ -287,28 +294,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const productName = cells[2].textContent;
             const quantity = parseInt(cells[3].textContent);
 
-            // Match product name to ID from cache
             const product = allProducts.find(p => p.name === productName);
             if (!product) {
                 throw new Error(`Product not found: ${productName}`);
             }
 
             return {
-                productId: product.id,
-                quantity: quantity
+                quantity: quantity,
+                product: {
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    stock: product.stock
+                }
             };
         });
 
+
        const saleDate = firstRow[0].textContent; // Get sale date from table row
 
-       const salePayload = {
-           customerId: customerId,
-           paymentMethod: paymentMethod.toUpperCase(),
-           saleDate: new Date(saleDate).toISOString(),
-           items: items
-       };
-
-
+     const salePayload = {
+         customerId: customerId,
+         paymentMethod: paymentMethod.toUpperCase(),
+         saleDate: new Date(saleDate).toISOString(),
+         items: items
+     };
 
     console.log('posting sales entry:', salePayload)
 

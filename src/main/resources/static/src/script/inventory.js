@@ -1,3 +1,4 @@
+
 //inventory section script
 
   document.addEventListener('DOMContentLoaded', async function () {

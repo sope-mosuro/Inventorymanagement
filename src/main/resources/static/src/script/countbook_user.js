@@ -43,6 +43,8 @@ document.addEventListener("DOMContentLoaded", function() {
     /* Slide Navigation Switch */
 
 function switchToSlide(targetId) {
+    if (!targetId) return;
+
     // Clean the ID (remove # if present)
     targetId = targetId.replace('#', '');
 
@@ -51,9 +53,11 @@ function switchToSlide(targetId) {
         section.style.display = section.id === targetId ? "block" : "none";
     });
 
-    // Update menu item active states
+    // Update menu item active states safely
     document.querySelectorAll(".menu li").forEach(menuItem => {
-        const target = menuItem.getAttribute("data-target").replace('#', '');
+        const attr = menuItem.getAttribute("data-target");
+        if (!attr) return; // skip items with no data-target
+        const target = attr.replace('#', '');
         menuItem.classList.toggle("active", target === targetId);
     });
 }
@@ -62,8 +66,8 @@ function switchToSlide(targetId) {
 document.querySelectorAll(".menu li").forEach(item => {
     item.addEventListener("click", function() {
         const target = this.getAttribute("data-target");
+        if (!target) return; // skip click if no data-target
         switchToSlide(target);
-        // Optional: update the URL hash for browser nav/bookmarking
         window.location.hash = target.replace('#', '');
     });
 });
@@ -83,11 +87,6 @@ document.addEventListener("click", function() {
    const target = this.getAttribute("data-target");
      switchToSlide(target);
             });
-
-
-
-
-
 
 
      });
