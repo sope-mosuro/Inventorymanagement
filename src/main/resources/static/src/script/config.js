@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Fetch Sales Reps
 const salesRepDropdowns = document.querySelectorAll('.salesrep');
 try {
-  const response = await fetch("http://localhost:8080/api/admin/sales-reps");
+  const response = await fetch("http://localhost:8080/api/admin/all-users");
   if (!response.ok) throw new Error('Failed to fetch sales rep list');
   const salesReps = await response.json();
   console.log('Sales Reps:', salesReps);

@@ -71,7 +71,7 @@
         // See all available product names
         productData.forEach(p => console.log('Available product:', `'${p.name}'`));
 
-
+        // Try a trimmed, case-insensitive match just in case
         const selectedProduct = productData.find(p =>
           p.name.trim().toLowerCase() === selectedName.trim().toLowerCase()
         );
@@ -131,43 +131,6 @@ closeBtn.addEventListener('click', () => {
   changePriceModal.classList.add('changePrice-hidden');
 });
 
-
-document.getElementById('run-report').addEventListener('click', async () => {
-  const selectedReport = document.getElementById('report-select').value;
-
-  try {
-    const response = await fetch("http://localhost:8080/api/reports/inventory-transaction", {
-      method: 'GET',
-      headers: {
-        // auth side
-        'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      }
-    });
-        console.log("Response:", response);
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch report: ${response.status}`);
-    }
-
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `response.xlsx`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    // Revoke the object URL after a short delay
-    setTimeout(() => window.URL.revokeObjectURL(url), 1000);
-
-    console.log(`Report downloaded.`);
-  } catch (err) {
-    console.error('Report fetch error:', err);
-    alert('Failed to generate report. Please try again later.');
-  }
-});
 
 
 

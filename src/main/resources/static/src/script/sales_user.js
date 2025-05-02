@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchProducts() {
         try {
-            const response = await fetch("http://localhost:8080/api/admin/products/all-products");
+            const response = await fetch("http://localhost:8080/api/sales-rep");
             if (!response.ok) throw new Error('Failed to fetch products');
             const products = await response.json();
             allProducts = products;
@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     fetchProducts(); // Run on page load
-
 
     // ================== PRODUCT SECTION End ==================
 
@@ -72,9 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
            }
        });
 
-        // ======================= END PRICE SYNC =======================
-
-
+        // ======================= END PRICE SYNC ================
 
     // ===================== CUSTOMER DROPDOWN ====================
     const customerSelect = document.getElementById('existingCustomer');
@@ -83,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch("http://localhost:8080/api/customers/all-customers");
             if (!response.ok) throw new Error('Failed to fetch customers');
+
+            console.log("customers", response);
 
             const customers = await response.json();
             customerSelect.innerHTML = '<option value="">Select Existing Customer</option>';
@@ -166,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/customer/create-customer", {
+            const response = await fetch("http://localhost:8080/api/customers/create-customer", {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -192,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
         e.target.reset();
     });
+
     // ================= END NEW CUSTOMER SUBMIT ===================
 
 
@@ -301,13 +301,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
        const saleDate = firstRow[0].textContent; // Get sale date from table row
 
-
        const salePayload = {
            customerId: customerId,
            paymentMethod: paymentMethod.toUpperCase(),
            saleDate: new Date(saleDate).toISOString(),
            items: items
        };
+
 
 
     console.log('posting sales entry:', salePayload)
@@ -334,38 +334,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ================ REPORT DOWNLOAD FUNCTION  ==================
 
-document.getElementById('downloadPDF').addEventListener('click', () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    document.getElementById('downloadPDF').addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-    const tableBody = [];
-    const rows = document.querySelectorAll('#salesTableBody tr');
+        const tableBody = [];
+        const rows = document.querySelectorAll('#salesTableBody tr');
 
-    if (rows.length === 0) {
-        alert('No data to export!');
-        return;
-    }
+        if (rows.length === 0) {
+            alert('No data to export!');
+            return;
+        }
 
-    rows.forEach(row => {
-        const rowData = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
-        tableBody.push(rowData);
+        rows.forEach(row => {
+            const rowData = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
+            tableBody.push(rowData);
+        });
+
+        const headers = [['Sale Date', 'Customer', 'Product', 'Quantity', 'Price', 'Payment Method', 'Status']];
+
+        doc.text('Sales Data Report', 14, 15);
+        doc.autoTable({
+            startY: 20,
+            head: headers,
+            body: tableBody,
+            theme: 'striped',
+            styles: { fontSize: 10 },
+            headStyles: { fillColor: [52, 152, 219] } // Nice blue header
+        });
+
+        doc.save(`SalesReport_${new Date().toISOString().slice(0, 10)}.pdf`);
     });
-
-    const headers = [['Sale Date', 'Customer', 'Product', 'Quantity', 'Price', 'Payment Method', 'Status']];
-
-    doc.text('Sales Data Report', 14, 15);
-    doc.autoTable({
-        startY: 20,
-        head: headers,
-        body: tableBody,
-        theme: 'striped',
-        styles: { fontSize: 10 },
-        headStyles: { fillColor: [52, 152, 219] } // Nice blue header
-    });
-
-    doc.save(`SalesReport_${new Date().toISOString().slice(0, 10)}.pdf`);
-});
-
 
 
 

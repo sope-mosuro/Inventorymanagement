@@ -69,7 +69,7 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background: black; 
+    background: black;
     width: 100%;
     border-radius: 8px;
     padding: 0;
@@ -91,7 +91,7 @@ body {
 .has-dropdown.active .dropdown-menu {
     display: block;
   }
-  
+
   .has-dropdown.active .dropdown-icon {
     transform: rotate(180deg);
   }
