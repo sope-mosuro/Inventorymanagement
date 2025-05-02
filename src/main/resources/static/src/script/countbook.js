@@ -41,20 +41,44 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     /* Slide Navigation Switch */
-    const sections = document.querySelectorAll(".section");
-    const menuItems = document.querySelectorAll(".menu li");
-    menuItems.forEach(item => {
-        item.addEventListener("click", function() {
-            let target = this.getAttribute("data-target");
-            sections.forEach(section => {
-                section.style.display = section.id === target.replace('#','') ? "block" : "none";
-            });
-            menuItems.forEach(menuItem => {
-                menuItem.classList.remove("active");
-            });
-            this.classList.add("active");
-        });
+
+function switchToSlide(targetId) {
+    // Clean the ID (remove # if present)
+    targetId = targetId.replace('#', '');
+
+    // Show the right section
+    document.querySelectorAll(".section").forEach(section => {
+        section.style.display = section.id === targetId ? "block" : "none";
     });
+
+    // Update menu item active states
+    document.querySelectorAll(".menu li").forEach(menuItem => {
+        const target = menuItem.getAttribute("data-target").replace('#', '');
+        menuItem.classList.toggle("active", target === targetId);
+    });
+}
+
+// Click handler
+document.querySelectorAll(".menu li").forEach(item => {
+    item.addEventListener("click", function() {
+        const target = this.getAttribute("data-target");
+        switchToSlide(target);
+        // Optional: update the URL hash for browser nav/bookmarking
+        window.location.hash = target.replace('#', '');
+    });
+});
+
+// On page load (respect hash)
+window.addEventListener("load", () => {
+    const hash = window.location.hash;
+    if (hash) {
+        switchToSlide(hash);
+    } else {
+        switchToSlide('dashboard'); // fallback default
+    }
+});
+
+
 
         fetchTopSalesReps();
 
