@@ -38,14 +38,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         // Skip JWT processing for public endpoints
-        if
-//        (path.startsWith("/api/auth") ||
-        (path.startsWith("/static/") ||
-                path.startsWith("/src/") ||
-                path.endsWith(".html") || path.endsWith(".js") || path.endsWith(".css")) {
-            chain.doFilter(request, response);
-            return;
-        }
+//        if
+////        (path.startsWith("/api/auth") ||
+//        (path.startsWith("/static/") ||
+//                path.startsWith("/src/") ||
+//                path.endsWith(".html") || path.endsWith(".js") || path.endsWith(".css")) {
+//            chain.doFilter(request, response);
+//            return;
+//        }
 
         String token = extractJwtFromCookies(request);
 
