@@ -83,10 +83,16 @@ window.addEventListener("load", () => {
 });
 
 
-document.addEventListener("click", function() {
-   const target = this.getAttribute("data-target");
-     switchToSlide(target);
-            });
+document.addEventListener("click", function(event) {
+    const targetEl = event.target.closest("[data-target]");
+    if (!targetEl) return; // even if Click isn't on or inside a data-target element
+
+    const target = targetEl.getAttribute("data-target");
+    if (!target) return;
+
+    switchToSlide(target);
+
+});
 
 
      });

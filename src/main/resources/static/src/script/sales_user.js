@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error('Failed to fetch products');
             const data = await response.json();
 
+            console.log('allproducts mass;', allProducts);
+
             // Cache only the product part
             allProducts = data.map(item => item.product).filter(Boolean);
 
@@ -44,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching products:', error);
         }
     }
+
+    console.log('product object;', allProducts);
 
     fetchProducts();
 
@@ -301,18 +305,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             return {
-                id: product.id,
-                quantity: quantity,
-                product: {
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    stock: product.stock
-                }
+                productId: product.id,
+                quantity: quantity
             };
         });
 
 
+        console.log('new payload:', items);
        const saleDate = firstRow[0].textContent; // Get sale date from table row
 
      const salePayload = {
@@ -322,16 +321,14 @@ document.addEventListener('DOMContentLoaded', () => {
          items: items
      };
 
-    console.log('posting sales entry:', salePayload)
-
-    console.log('Parsed sale date:', new Date(saleDate).toISOString());
-
+    console.log('posting sales entry:', salePayload);
 
         try {
             const response = await fetch("http://localhost:8080/api/sales/create", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(salePayload)
+
             });
 
             if (!response.ok) throw new Error('Failed to post sales data');
@@ -343,6 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error posting sales:', error);
             alert('Error posting sales!');
         }
+
     });
 
     // =================== END POST SALES DATA =====================
