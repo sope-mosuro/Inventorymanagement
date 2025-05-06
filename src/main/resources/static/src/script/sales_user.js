@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             allProducts.forEach(product => {
                 if (!uniqueProducts[product.id]) {
                     const option = document.createElement('option');
-                    option.value = product.id; // safer to use ID as value
+                    option.value = product.id; //  using ID as value
                     option.textContent = product.name;
                     productSelect.appendChild(option);
                     uniqueProducts[product.id] = true;
@@ -202,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ================= END NEW CUSTOMER SUBMIT ===================
+    // ==========================================================================================
 
 
 
@@ -247,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newRow.innerHTML = `
             <td>${saleDate}</td>
             <td>${customerValue}</td>
-            <td>${item}</td>
+            <td>${getSelectedProduct()?.name || 'Unknown'}</td>
             <td>${quantity}</td>
             <td>₦${parseFloat(price).toFixed(2)}</td>
             <td>${paymentMethod}</td>
@@ -300,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             return {
+                id: product.id,
                 quantity: quantity,
                 product: {
                     id: product.id,
@@ -321,6 +323,9 @@ document.addEventListener('DOMContentLoaded', () => {
      };
 
     console.log('posting sales entry:', salePayload)
+
+    console.log('Parsed sale date:', new Date(saleDate).toISOString());
+
 
         try {
             const response = await fetch("http://localhost:8080/api/sales/create", {
