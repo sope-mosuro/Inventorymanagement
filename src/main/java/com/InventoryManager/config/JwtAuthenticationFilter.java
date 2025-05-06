@@ -1,5 +1,7 @@
 package com.InventoryManager.config;
 
+import com.InventoryManager.dto.UserResponse;
+import com.InventoryManager.model.User;
 import com.InventoryManager.service.UserDetailsServiceImpl;
 import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
@@ -60,11 +62,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String email = jwtUtil.extractUsername(token);
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-
-                if (jwtUtil.validateToken(token, userDetails)) {
+                UserResponse userResponse = (UserResponse) userDetailsService.loadUserByUsername(email);
+                if (jwtUtil.validateToken(token, userResponse)) {
                     UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                            new UsernamePasswordAuthenticationToken(userResponse, null, userResponse.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authentication);
 
