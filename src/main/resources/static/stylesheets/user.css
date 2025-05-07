@@ -677,7 +677,7 @@ tfoot td {
     border-radius: 5px;
     cursor: pointer;
 }
-#settingoptions{
+.settingoptions{
     border-radius: 5px;
     cursor: pointer;height: 40px; width: 100%; background-color: #ebe9e9; padding: 8.5px;
 }

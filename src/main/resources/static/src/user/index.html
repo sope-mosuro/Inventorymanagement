@@ -81,9 +81,7 @@
                 <div style="display: flex; padding: 25px; gap: 15px;">
                     <small><em>No items currently available</em></small>
                 </div>
-            </div>
-
-            <br>
+            </div><br>
 
             <!-- Reports Section --><br>
             <div id="reports-section">
@@ -91,8 +89,8 @@
 
                 <div class="report-controls">
                     <select id="report-select" class="report-dropdown">
-                        <option value="inventory-summary">Sales Report</option>
-                        <option value="item-category">Inventory Summary</option>
+                        <option value=""></option>
+                        <option value="item-category">Transaction Report</option>
                     </select>
                     <button id="run-report" class="btn-primary">Generate Report</button>
                 </div>
@@ -100,23 +98,30 @@
                 <!-- Report Table Container -->
                 <div class="tabular--wrapper" style="display: none;">
                     <h3 class="report-title">Inventory Report</h3>
+
                     <table>
                         <thead>
                         <tr>
                             <th>Date</th>
+                            <th>Customer</th>
                             <th>Product</th>
                             <th>Quantity</th>
                             <th>Amount</th>
-                            <th>Supplier</th>
-                            <th>Status</th>
+                            <th>Payment Method</th>
                         </tr>
                         </thead>
+
                         <tbody id="invTableBody">
                         <!-- Report data will drop here -->
                         </tbody>
-                    </table>
+
+                    </table>    <br>
+
+                    <button id="downloadRPT" style="background: orange; width: 100px; color: black;">Download</button>
                 </div>
+
             </div>
+
         </div>
 
     </div>
@@ -274,7 +279,6 @@
 <section id="setting" class="section">
 
     <div class="main--content">
-
         <div class="header--wrapper">
 
             <div class="header--title">
@@ -291,20 +295,29 @@
                 </div>
             </div>
         </div>
-
         <div class="card--container">
             <h3 class="main--title">Settings</h3>
-
             <ul>
-                <div id="settingoptions"><strong>Edit Profile</strong></div><br>
-                <div id="settingoptions"><strong>Notification Preferences</strong></div><br>
-                <div id="settingoptions"><strong>Switch Accounts</strong></div><br>
-                <div id="settingoptions"><strong>Themes</strong></div><br>
-                <div id="settingoptions"><strong>Delete Account</strong></div><br>
-            </ul>
 
+                <a id="report" href="http://localhost:8080/src/user/reports.html"
+                   style="color: inherit; text-decoration: none;">
+                    <div class="settingoptions"><strong>Reports</strong>
+                    </div><br>
+                </a>
+
+                <a id="report" href=""
+                   style="color: inherit; text-decoration: none;">
+                    <div class="settingoptions"><strong>Notification Preferences</strong>
+                    </div><br>
+                </a>
+
+                <div class="settingoptions"><strong>Edit Profile</strong></div><br>
+                <div class="settingoptions"><strong>Switch Accounts</strong></div><br>
+                <div class="settingoptions"><strong>Themes</strong></div><br>
+            </ul>
         </div>
     </div>
+
 </section>
 
 
