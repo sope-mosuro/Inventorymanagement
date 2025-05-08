@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         logger.info("Authenticating user with email: {}", email);
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        logger.info("User authenticated: {}",user);
+        logger.info("User authenticated: {}",user.getId());
         return new UserResponse(user);
 
 
