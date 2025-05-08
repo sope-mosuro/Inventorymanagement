@@ -1,5 +1,7 @@
 package com.InventoryManager.service;
 
+import com.InventoryManager.ExceptionHandler.NotEnoughStockInwarehouse;
+import com.InventoryManager.ExceptionHandler.ProductNotInWarehouse;
 import com.InventoryManager.dto.AssignInventoryRequestDTO;
 import com.InventoryManager.dto.InventoryResponseDTO;
 import com.InventoryManager.dto.ProductDTO;
@@ -93,10 +95,10 @@ public class InventoryService {
 
         // Find existing inventory in the warehouse
         Inventory warehouseInventory = inventoryRepository.findByProductAndWarehouse(product, warehouse)
-                .orElseThrow(() -> new RuntimeException("Product not available in warehouse"));
+                .orElseThrow(() -> new ProductNotInWarehouse("Product not available in warehouse"));
 
         if (request.getQuantity() > warehouseInventory.getQuantity()) {
-            throw new RuntimeException("Not enough stock in warehouse");
+            throw new NotEnoughStockInwarehouse("Not enough stock in warehouse");
         }
 
         // Deduct inventory from warehouse

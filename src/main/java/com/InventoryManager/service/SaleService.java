@@ -1,5 +1,6 @@
 package com.InventoryManager.service;
 
+import com.InventoryManager.ExceptionHandler.NotEnoughProductsException;
 import com.InventoryManager.config.UserUtil;
 import com.InventoryManager.dto.*;
 import com.InventoryManager.model.*;
@@ -61,7 +62,7 @@ public class SaleService {
                     .orElseThrow(() -> new RuntimeException("Product not found in sales rep's inventory"));
 
             if (salesRepInventory.getQuantity() < itemRequest.getQuantity()) {
-                throw new RuntimeException("Not enough stock available for product: " + product.getName());
+                throw new NotEnoughProductsException("Not enough stock available for product: " + product.getName());
             }
 
             // Deduct from sales rep inventory
