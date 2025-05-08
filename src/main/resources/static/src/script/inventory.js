@@ -1,5 +1,5 @@
 
-//inventory section script
+//      inventory section script
 
   document.addEventListener('DOMContentLoaded', async function () {
       const reportsSection = document.getElementById('reports-section');
@@ -18,7 +18,6 @@
               reportBody.innerHTML = `<small><em>No items currently available</em></small>`;
               return;
           }
-
           data.forEach(item => {
               const card = document.createElement('div');
               card.className = 'stock-card';
@@ -72,11 +71,9 @@
         // See all available product names
         productData.forEach(p => console.log('Available product:', `'${p.name}'`));
 
-
         const selectedProduct = productData.find(p =>
           p.name.trim().toLowerCase() === selectedName.trim().toLowerCase()
         );
-
         console.log('Matched product object:', selectedProduct);
 
         if (selectedProduct) {
@@ -117,6 +114,82 @@
       });
 
 
+
+      // ========== ADMIN REPORT GENERATION ==========
+
+      document.getElementById('R-report')?.addEventListener('click', async () => {
+          const reportType = document.getElementById('admin-select')?.value;
+
+          if (reportType !== 'item-spool') {
+              alert('Only Transaction History is currently supported.');
+              return;    }
+          try {
+              const response = await fetch("http://localhost:8080/api/report/history");
+          if (!response.ok) throw new Error('Failed to fetch report data');
+
+              const reportData = await response.json();
+              console.log('sample data:',reportData[1]);
+              console.log(reportData[1].salesRep);
+
+              const tbody = document.getElementById('AdminTableBody');
+          if (!tbody) return;
+              tbody.innerHTML = ''; // Clear existing rows
+
+              reportData.forEach(sale => {
+                  const row = document.createElement('tr');
+                  row.innerHTML = `
+                      <td>${new Date(sale.saleDate).toLocaleDateString()}</td>
+                      <td>${sale.customer}</td>
+                      <td>${sale.saleItems.map(item => item.productName).join(', ')}</td>
+                      <td>${sale.salesRep}</td>
+                      <td>${sale.saleItems.reduce((sum, item) => sum + item.quantity, 0)}</td>
+                      <td>${sale.totalCost.toFixed(2)}</td>
+                      <td>${sale.paymentMethod}</td>
+                  `;
+                  tbody.appendChild(row);
+              });
+              document.querySelector('#reports-section .tabular--wrapper').style.display = 'block';
+              document.querySelector('#reports-section .report-title').textContent = 'Transaction History Report';
+          } catch (error) {
+              console.error('Error generating report:', error);
+              alert('Error generating report!');
+          }
+      });
+
+      // ========== ADMIN REPORT PDF EXPORT ==========
+
+      document.getElementById('downloadRT')?.addEventListener('click', () => {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+          const tableBody = [];
+          const rows = document.querySelectorAll('#AdminTableBody tr');
+
+          if (rows.length === 0) {
+              alert('No data to export!');
+              return;
+          }
+          rows.forEach(row => {
+              const rowData = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
+              tableBody.push(rowData);
+          });
+          const headers = [['Transaction Date', 'Customer', 'Seller', 'Product', 'Quantity', 'Price', 'Payment Method']];
+          doc.text('Transaction Report (Admin)', 14, 15);
+          doc.autoTable({
+              startY: 20,
+              head: headers,
+              body: tableBody,
+              theme: 'striped',
+              styles: { fontSize: 10 },
+              headStyles: { fillColor: [255, 165, 0] } // orange to match button
+          });
+
+          doc.save(`Admin_TransactionReport_${new Date().toISOString().slice(0, 10)}.pdf`);
+
+      });
+
+     });
+
+
 // Open modal on button click
 const openDialogBtn = document.getElementById('openChangePriceDialog');
 const changePriceModal = document.getElementById('changePriceDialog');
@@ -125,58 +198,9 @@ openDialogBtn.addEventListener('click', (e) => {
   e.preventDefault(); // Prevent anchor behavior
   changePriceModal.classList.remove('changePrice-hidden');
 });
-
 const closeBtn = document.querySelector('.changePrice-close-btn');
 
 closeBtn.addEventListener('click', () => {
   changePriceModal.classList.add('changePrice-hidden');
 });
-
-
-document.getElementById('run-report').addEventListener('click', async () => {
-  const selectedReport = document.getElementById('report-select').value;
-
-  try {
-    const response = await fetch("http://localhost:8080/api/reports/inventory-transaction", {
-      method: 'GET',
-      headers: {
-        // auth side
-        'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      }
-    });
-        console.log("Response:", response);
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch report: ${response.status}`);
-    }
-
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `response.xlsx`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    // Revoke the object URL after a short delay
-    setTimeout(() => window.URL.revokeObjectURL(url), 1000);
-
-    console.log(`Report downloaded.`);
-  } catch (err) {
-    console.error('Report fetch error:', err);
-    alert('Failed to generate report. Please try again later.');
-  }
-});
-
-
-
-  });
-
-
-
-
-
-
 

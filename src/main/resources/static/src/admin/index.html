@@ -394,17 +394,15 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Items Array -->
             <div id="reports-section">
                 <h3>Items in stock</h3>
                 <div style="display: flex; padding: 25px; gap: 15px;">
                     <small><em>No items currently available</em></small>
                 </div>
             </div>
-
             <br>
             <div class="inventory-actions">
-
                 <a href="http://localhost:8080/src/admin/create.html" class="inv-action-btn">
                     <i class="fas fa-edit"></i> Create New
                 </a>
@@ -414,8 +412,6 @@
                 <a href="#" id="openChangePriceDialog" class="inv-action-btn">
                     <i class="fas fa-edit"></i> Change Price
                 </a>
-
-
             </div>
 
             <!-- Reports Section --><br>
@@ -423,11 +419,42 @@
                 <h2 class="section-title">Generate Reports</h2>
 
                 <div class="report-controls">
-                    <select id="report-select" class="report-dropdown">
-                        <option value="inventory-summary">Inventory Summary</option>
-                        <option value="item-category">Item Category Report</option>
+                    <select id="admin-select" class="report-dropdown">
+                        <option value=""></option>
+                        <option value="item-spool">Transaction History</option>
+                        <option value="value-spool">Inventory Valuation</option>
+                        <option value="inventory-spool">Inventory Transactions</option>
                     </select>
-                    <button id="run-report" class="btn-primary">Generate Report</button>
+                    <button id="R-report" class="btn-primary">Generate Report</button>
+                </div>
+
+                <!-- Report Table Container -->
+                <div class="tabular--wrapper" style="display: none;">
+                    <h3 class="report-title">Transaction Report</h3>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Sales Rep</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Payment Method</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="AdminTableBody">
+                        <!-- Report data will drop here -->
+                        </tbody>
+
+                    </table>    <br>
+
+                    <button id="downloadRT" style="background: orange; width: 100px; color: black;">
+                        <strong>Download</strong>
+                    </button>
+
                 </div>
 
             </div>

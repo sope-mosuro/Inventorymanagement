@@ -57,7 +57,6 @@
     <div class="main--content">
 
         <div id="inventory-page">
-
             <!-- Page Banner -->
             <div class="header--wrapper">
 
@@ -90,14 +89,14 @@
                 <div class="report-controls">
                     <select id="report-select" class="report-dropdown">
                         <option value=""></option>
-                        <option value="item-category">Transaction Report</option>
+                        <option value="item-category">Transaction History Report</option>
                     </select>
                     <button id="run-report" class="btn-primary">Generate Report</button>
                 </div>
 
                 <!-- Report Table Container -->
                 <div class="tabular--wrapper" style="display: none;">
-                    <h3 class="report-title">Inventory Report</h3>
+                    <h3 class="report-title">Transaction Report</h3>
 
                     <table>
                         <thead>
@@ -117,7 +116,9 @@
 
                     </table>    <br>
 
-                    <button id="downloadRPT" style="background: orange; width: 100px; color: black;">Download</button>
+                    <button id="downloadRPT" style="background: orange; width: 100px; color: black;">
+                        <strong>Download</strong>
+                    </button>
                 </div>
 
             </div>

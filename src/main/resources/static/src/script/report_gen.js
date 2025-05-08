@@ -1,7 +1,7 @@
 
 
 
-// ================ GENERATE REPORT  FUNCTION-->  Transaction HISTORY  ==================
+// ================ GENERATE REPORT FUNCTION FOR USER-PAGE-->  Transaction HISTORY  ==================
 
     document.getElementById('run-report').addEventListener('click', async () => {
         const reportType = document.getElementById('report-select').value;
@@ -33,11 +33,10 @@
 
                 tbody.appendChild(row);
 
-                console.log('Report Data:', reportData);
             });
 
             document.querySelector('.tabular--wrapper').style.display = 'block';
-            document.querySelector('.report-title').textContent = 'Sales Report';
+            document.querySelector('.report-title').textContent = 'Transaction History Report';
 
         } catch (error) {
             console.error('Error generating report:', error);
@@ -46,12 +45,11 @@
 
     });
 
-    // ================ DOWNLOAD GENERATED REPORT  ==================
+    // ================ DOWNLOAD USER GENERATED REPORT  ==================
 
         document.getElementById('downloadRPT').addEventListener('click', () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-
             const tableBody = [];
             const rows = document.querySelectorAll('#invTableBody tr');
 
@@ -59,14 +57,12 @@
                 alert('No data to export!');
                 return;
             }
-
             rows.forEach(row => {
                 const rowData = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
                 tableBody.push(rowData);
             });
 
             const headers = [['Transaction Date', 'Customer', 'Product', 'Quantity', 'Price', 'Payment Method']];
-
             doc.text('Transaction Report', 14, 15);
             doc.autoTable({
                 startY: 20,
@@ -79,5 +75,11 @@
 
             doc.save(`TransactionReport_${new Date().toISOString().slice(0, 10)}.pdf`);
 
-
         });
+
+
+
+
+
+
+
