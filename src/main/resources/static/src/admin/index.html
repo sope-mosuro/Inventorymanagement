@@ -415,49 +415,46 @@
 
             <!-- Reports Section --><br>
             <div id="reports-section">
-                <h2 class="section-title">Generate Reports</h2>
 
+                <h2 class="section-title">Generate Reports</h2>
                 <div class="report-controls">
+
                     <select id="admin-select" class="report-dropdown">
                         <option value=""></option>
                         <option value="item-spool">Transaction History</option>
                         <option value="value-spool">Inventory Valuation</option>
                         <option value="inventory-spool">Inventory Transactions</option>
                     </select>
-                    <button id="R-report" class="btn-primary">Generate Report</button>
-                </div>
 
+                    <button id="R-report" class="btn-primary">Generate Report</button>
+
+                </div>
                 <!-- Report Table Container -->
-                <div class="tabular--wrapper" style="display: none;">
-                    <h3 class="report-title">Transaction Report</h3>
+                <div class="tabular--wrapper">
+                    <h3 class="report-title">Report</h3>
 
                     <table>
                         <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Customer</th>
-                            <th>Product</th>
-                            <th>Sales Rep</th>
-                            <th>Quantity</th>
-                            <th>Amount</th>
-                            <th>Payment Method</th>
+                        <tr id="AdminTableHead">
+                            <!-- Dynamic headers injected here -->
                         </tr>
                         </thead>
 
                         <tbody id="AdminTableBody">
-                        <!-- Report data will drop here -->
+                        <!-- Dynamic rows injected here -->
                         </tbody>
-
-                    </table>    <br>
+                    </table>
+                    <br>
 
                     <button id="downloadRT" style="background: orange; width: 100px; color: black;">
                         <strong>Download</strong>
                     </button>
-
                 </div>
 
             </div>
+
         </div>
+
     </div>
 </section>
 <!-- This is the 'change price' modal that pops up when trying to change product price-->
