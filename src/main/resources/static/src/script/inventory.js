@@ -143,7 +143,6 @@
                 if (!response.ok) throw new Error('Failed to fetch transaction report');
 
                 const data = await response.json();
-                console.log('Fetched transaction history:', data);
 
                 if (!Array.isArray(data) || data.length === 0) {
                   title.textContent = 'No transaction data available.';
@@ -183,59 +182,72 @@
               } else if (reportType === 'value-spool') {
                 const response = await fetch("http://localhost:8080/api/report/inventory-valuation");
                 const data = await response.json();
-                console.log('value-spool body:', data);
 
-                alert('This Report is currently disabled for maintenance.');
+ //               alert('This Report is currently disabled for maintenance.');
 
-                /*
-                title.textContent = 'Inventory Valuation Report';
-                tableHead.innerHTML = `
-                  <th>Item</th>
-                  <th>Stock</th>
-                  <th>Unit Price</th>
-                  <th>Total Value</th>
-                `;
-                data.forEach(item => {
-                  const row = document.createElement('tr');
-                  row.innerHTML = `
-                    <td>${item.name}</td>
-                    <td>${item.stock}</td>
-                    <td>${item.unitPrice.toFixed(2)}</td>
-                    <td>${(item.stock * item.unitPrice).toFixed(2)}</td>
-                  `;
-                  tbody.appendChild(row);
-                });
-                wrapper.style.display = 'block';
-                */
+               title.textContent = 'Inventory Valuation Report';
+               tableHead.innerHTML = `
+                 <th>Product</th>
+                 <th>Remaining Stock</th>
+                 <th>Total Sold</th>
+                 <th>Total Revenue</th>
+                 <th>COGS</th>
+                 <th>Gross Profit</th>
+               `;
+
+               data.forEach(item => {
+                 const row = document.createElement('tr');
+                 row.innerHTML = `
+                   <td>${item.productName}</td>
+                   <td>${item.remainingStock}</td>
+                   <td>${item.totalSold}</td>
+                   <td>${item.totalRevenue.toFixed(2)}</td>
+                   <td>${item.cogs.toFixed(2)}</td>
+                   <td>${item.grossProfit.toFixed(2)}</td>
+                 `;
+                 tbody.appendChild(row);
+               });
+
+               wrapper.style.display = 'block';
 
               } else if (reportType === 'inventory-spool') {
-                const startDate = document.getElementById('startDateInput').value;
-                const endDate = document.getElementById('endDateInput').value;
-                const source = document.getElementById('sourceInput').value;
-                const destination = document.getElementById('destinationInput').value;
 
-                const payload = {
-                  startDate,
-                  endDate,
-                  source,
-                  destination
-                };
+               const startDateRaw = document.getElementById('startDateInput').value;
+               const endDateRaw = document.getElementById('endDateInput').value;
 
-                try {
-                  const response = await fetch("http://localhost:8080/api/report/inventory-transactions", {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                  });
+               const startDate = startDateRaw ? new Date(startDateRaw).toISOString() : null;
+               const endDate = endDateRaw ? new Date(endDateRaw).toISOString() : null;
 
-                  if (!response.ok) throw new Error('Failed to fetch inventory transactions');
+               const source = document.getElementById('sourceInput').value || null;
+               const destination = document.getElementById('destinationInput').value || null;
 
-                  const data = await response.json();
-                  console.log('response body:', data);
+               // Build query parameters
+               const queryParams = new URLSearchParams();
 
-                  alert('This Report is currently disabled for maintenance.');
+               if (startDate) queryParams.append('startDate', startDate);
+               if (endDate) queryParams.append('endDate', endDate);
+               if (source) queryParams.append('source', source);
+               if (destination) queryParams.append('destination', destination);
+
+               const url = "http://localhost:8080/api/report/inventory-transactions";
+
+               console.log('Sending GET request to:', url);
+
+               try {
+                 const response = await fetch(url, {
+                   method: 'GET',
+                   headers: {
+                     'Content-Type': 'application/json'
+                   }
+                 });
+
+                 console.log('raw response:', response);
+
+                 if (!response.ok) throw new Error('Failed to fetch inventory transactions');
+
+                 const data = await response.json();
+                 console.log('response body:', data);
+                 alert('This Report is currently disabled for maintenance.');
 
                   /*
                   title.textContent = 'Inventory Transaction Report';

@@ -394,6 +394,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Items Array -->
             <div id="reports-section">
                 <h3>Items in stock</h3>
@@ -426,9 +427,18 @@
                         <option value="inventory-spool">Inventory Transactions</option>
                     </select>
 
+                    <!-- Filter Inputs (New) -->
+                    <div class="filter-pane">
+                        <input type="date" id="startDateInput" placeholder="Start Date">
+                        <input type="date" id="endDateInput" placeholder="End Date">
+                        <input type="text" id="sourceInput" placeholder="Source">
+                        <input type="text" id="destinationInput" placeholder="Destination">
+                    </div>
+
                     <button id="R-report" class="btn-primary">Generate Report</button>
 
                 </div>
+
                 <!-- Report Table Container -->
                 <div class="tabular--wrapper">
                     <h3 class="report-title">Report</h3>

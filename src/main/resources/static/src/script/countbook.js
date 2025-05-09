@@ -129,7 +129,7 @@ window.addEventListener("load", () => {
       // Clear and repopulate the modal list
       list.innerHTML = "";
       reps.slice(0, 4).forEach((rep, index) => {
-        console.log(`Rep ${index + 1}:`, rep);
+
         if (!rep || !rep.name) return;
 
         const li = document.createElement("li");
@@ -175,7 +175,7 @@ window.addEventListener("load", () => {
       // Reset modal list
       list.innerHTML = "";
       warehouses.slice(0, 4).forEach((warehouse, index) => {
-        console.log(`Warehouse ${index + 1}:`, warehouse);
+
         if (!warehouse || !warehouse.name) return;
 
         const li = document.createElement("li");
@@ -226,7 +226,7 @@ console.log("fetching payload:", products);
   // Clear and repopulate the modal list
   list.innerHTML = "";
   products.slice(0, 4).forEach((product, index) => {
-    console.log(`Product ${index + 1}:`, product);
+
     if (!product || !product.name) return;
 
     const li = document.createElement("li");
