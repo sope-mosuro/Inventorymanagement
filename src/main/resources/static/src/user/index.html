@@ -90,7 +90,18 @@
                     <select id="report-select" class="report-dropdown">
                         <option value=""></option>
                         <option value="item-category">Transaction History Report</option>
+                        <option value="cogs-rate">Inventory Valuation Report</option>
+                        <option value="kpi-data">Inventory Transaction Report</option>
                     </select>
+
+                    <!-- Filter Inputs (New) -->
+                    <div class="filter-pane">
+                        <input type="date" id="startDateInput" placeholder="Start Date">
+                        <input type="date" id="endDateInput" placeholder="End Date">
+                        <input type="text" id="sourceInput" placeholder="Source">
+                        <input type="text" id="destinationInput" placeholder="Destination">
+                    </div>
+
                     <button id="run-report" class="btn-primary">Generate Report</button>
                 </div>
 
@@ -100,13 +111,8 @@
 
                     <table>
                         <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Customer</th>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Amount</th>
-                            <th>Payment Method</th>
+                        <tr id="invTableHead">
+                            <!-- Selected Table Head would pop up here -->
                         </tr>
                         </thead>
 

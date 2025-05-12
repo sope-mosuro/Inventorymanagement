@@ -115,8 +115,6 @@
 
       });
 
-
-
       // ========== ADMIN REPORT GENERATION ==========
 
           document.getElementById('R-report')?.addEventListener('click', async () => {
@@ -207,17 +205,14 @@
                  `;
                  tbody.appendChild(row);
                });
-
                wrapper.style.display = 'block';
 
               } else if (reportType === 'inventory-spool') {
 
                const startDateRaw = document.getElementById('startDateInput').value;
                const endDateRaw = document.getElementById('endDateInput').value;
-
                const startDate = startDateRaw ? new Date(startDateRaw).toISOString() : null;
                const endDate = endDateRaw ? new Date(endDateRaw).toISOString() : null;
-
                const source = document.getElementById('sourceInput').value || null;
                const destination = document.getElementById('destinationInput').value || null;
 
@@ -230,7 +225,6 @@
                if (destination) queryParams.append('destination', destination);
 
                const url = "http://localhost:8080/api/report/inventory-transactions";
-
                console.log('Sending GET request to:', url);
 
                try {
@@ -242,7 +236,6 @@
                  });
 
                  console.log('raw response:', response);
-
                  if (!response.ok) throw new Error('Failed to fetch inventory transactions');
 
                  const data = await response.json();
@@ -270,6 +263,7 @@
                     tbody.appendChild(row);
                   });
                   wrapper.style.display = 'block';
+
                   */
 
                 } catch (err) {
