@@ -88,6 +88,39 @@ window.addEventListener("load", () => {
 
         fetchTopProducts();
 
+
+
+
+ document.querySelector('.logout').addEventListener("click", async function () {
+        const confirmLogout = confirm('Are you sure you want to log out?\nClick "OK" to proceed.');
+
+        if (!confirmLogout) return;
+
+        try {
+         console.log('Logging out...');
+
+            // logout API
+            const response = await fetch("http://localhost:8080/api/auth/logout", {
+                method: 'POST',
+                credentials: 'include' // Include cookies
+            });
+
+            if (!response.ok) throw new Error('Logout failed on the server.');
+
+            // Clear local/session storage if needed
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // Redirect to login page or landing screen
+            window.location.href = '../cBk_login.html';
+
+        } catch (err) {
+            console.error('Error during logout:', err);
+            alert('Logout failed. Please try again.');
+        }
+    });
+
+
      });
 
     // Dashboard wiring and data fetch functions
@@ -236,11 +269,6 @@ console.log("fetching payload:", products);
   });
 }
 
-
-//    Log Out Alert
-document.querySelector('.logout').addEventListener("click", function(){
-var c = confirm ('Are you sure you want to logout?\nClick "ok" to logout');
-});
 
 
 

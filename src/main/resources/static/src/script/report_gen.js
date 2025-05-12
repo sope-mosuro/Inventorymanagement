@@ -42,11 +42,15 @@
                    `;
                    tbody.appendChild(row);
                });
-
                wrapper.style.display = 'block';
+
            }
 
            else if (reportType === 'cogs-rate') {
+
+           alert('Inventory Valuation Report is not accessible for Users');
+
+                      /*
                const response = await fetch("http://localhost:8080/api/report/inventory-valuation");
                if (!response.ok) throw new Error('Failed to fetch valuation report');
                const data = await response.json();
@@ -81,10 +85,12 @@
 
                    wrapper.style.display = 'block';
 
+                   */
+
            }
 
            else if (reportType === 'kpi-data') {
-               alert('Inventory Transaction Report is currently disabled for maintenance.');
+               alert('Inventory Transaction Report is not Accessible for Users');
            }
 
            else {
