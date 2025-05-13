@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+
   // Open modals
   document.querySelectorAll('button[data-dialog]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -50,7 +51,9 @@ try {
   const response = await fetch("http://localhost:8080/api/admin/all-users");
   if (!response.ok) throw new Error('Failed to fetch sales rep list');
   const salesReps = await response.json();
-  console.log('Sales Reps:', salesReps);
+
+//  console.log('Sales Reps:', salesReps);
+
   salesRepDropdowns.forEach(select => {
     // Clear existing options
     select.innerHTML = '';
@@ -63,10 +66,12 @@ try {
 
     // Populate with sales rep options
     salesReps.forEach(salesRep => {
+
+//    console.log("Sales Rep object keys:", Object.keys(salesRep));
       const option = document.createElement('option');
-      console.log(salesRep);
-      option.value = salesRep.username;
-      option.textContent = salesRep.username;
+//      console.log(salesRep);
+      option.value = salesRep.name;
+      option.textContent = salesRep.name;
       select.appendChild(option);
     });
   });
