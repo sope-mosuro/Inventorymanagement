@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ===================== SET DEFAULT DATE =====================
@@ -269,79 +270,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===================== POST SALES DATA =======================
 
-    document.getElementById('postbutton').addEventListener('click', async () => {
-        const rows = document.querySelectorAll('#salesTableBody tr');
-        if (rows.length === 0) {
-            alert('No sales records to post!');
-            return;
-        }
+ document.getElementById('postbutton').addEventListener('click', async () => {
+     const rows = document.querySelectorAll('#salesTableBody tr');
 
-        // Grouping sales under one transaction
-        const firstRow = rows[0].querySelectorAll('td');
-        const paymentMethod = firstRow[5].textContent;
-        const customerName = firstRow[1].textContent;
+     if (rows.length === 0) {
+         return; // No toast, just silently fail
+     }
 
-        // Try to find the actual customerId from the dropdown
-        const customerSelect = document.getElementById('existingCustomer');
-        const selectedCustomer = Array.from(customerSelect.options).find(
-            opt => opt.textContent === customerName
-        );
+     const firstRow = rows[0].querySelectorAll('td');
+     const paymentMethod = firstRow[5].textContent;
+     const customerName = firstRow[1].textContent;
 
-        const customerId = selectedCustomer?.value;
+     const customerSelect = document.getElementById('existingCustomer');
+     const selectedCustomer = Array.from(customerSelect.options).find(
+         opt => opt.textContent === customerName
+     );
 
-        if (!customerId || customerId.startsWith('local-')) {
-            alert('Only registered customers can be used for sales posting!');
-            return;
-        }
+     const customerId = selectedCustomer?.value;
 
-        const items = Array.from(rows).map(row => {
-            const cells = row.querySelectorAll('td');
-            const productName = cells[2].textContent;
-            const quantity = parseInt(cells[3].textContent);
+     if (!customerId || customerId.startsWith('local-')) {
+         return; // Silently fail if customer is not valid
+     }
 
-            const product = allProducts.find(p => p.name === productName);
-            if (!product) {
-                throw new Error(`Product not found: ${productName}`);
-            }
+     const items = Array.from(rows).map(row => {
+         const cells = row.querySelectorAll('td');
+         const productName = cells[2].textContent;
+         const quantity = parseInt(cells[3].textContent);
 
-            return {
-                productId: product.id,
-                quantity: quantity
-            };
-        });
+         const product = allProducts.find(p => p.name === productName);
+         if (!product) {
+             throw new Error(`Product not found: ${productName}`);
+         }
 
+         return {
+             productId: product.id,
+             quantity
+         };
+     });
 
-        console.log('new payload:', items);
-       const saleDate = firstRow[0].textContent; // Get sale date from table row
-
+     const saleDate = firstRow[0].textContent;
      const salePayload = {
-         customerId: customerId,
+         customerId,
          paymentMethod: paymentMethod.toUpperCase(),
          saleDate: new Date(saleDate).toISOString(),
-         items: items
+         items
      };
 
-    console.log('posting sales entry:', salePayload);
+     try {
+         const response = await fetch("http://localhost:8080/api/sales/create", {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify(salePayload)
+         });
 
-        try {
-            const response = await fetch("http://localhost:8080/api/sales/create", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(salePayload)
-
-            });
-
-            if (!response.ok) throw new Error('Failed to post sales data');
+         if (!response.ok) throw new Error('Failed to post sales data');
 
             alert('Sales posted successfully!');
             salesTable.innerHTML = '';
-
-        } catch (error) {
-            console.error('Error posting sales:', error);
-            alert('Error posting sales!');
-        }
-
-    });
+     } catch (error) {
+         console.error('Error posting sales:', error);
+     }
+ });
 
     // =================== END POST SALES DATA =====================
 

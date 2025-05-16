@@ -98,7 +98,7 @@
           return;
         }
         try {
-          const res = await fetch(`http://localhost:8080/api/admin/products/${selectedProduct.id}/update-price`, {
+          const res = await fetch("http://localhost:8080/api/admin/products/update-price", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CountBook- Admin</title>
     <link rel="icon" type="image/x-icon" href="../images/Cb logo2.png">
-    <link rel="stylesheet" id="default" href="/stylesheets/normal.css"/>
-    <link rel="stylesheet" id="darkmode" href="/stylesheets/darkmode.css"/>
+    <link rel="stylesheet" id="default" href="/stylesheets/main.css"/>
+    <link rel="stylesheet"  href="/stylesheets/mediakit.css"/>
+    <link rel="stylesheet" id="darkmode" href="/stylesheets/secondary.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
@@ -641,12 +642,25 @@
 </section>
 
 
+<!-- Loading Spinner  -->
+<div id="spinnerOverlay" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden z-50">
+    <div class="flex items-center space-x-2">
+        <svg class="animate-spin h-8 w-8 text-white" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" />
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+        </svg>
+        <span class="text-white text-lg">Processing...</span>
+    </div>
+</div>
+<!--  Notifications -->
+<div id="toast" class="fixed top-5 right-5 bg-white shadow-lg px-4 py-2 rounded-lg border border-gray-200 text-sm hidden z-50"></div>
+
+
 
 <script src="../script/countbook.js"></script>
 <script src="../script/sales.js"></script>
 <script src="../script/inventory.js"></script>
 <script src="../script/config.js"></script>
-
 
 </body>
 

@@ -1,0 +1,67 @@
+
+
+
+@media (min-width: 640px) {
+    .sidebar:hover {   width: 250px;   }
+    /* Adjust section width when sidebar expands */
+    .sidebar:hover ~ .section {    margin-left: 250px;  }
+    .filter-pane Input{
+        margin: 30px 0
+    }
+}
+
+@media (max-width: 475px) {
+    .sidebar{
+        padding: 2px;
+        width: 50px;
+    }
+    .section{
+        margin-left: 30px;
+    }
+    .section--2{
+        margin-left: 10px;
+    }
+    .payment--card{
+        width: 45.077mm;
+        height: 26.888mm;
+        /* width: 230px ;
+        height: 130px; */
+        margin-left: 30%;
+    }
+    .card--header{
+        margin-bottom: 0px
+    }
+    .amount-value{
+        font-size: 12px;
+        font-weight: 200;
+    }
+    .inventory-actions{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .card--header i{
+        height: 55px;
+        width: 55px;
+        font-size:20px
+    }
+}
+@media (max-width: 475px) {
+    .sales-customer-selector{
+        width: 200px
+    }
+    .customer-options{
+        flex-direction: column;
+    }
+    .card--container, .sales-entry{
+        padding: 0px;
+    }
+}
+
+@media (max-width:768px) {
+    .tabular--wrapper{
+        display:none;
+        }
+}
+
+

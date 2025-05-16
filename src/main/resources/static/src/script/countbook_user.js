@@ -40,6 +40,35 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+/*  Loading Spinner */
+
+    window.showSpinner = function (message = 'Loading...') {
+        const spinner = document.getElementById('spinner');
+        const label = document.getElementById('spinnerLabel');
+        if (label) label.textContent = message;
+        if (spinner) spinner.classList.remove('hidden');
+    };
+
+    window.hideSpinner = function () {
+        const spinner = document.getElementById('spinner');
+        if (spinner) spinner.classList.add('hidden');
+    };
+
+    window.showToast = function (message, type = 'success') {
+        const toast = document.getElementById("toast");
+        const toastText = document.getElementById("toastText");
+
+        if (!toast || !toastText) return;
+
+        toastText.textContent = message;
+        toast.className = type === 'error' ? 'toast error' : 'toast success';
+        toast.classList.remove("hidden");
+
+        setTimeout(() => toast.classList.add("hidden"), 3000);
+    };
+
+
+
     /* Slide Navigation Switch */
 
 function switchToSlide(targetId) {
@@ -94,35 +123,33 @@ document.addEventListener("click", function(event) {
 
 });
 
+// Log out function
 
- document.querySelector('.logout').addEventListener("click", async function () {
-        const confirmLogout = confirm('Are you sure you want to log out?\nClick "OK" to proceed.');
+        document.querySelector('.logout').addEventListener("click", async function () {
+            const confirmLogout = confirm('Are you sure you want to log out?\nClick "OK" to proceed.');
+            if (!confirmLogout) return;
 
-        if (!confirmLogout) return;
+            try {
+                showSpinner('Logging out...');
 
-        try {
-         console.log('Logging out...');
+                const response = await fetch("http://localhost:8080/api/auth/logout", {
+                    method: 'POST',
+                    credentials: 'include'
+                });
 
-            // logout API
-            const response = await fetch("http://localhost:8080/api/auth/logout", {
-                method: 'POST',
-                credentials: 'include' // Include cookies
-            });
+                if (!response.ok) throw new Error('Logout failed on the server.');
 
-            if (!response.ok) throw new Error('Logout failed on the server.');
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.href = '../cBk_login.html';
 
-            // Clear local/session storage if needed
-            localStorage.clear();
-            sessionStorage.clear();
-
-            // Redirect to login page or landing screen
-            window.location.href = '../cBk_login.html';
-
-        } catch (err) {
-            console.error('Error during logout:', err);
-            alert('Logout failed. Please try again.');
-        }
-    });
+            } catch (err) {
+                console.error('Error during logout:', err);
+                showToast('Logout failed. Please try again.', 'error');
+            } finally {
+                hideSpinner();
+            }
+        });
 
 
      });
