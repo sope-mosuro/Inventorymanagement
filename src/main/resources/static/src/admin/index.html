@@ -335,7 +335,7 @@
 
 </section>
 <!-- This is the 'create new customer' modal that pops up when creating a new customer-->
-<div id="newCustomerModal" class="sales-modal">
+<div id="newCustomerModal" class="sales-modal" >
     <div class="sales-modal-content">
         <span class="sales-modal-close">&times;</span>
         <h3 class="modal-title">
@@ -399,7 +399,7 @@
             <!-- Items Array -->
             <div id="reports-section">
                 <h3>Items in stock</h3>
-                <div style="display: flex; padding: 25px; gap: 15px;">
+                <div style="display: flex; flex-wrap: wrap; padding: 25px; gap: 15px;">
                     <small><em>No items currently available</em></small>
                 </div>
             </div><br>
@@ -419,7 +419,7 @@
             <div id="reports-section">
 
                 <h2 class="section-title">Generate Reports</h2>
-                <div class="report-controls">
+                <div class="report-controls" >
 
                     <select id="admin-select" class="report-dropdown">
                         <option value=""></option>
@@ -429,6 +429,8 @@
                     </select>
 
                     <!-- Filter Inputs -->
+                    <input type="checkbox" name="filter-pane-toggle" id="filter-pane-toggle">
+                    <label for="filter-pane-toggle"><i class="fa-solid fa-bars fa-lg"></i></label>
                     <div class="filter-pane">
                         <input type="date" id="startDateInput" placeholder="Start Date">
                         <input type="date" id="endDateInput" placeholder="End Date">

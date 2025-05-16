@@ -79,7 +79,7 @@
 
             <div id="reports-section">
                 <h3>Items in stock</h3>
-                <div style="display: flex; padding: 25px; gap: 15px;">
+                <div style="display: flex; flex-wrap: wrap; padding: 25px; gap: 15px;">
                     <small><em>No items currently available</em></small>
                 </div>
             </div><br>
@@ -97,6 +97,8 @@
                     </select>
 
                     <!-- Filter Inputs (New) -->
+                    <input type="checkbox" name="filter-pane-toggle" id="filter-pane-toggle">
+                    <label for="filter-pane-toggle"><i class="fa-solid fa-bars fa-lg"></i></label>
                     <div class="filter-pane">
                         <input type="date" id="startDateInput" placeholder="Start Date">
                         <input type="date" id="endDateInput" placeholder="End Date">
@@ -108,7 +110,7 @@
                 </div>
 
                 <!-- Report Table Container -->
-                <div class="tabular--wrapper" style="display: none;">
+                <div class="tabular--wrapper">
                     <h3 class="report-title">Transaction Report</h3>
 
                     <table>

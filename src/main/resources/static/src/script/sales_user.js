@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const target = option.dataset.option;
             if (target === 'new') {
-                document.getElementById('newCustomerModal').style.display = 'block';
+                document.getElementById('newCustomerModal').style.display = 'flex';
             } else {
                 document.getElementById(`${target}Customer`).classList.add('active');
             }

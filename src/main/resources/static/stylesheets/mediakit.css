@@ -1,10 +1,28 @@
 
 
+#filter-pane-toggle, .report-controls label{
+    display: none
+}
+.report-controls{
+    flex-wrap: wrap;
+    align-items:center;
+}
+.report-dropdown {
+    height:40px;
+}
 
+@media (max-width: 640px) {
+    .report-controls{
+        gap:10px
+    }
+}
 @media (min-width: 640px) {
     .sidebar:hover {   width: 250px;   }
     /* Adjust section width when sidebar expands */
     .sidebar:hover ~ .section {    margin-left: 250px;  }
+    .report-controls{
+        justify-content: space-between;
+    }
     .filter-pane Input{
         margin: 30px 0
     }
@@ -45,8 +63,6 @@
         width: 55px;
         font-size:20px
     }
-}
-@media (max-width: 475px) {
     .sales-customer-selector{
         width: 200px
     }
@@ -56,12 +72,34 @@
     .card--container, .sales-entry{
         padding: 0px;
     }
+    .report-controls label{
+        display: block !important;
+        width: 100%;
+    }
+    .filter-pane{
+        display: none !important;
+    }
+    #filter-pane-toggle:checked ~ .filter-pane{
+        transition: 300ms;
+        display:block !important;
+    }
 }
 
 @media (max-width:768px) {
-    .tabular--wrapper{
+
+    .filter-pane{
+        flex-wrap: wrap;
+    }
+    .sales-modal-content {
+        width: 60%;
+    }
+
+}
+@media (max-width:992px) {
+
+    .tabular--wrapper table{
         display:none;
-        }
+    }
 }
 
 
