@@ -10,7 +10,7 @@
       const stockContainer = stockSection.querySelector('div'); // The flex container
 
       try {
-          const response = await fetch('http://localhost:8080/api/sales-rep');
+          const response = await fetch('/api/sales-rep');
           if (!response.ok) throw new Error('Failed to fetch inventory items');
 
           const data = await response.json();

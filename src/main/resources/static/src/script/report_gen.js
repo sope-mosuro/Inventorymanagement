@@ -16,7 +16,7 @@
 
        try {
            if (reportType === 'item-category') {
-               const response = await fetch("http://localhost:8080/api/report/history");
+               const response = await fetch("/api/report/history");
                if (!response.ok) throw new Error('Failed to fetch report data');
                const reportData = await response.json();
 

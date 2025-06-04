@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Fetch products to dropdowns
   const productDropdowns = document.querySelectorAll('.productid');
     try {
-      const response = await fetch('http://localhost:8080/api/admin/products/all-products');
+      const response = await fetch('/api/admin/products/all-products');
       if (!response.ok) throw new Error('Failed to fetch product list');
       const products = await response.json();
       productDropdowns.forEach(select => {
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Fetch Sales Reps
 const salesRepDropdowns = document.querySelectorAll('.salesrep');
 try {
-  const response = await fetch("http://localhost:8080/api/admin/all-users");
+  const response = await fetch("/api/admin/all-users");
   if (!response.ok) throw new Error('Failed to fetch sales rep list');
   const salesReps = await response.json();
 
@@ -135,21 +135,22 @@ async function handleUserFormSubmission(form) {
   const formData = new FormData(form);
   const name = formData.get("name")?.trim();
   const email = formData.get("email")?.trim();
+  const password = formData.get("password")?.trim();
   const role = formData.get("role");
-  if (!name || !email || !["ADMIN", "SALES_REP"].includes(role)) {
+  if (!name || !email || !password || !["ADMIN", "SALES_REP"].includes(role)) {
     return;
   }
-  console.log("generating password");
-  const tempPassword = Math.random().toString(36).slice(-8) + "A1";
+//  console.log("generating password");
+//  const tempPassword = Math.random().toString(36).slice(-8) + "A1";
   const payload = {
     name,
     email,
-    role,
-    password: tempPassword
+    password,
+    role
   };
         console.log("Sending payload:", payload);
   try {
-    const res = await fetch("http://localhost:8080/api/admin/create-user", {
+    const res = await fetch("/api/admin/create-user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -187,7 +188,7 @@ async function handleWarehouseFormSubmission(form) {
   };
   console.log("show me payload:", payload);
   try {
-    const res = await fetch("http://localhost:8080/api/admin/warehouses/create", {
+    const res = await fetch("/api/admin/warehouses/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -231,7 +232,7 @@ function setupWarehouseAssignmentForm() {
                     quantity
                     };
     try {
-      const response = await fetch("http://localhost:8080/api/admin/inventory/add", {
+      const response = await fetch("/api/admin/inventory/add", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -270,7 +271,7 @@ function setupSalesRepAssignmentForm() {
       quantity
     };
     try {
-      const response = await fetch("http://localhost:8080/api/admin/inventory/assign", {
+      const response = await fetch("/api/admin/inventory/assign", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -291,7 +292,7 @@ function setupSalesRepAssignmentForm() {
 async function populateWarehouseDropdowns() {
   const warehouseDropdowns = document.querySelectorAll('.warehouse-select');
   try {
-    const response = await fetch("http://localhost:8080/api/admin/warehouses");
+    const response = await fetch("/api/admin/warehouses");
     const rawText = await response.text();  // <-- fetch raw response
     console.log("RAW WAREHOUSE RESPONSE:", rawText);
 

@@ -42,7 +42,7 @@ async function populateWarehouseCards() {
   const cardContainer = document.querySelector('.button-case');
 
   try {
-    const response = await fetch("http://localhost:8080/api/admin/warehouses");
+    const response = await fetch("/api/admin/warehouses");
     const warehouses = await response.json();
 
     console.log('raw data', warehouses);
@@ -126,7 +126,7 @@ async function populateSalesRepsCards() {
   const cardContainer = document.querySelector('.button-case2');
 
   try {
-    const response = await fetch("http://localhost:8080/api/admin/sales-reps");
+    const response = await fetch("/api/admin/sales-reps");
     const salesReps = await response.json();
 
     console.log('Fetched Sales Reps:', salesReps);

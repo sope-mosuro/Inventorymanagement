@@ -126,7 +126,7 @@ window.addEventListener("load", () => {
             try {
                 showSpinner('Logging out...');
 
-                const response = await fetch("http://localhost:8080/api/auth/logout", {
+                const response = await fetch("/api/auth/logout", {
                     method: 'POST',
                     credentials: 'include'
                 });
@@ -152,7 +152,7 @@ window.addEventListener("load", () => {
     // Sales Rep ranking dialog box using new API
     async function fetchTopSalesReps() {
       try {
-        const res = await fetch("http://localhost:8080/api/report/best-selling-reps");
+        const res = await fetch("/api/report/best-selling-reps");
         const reps = await res.json();
         updateSalesRepSection(reps);
       } catch (err) {
@@ -199,7 +199,7 @@ window.addEventListener("load", () => {
     // Warehouse ranking box
     async function fetchWarehouses() {
       try {
-        const res = await fetch("http://localhost:8080/api/admin/warehouses");
+        const res = await fetch("/api/admin/warehouses");
         const warehouses = await res.json();
         updateWarehouseSection(warehouses);
       } catch (err) {
@@ -245,7 +245,7 @@ window.addEventListener("load", () => {
 // Products dialog box
 async function fetchTopProducts() {
   try {
-    const res = await fetch("http://localhost:8080/api/report/best-selling-products");
+    const res = await fetch("/api/report/best-selling-products");
     const products = await res.json();
     updateTopProductsSection(products);
   } catch (err) {

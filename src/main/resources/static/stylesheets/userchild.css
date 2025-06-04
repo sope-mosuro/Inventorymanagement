@@ -11,6 +11,7 @@ body {
 .config-container {
   max-width: 900px;
   margin: auto;
+  justify-content: center;
 }
 
 h1 {
@@ -127,4 +128,48 @@ select {
 .close-btn {
   background: #ccc;
   margin-left: 0.5rem;
+}
+
+.Dayot {
+ background-color: inherit;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+ text-align: center;
+ width: 650px;
+ color: black;
+ height: 350px;
+ padding-top: 50px;
+ position: relative;
+ margin: auto;
+}
+
+/*
+.dayotinput {
+border-color:white;
+width: 400px;
+border-radius:5px;
+height: 30px;
+}
+*/
+
+/*
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+*/
+
+.password-wrapper input {
+border-color:white;
+width: 400px;
+border-radius:5px;
+height: 30px;
+}
+
+.toggle-password {
+  position: relative;
+  right: 8px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.9rem;
 }

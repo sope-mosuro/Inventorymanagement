@@ -6,7 +6,7 @@
       const reportBody = reportsSection.querySelector('div'); // Where items should be inserted
 
       try {
-          const response = await fetch('http://localhost:8080/api/admin/products/all-products');
+          const response = await fetch('/api/admin/products/all-products');
           if (!response.ok) throw new Error('Failed to fetch inventory items');
 
           const data = await response.json();
@@ -44,7 +44,7 @@
 
       async function loadProducts() {
         try {
-          const response = await fetch("http://localhost:8080/api/admin/products/all-products");
+          const response = await fetch("/api/admin/products/all-products");
           if (!response.ok) throw new Error('Failed to fetch products');
           productData = await response.json();
 
@@ -98,7 +98,7 @@
           return;
         }
         try {
-          const res = await fetch("http://localhost:8080/api/admin/products/update-price", {
+          const res = await fetch("/api/admin/products/update-price", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -137,7 +137,7 @@
 
             try {
               if (reportType === 'item-spool') {
-                const response = await fetch("http://localhost:8080/api/report/history");
+                const response = await fetch("/api/report/history");
                 if (!response.ok) throw new Error('Failed to fetch transaction report');
 
                 const data = await response.json();
@@ -178,7 +178,7 @@
                 wrapper.style.display = 'block';
 
               } else if (reportType === 'value-spool') {
-                const response = await fetch("http://localhost:8080/api/report/inventory-valuation");
+                const response = await fetch("/api/report/inventory-valuation");
                 const data = await response.json();
 
  //               alert('This Report is currently disabled for maintenance.');
@@ -224,7 +224,7 @@
                if (source) queryParams.append('source', source);
                if (destination) queryParams.append('destination', destination);
 
-               const url = "http://localhost:8080/api/report/inventory-transactions";
+               const url = "/api/report/inventory-transactions";
                console.log('Sending GET request to:', url);
 
                try {

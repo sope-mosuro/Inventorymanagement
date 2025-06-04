@@ -132,7 +132,7 @@ document.addEventListener("click", function(event) {
             try {
                 showSpinner('Logging out...');
 
-                const response = await fetch("http://localhost:8080/api/auth/logout", {
+                const response = await fetch("/api/auth/logout", {
                     method: 'POST',
                     credentials: 'include'
                 });

@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchProducts() {
         try {
-            const response = await fetch("http://localhost:8080/api/admin/products/all-products");
+            const response = await fetch("/api/admin/products/all-products");
             if (!response.ok) throw new Error('Failed to fetch products');
             const products = await response.json();
             allProducts = products;
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchCustomers() {
         try {
-            const response = await fetch("http://localhost:8080/api/customers/all-customers");
+            const response = await fetch("/api/customers/all-customers");
             if (!response.ok) throw new Error('Failed to fetch customers');
 
             const customers = await response.json();
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/customer/create-customer", {
+            const response = await fetch("/api/customer/create-customer", {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('posting sales entry:', salePayload)
 
         try {
-            const response = await fetch("http://localhost:8080/api/sales/create", {
+            const response = await fetch("/api/sales/create", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(salePayload)
