@@ -1,60 +1,118 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>CountBook Log In Page</title>
-        <link rel="icon" type="image/x-icon" href="images\Cb logo2.png">
-        <link id="default" rel="stylesheet" href="">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CountBook Log In Page</title>
+    <link rel="icon" type="image/x-icon" href="images\Cb logo2.png">
+    <link id="default" rel="stylesheet" href="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+</head>
 
-    <style>
-        body {background-color: white;
-                text-align: center; margin: auto;color: white; 
-            }.Dayot {background-color: darkblue;
-            text-align:center;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            margin: auto;width: 450px;height: 300px;position: relative; padding-top: 60px; padding-right: 35px; border-radius: 9px;
-            color: white; margin-top: 45px; } ul{list-style: none;
-                display: block; margin: auto; text-align:center; }.Line{width: 655px;height: 1px;background-color: white;}
-    </style>
+<style>
+    * {
+        box-sizing: border-box;
+    }
 
-    <body>
+    body {
+        background-color: white;
+        text-align: center;
+        color: white;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-            <div style="margin: auto; margin-top: 60px;"> 
-               <a href="#"><img src="images\Cb logo.png" alt="logo"
-                                width="auto" height="63.5px" style="margin: auto;"></a>
-            </div>
-            
-            <div class="Dayot">
+    .logo-container {
+        margin-top: 40px;
+    }
 
-                    <form id="login_auth" >
+    .logo-container img {
+        max-width: 6%;
+        height: auto;
+    }
 
-                    <ul>
-                        <li>
-                        <input type="email" id="email"  placeholder="E-mail Address" style="background-color:rgb(126, 83, 3); border-color:white; border-style:solid; width: 300px; border-radius:3px; height: 28px;" required> 
-                        </li><br>
-                        <li>
-                        <input type="password" id="password"  placeholder="Password" style="background-color: rgb(126, 83, 3); border-color:white; border-style:solid; width: 300px; border-radius:3px; height: 28px;" required>
-                        </li><br><br>
-                        <li>
-                        <input type="submit" id="Boom" contenteditable="false" value="LOG IN" style="background-color:white; border-color:white; color:rgb(126, 83, 3); border-style:solid; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; width: 300px; border-radius:3px; height: 28px;">
-                        </li>
-                    </ul>
+    .Dayot {
+        background-color: darkblue;
+        margin: 40px auto;
+        padding: 40px 20px;
+        border-radius: 9px;
+        width: 90%;
+        max-width: 450px;
+    }
 
-                    </form><br>
+    ul {
+        list-style: none;
+        padding: 0;
+    }
 
-                    <p style="padding-left: 40px;">Don't have an account? Register <a id="Two" href="#" style="color:white;">here</a> </p>                    
-            </div>
-                
+    .Dayot input[type="email"],
+    .Dayot input[type="password"],
+    .Dayot input[type="submit"] {
+        width: 90%;
+        max-width: 300px;
+        height: 40px;
+        border-radius: 5px;
+        border: 1px solid white;
+        margin-bottom: 15px;
+        padding: 5px 10px;
+        font-size: 1rem;
+    }
 
-        
-        <script src="script/bckend.js">
-        </script>
+    .Dayot input[type="email"],
+    .Dayot input[type="password"] {
+        background-color: rgb(126, 83, 3);
+        color: white;
+    }
 
-    </body>
+    .Dayot input[type="submit"] {
+        background-color: white;
+        color: rgb(126, 83, 3);
+        font-weight: bold;
+        cursor: pointer;
+    }
 
+    /* Mobile first responsiveness */
+
+        @media (max-width: 480px) {
+    .Dayot {
+        width: 95%;
+        max-width: 330px;
+        padding: 20px 12px;
+          }
+        }
+
+        .Dayot input[type="email"],
+        .Dayot input[type="password"],
+        .Dayot input[type="submit"] {
+            max-width: 75%;
+            font-size: 0.95rem;
+        }
+
+        .logo-container {
+            margin-top: 40px;
+        }
+    }
+</style>
+
+<body>
+<div class="logo-container">
+    <a href="/src/cBk_login.html"><img src="images/Cb logo.png" alt="logo" /></a>
+</div>
+
+<div class="Dayot">
+    <form id="login_auth">
+        <ul>
+            <li><input type="email" id="email" placeholder="E-mail Address" required></li>
+            <li><input type="password" id="password" placeholder="Password" required></li>
+            <li><input type="submit" id="Boom" value="LOG IN"></li>
+        </ul>
+    </form>
+</div>
+
+<script src="script/bckend.js"></script>
+</body>
 </html>

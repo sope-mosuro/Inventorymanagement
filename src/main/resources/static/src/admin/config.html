@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CountBook Configuration Page</title>
     <link rel="icon" type="image/x-icon" href="../images/Cb logo2.png">
@@ -113,6 +113,80 @@ select {
   background: #ccc;
   margin-left: 0.5rem;
 }
+
+    @media screen and (max-width: 480px) {
+  .config-container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .config-card {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .config-card h2 {
+    font-size: 1.1rem;
+  }
+
+  .config-card p {
+    font-size: 0.95rem;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.65rem;
+    font-size: 0.95rem;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .close-btn {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  form button + .close-btn {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    margin: 0.5rem 0 0.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+    .modal-content {
+  animation: scaleUp 0.3s ease;
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 </style>
 
 <body>
